@@ -1,0 +1,134 @@
+{
+  "products": [
+    {
+      "id": "snowflake",
+      "name": "Winter Snowflake Biscuits",
+      "description": "Ginger-spiced, with a little winter sparkle.",
+      "price": 2.5,
+      "image": "/images/snowflake-reference.webp",
+      "categories": ["Christmas", "Cookies & Biscuits"],
+      "label": "SEASONAL FAVOURITE",
+      "allergens": "Wheat, milk, eggs"
+    },
+    {
+      "id": "gingerbread",
+      "name": "Gingerbread Friends",
+      "description": "A cosy little character, dressed by hand.",
+      "price": 3,
+      "image": "/images/gingerbread-friend.webp",
+      "categories": ["Christmas", "Cookies & Biscuits", "Special Occasions"],
+      "label": "A LITTLE CHRISTMAS MAGIC",
+      "allergens": "Wheat, milk, eggs"
+    },
+    {
+      "id": "christmas-tree",
+      "name": "Little Christmas Trees",
+      "description": "Iced with care. Made for festive moments.",
+      "price": 2.8,
+      "image": "/images/christmas-tree.webp",
+      "categories": ["Christmas", "Cookies & Biscuits"],
+      "allergens": "Wheat, milk, eggs"
+    },
+    {
+      "id": "gingerbread-heart",
+      "name": "Gingerbread Hearts",
+      "description": "Something sweet for someone special.",
+      "price": 2.5,
+      "image": "/images/gingerbread-heart.webp",
+      "categories": ["Christmas", "Cookies & Biscuits", "Special Occasions"],
+      "label": "GIVE A LITTLE LOVE",
+      "allergens": "Wheat, milk, eggs"
+    },
+    {
+      "id": "vanilla",
+      "name": "Vanilla Butter Biscuits",
+      "description": "Golden, buttery little moments of joy.",
+      "price": 1.5,
+      "image": "/images/vanilla.webp",
+      "categories": ["Cookies & Biscuits", "Special Occasions"],
+      "label": "A LITTLE CLASSIC",
+      "allergens": "Wheat, milk, eggs"
+    },
+    {
+      "id": "chocolate",
+      "name": "Dark Chocolate Cookies",
+      "description": "Rich chocolate. A beautifully soft heart.",
+      "price": 2,
+      "image": "/images/chocolate.webp",
+      "categories": ["Cookies & Biscuits", "Special Occasions"],
+      "allergens": "Wheat, milk, eggs, soy"
+    },
+    {
+      "id": "linzer",
+      "name": "Jam-Kissed Linzer Biscuits",
+      "description": "Delicate shortbread, a sweet berry centre.",
+      "price": 1.8,
+      "image": "/images/linzer.webp",
+      "categories": ["Cookies & Biscuits", "Christmas", "Special Occasions"],
+      "label": "MADE TO BE LOVED",
+      "allergens": "Wheat, milk, eggs, almonds"
+    },
+    {
+      "id": "preserve",
+      "name": "Strawberry Preserve",
+      "description": "A little jar of sunshine, slowly made.",
+      "price": 6,
+      "image": "/images/preserve.webp",
+      "categories": ["Jams & Preserves", "Special Occasions"],
+      "allergens": "No listed allergens; made in a shared kitchen"
+    },
+    {
+      "id": "pumpkin",
+      "name": "Little Pumpkin Biscuits",
+      "description": "A little autumn magic, iced by hand.",
+      "price": 2.5,
+      "image": "/images/pumpkin.webp",
+      "categories": ["Halloween", "Cookies & Biscuits"],
+      "allergens": "Wheat, milk, eggs"
+    },
+    {
+      "id": "lemon",
+      "name": "Sunday Lemon Cake",
+      "description": "Zesty lemon sponge with a delicate glaze.",
+      "price": 4.5,
+      "image": "/images/lemon.webp",
+      "categories": ["Cakes & Desserts", "Easter", "Special Occasions"],
+      "allergens": "Wheat, milk, eggs"
+    },
+    {
+      "id": "bunny",
+      "name": "Easter Bunny Biscuits",
+      "description": "Sweet springtime wishes in every bite.",
+      "price": 2.5,
+      "image": "/images/bunny.webp",
+      "categories": ["Easter", "Cookies & Biscuits"],
+      "allergens": "Wheat, milk, eggs"
+    }
+  ],
+  "packagingOptions": [
+    {
+      "id": "paper",
+      "name": "Simple paper bag",
+      "description": "Lovely in its simplicity",
+      "price": 0
+    },
+    {
+      "id": "dish",
+      "name": "Little decorative plate",
+      "description": "A keepsake for one",
+      "price": 3
+    },
+    {
+      "id": "tray",
+      "name": "Beautiful gift tray",
+      "description": "Made for sharing",
+      "price": 5
+    },
+    {
+      "id": "box",
+      "name": "Ribbon-tied gift box",
+      "description": "A little extra magic",
+      "price": 8
+    }
+  ]
+}

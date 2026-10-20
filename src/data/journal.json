@@ -1,0 +1,31 @@
+{
+  "articles": [
+    {
+      "slug": "the-secret-to-a-perfect-butter-biscuit",
+      "title": "The quiet art of the perfect butter biscuit",
+      "category": "Homemade Recipes",
+      "date": "2026-10-12",
+      "image": "/images/journal-baking.webp",
+      "excerpt": "Good butter, a little patience, and the joy of keeping things simple. A few notes from my kitchen.",
+      "body": "Some of my favourite recipes begin with just a handful of ingredients. A good butter biscuit needs very little to become something special: butter, flour, sugar, and a little care.\n\nStart with butter that is soft enough to gently press, but never melted. Cream it with your sugar until the mixture becomes pale and light. Add your flour slowly, stopping as soon as the dough comes together. The less you work it, the more delicate your biscuit will be.\n\nLet the dough rest in the refrigerator for at least half an hour. This little pause makes all the difference: the flavour develops, the dough becomes easier to shape, and the biscuits keep their lovely edges in the oven.\n\nBake until the edges are just golden. Then comes the hardest part: letting them cool before you put the kettle on. Simple things, made with love."
+    },
+    {
+      "slug": "a-little-gift-made-with-love",
+      "title": "A little gift, a lovely thought",
+      "category": "Gift Ideas & Special Occasions",
+      "date": "2026-10-05",
+      "image": "/images/journal-gift.webp",
+      "excerpt": "A ribbon, a handwritten note, and something homemade. The most thoughtful gifts are often the simplest.",
+      "body": "A homemade gift says something that a shop-bought present sometimes cannot: I took a little time to think of you.\n\nWhen I put together an assortment, I like to think about the person who will receive it. A few buttery classics for the traditionalist. Something richly chocolatey for a dear friend. A little jar of preserve for slow Sunday mornings.\n\nChoose a few flavours that complement each other, and make sure delicate biscuits have enough room. A piece of food-safe paper, a beautiful ribbon, and a handwritten note are all you need.\n\nIf you would like something made especially for someone, get in touch. We can dream up a lovely little gift together."
+    },
+    {
+      "slug": "autumn-in-the-kitchen",
+      "title": "When autumn finds its way into the kitchen",
+      "category": "Seasonal Inspiration",
+      "date": "2026-09-28",
+      "image": "/images/seasonal.webp",
+      "excerpt": "Cinnamon-scented afternoons, the first cool mornings, and a fresh page in the recipe notebook.",
+      "body": "Every season has a flavour. For me, autumn arrives with the scent of cinnamon, the warmth of a tray fresh from the oven, and a cup of tea that stays in my hands a little longer.\n\nThis is the time for spice, for ginger biscuits and little pumpkin shapes, for preserve made with the last beautiful fruit of the season. The kitchen slows down, and the recipes become a little more comforting.\n\nMy seasonal collections follow this rhythm. Some creations return each year like old friends; others begin as a sketch in my notebook and a small experiment on a rainy afternoon.\n\nI hope you find a little of that comfort in this season's creations. There is always something lovely coming out of the oven."
+    }
+  ]
+}

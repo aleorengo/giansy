@@ -1,0 +1,154 @@
+backend:
+  name: git-gateway
+  branch: main
+local_backend: true
+media_folder: public/images/uploads
+public_folder: /images/uploads
+logo_url: /brand/giansy-logo-burgundy.svg
+site_url: /
+display_url: /
+collections:
+  - name: kitchen
+    label: Giansy's Kitchen
+    files:
+      - name: journal
+        label: Journal & Recipes
+        file: src/data/journal.json
+        fields:
+          - name: articles
+            label: Stories & recipes
+            widget: list
+            summary: "{{fields.title}}"
+            fields:
+              - { name: title, label: Title, widget: string }
+              - {
+                  name: slug,
+                  label: URL slug,
+                  widget: string,
+                  pattern:
+                    [
+                      "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+                      "Use lowercase words separated by hyphens.",
+                    ],
+                }
+              - name: category
+                label: Category
+                widget: select
+                options:
+                  [
+                    Homemade Recipes,
+                    Baking Tips & Techniques,
+                    Behind the Scenes,
+                    Seasonal Inspiration,
+                    Gift Ideas & Special Occasions,
+                  ]
+              - {
+                  name: date,
+                  label: Publication date,
+                  widget: datetime,
+                  date_format: YYYY-MM-DD,
+                  time_format: false,
+                  format: YYYY-MM-DD,
+                }
+              - { name: image, label: Cover image, widget: image }
+              - { name: excerpt, label: Short introduction, widget: text }
+              - {
+                  name: body,
+                  label: Article,
+                  widget: text,
+                  hint: "Write in paragraphs. Leave a blank line between paragraphs.",
+                }
+      - name: catalog
+        label: Creations & Packaging
+        file: src/data/catalog.json
+        fields:
+          - name: products
+            label: Creations
+            widget: list
+            summary: "{{fields.name}} — €{{fields.price}}"
+            fields:
+              - {
+                  name: id,
+                  label: Product ID,
+                  widget: string,
+                  hint: "Keep this stable after publication. Use a unique lowercase name without spaces.",
+                }
+              - { name: name, label: Product name, widget: string }
+              - { name: description, label: Description, widget: text }
+              - {
+                  name: price,
+                  label: Starting price in euros,
+                  widget: number,
+                  value_type: float,
+                  min: 0,
+                  step: 0.1,
+                }
+              - {
+                  name: image,
+                  label: Transparent product image,
+                  widget: image,
+                  hint: "Upload a transparent PNG or WebP.",
+                }
+              - name: categories
+                label: Categories
+                widget: select
+                multiple: true
+                options:
+                  [
+                    Christmas,
+                    Halloween,
+                    Easter,
+                    Cookies & Biscuits,
+                    Jams & Preserves,
+                    Cakes & Desserts,
+                    Special Occasions,
+                  ]
+              - {
+                  name: label,
+                  label: Little card label,
+                  widget: string,
+                  required: false,
+                }
+              - { name: allergens, label: Allergen information, widget: string }
+          - name: packagingOptions
+            label: Packaging options
+            widget: list
+            fields:
+              - { name: id, label: Packaging ID, widget: string }
+              - { name: name, label: Name, widget: string }
+              - { name: description, label: Short description, widget: string }
+              - {
+                  name: price,
+                  label: Additional price in euros,
+                  widget: number,
+                  value_type: float,
+                  min: 0,
+                  step: 0.1,
+                }
+      - name: seasonal
+        label: Seasonal Collection
+        file: src/data/seasonal.json
+        fields:
+          - { name: eyebrow, label: Small heading, widget: string }
+          - { name: headline, label: Main heading, widget: string }
+          - { name: accent, label: Italic heading, widget: string }
+          - { name: description, label: Description, widget: text }
+          - { name: detail, label: Second paragraph, widget: text }
+          - { name: image, label: Collection photograph, widget: image }
+          - { name: imageAlt, label: Photo description, widget: string }
+          - { name: imageLabel, label: Photo caption, widget: string }
+          - { name: button, label: Button text, widget: string }
+          - name: category
+            label: Collection to show
+            widget: select
+            options:
+              [
+                All Creations,
+                Christmas,
+                Halloween,
+                Easter,
+                Cookies & Biscuits,
+                Jams & Preserves,
+                Cakes & Desserts,
+                Special Occasions,
+              ]

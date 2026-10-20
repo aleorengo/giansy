@@ -1,0 +1,100 @@
+.assortment-section {
+  position: relative;
+  isolation: isolate;
+  background: var(--cream);
+  border: 0;
+  padding-top: 66px;
+  padding-bottom: 58px;
+}
+
+.assortment-section::before {
+  display: none;
+}
+
+.assortment-fabric {
+  position: absolute;
+  inset: var(--tartan-start, 350px) 0 0;
+  border-top: 1px solid #e7dac161;
+  background: url("/images/patisserie-tartan.webp") center top / 420px 420px repeat;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.assortment-section > .section-width {
+  position: relative;
+  z-index: 1;
+}
+
+.assortment-section .assortment-layout {
+  align-items: start;
+  margin-top: 36px;
+}
+
+.assortment-section .plate-area {
+  padding-top: 24px;
+}
+
+.assortment-section .live-plate {
+  filter: drop-shadow(0 12px 9px #20000030);
+}
+
+.live-plate .plate-product {
+  opacity: 1;
+  animation: none;
+  transition:
+    left 0.32s ease,
+    top 0.32s ease,
+    width 0.32s ease,
+    height 0.32s ease,
+    transform 0.32s ease;
+}
+
+.assortment-section .plate-note {
+  color: #fff3dc;
+  font-style: normal;
+  font-size: 9px;
+  margin-top: 24px;
+  padding: 7px 14px;
+  background: #25030250;
+  border-radius: 2px;
+  text-shadow: 0 1px 2px #21000060;
+}
+
+.assortment-section .order-card {
+  background: #fcf8ee;
+  box-shadow: 0 9px 24px #25000027;
+}
+
+@media (max-width: 850px) {
+  .assortment-section .plate-script {
+    font-size: 25px;
+  }
+}
+
+@media (max-width: 620px) {
+  .assortment-section {
+    padding-top: 44px;
+    padding-bottom: 40px;
+  }
+  .assortment-fabric {
+    background-size: 350px 350px;
+  }
+  .assortment-section .assortment-layout {
+    gap: 30px;
+    margin-top: 25px;
+  }
+  .assortment-section .plate-area {
+    padding-top: 3px;
+  }
+  .assortment-section .plate-script {
+    font-size: 26px;
+    max-width: 320px;
+    margin-bottom: 11px;
+  }
+  .assortment-section .plate-note {
+    font-size: 8px;
+    margin-top: 14px;
+    line-height: 1.8;
+    max-width: 310px;
+  }
+}

@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Le creazioni di Giansy — La nuova identità</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #faf7f0;
+        color: #400102;
+        font-family: Georgia, serif;
+      }
+      main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 55px 40px;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid #ddccba;
+        padding-bottom: 23px;
+        font-family: Arial, sans-serif;
+        font-size: 9px;
+        letter-spacing: 2px;
+      }
+      h1 {
+        font-weight: 400;
+        font-size: 45px;
+        margin: 43px 0 10px;
+        letter-spacing: -1px;
+      }
+      p {
+        color: #8b7765;
+        font-size: 15px;
+        line-height: 1.7;
+        margin: 0 0 25px;
+      }
+      .primary {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border: 1px solid #ddccba;
+      }
+      .panel {
+        position: relative;
+        min-height: 330px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px;
+      }
+      .panel img {
+        width: 100%;
+        max-width: 465px;
+      }
+      .panel.wine {
+        background: #400102;
+      }
+      .caption {
+        position: absolute;
+        bottom: 14px;
+        left: 20px;
+        font:
+          8px Arial,
+          sans-serif;
+        letter-spacing: 1.6px;
+        color: #aa8e77;
+      }
+      .wine .caption {
+        color: #d3bba1;
+      }
+      .details {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr;
+        gap: 30px;
+        margin-top: 35px;
+      }
+      .detail {
+        border: 1px solid #ddccba;
+        min-height: 165px;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+      .detail img {
+        max-height: 105px;
+        width: auto;
+        max-width: 100%;
+      }
+      .detail .icon {
+        width: 85px;
+      }
+      .palette {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+      }
+      .swatch {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        align-items: center;
+        font:
+          7px Arial,
+          sans-serif;
+        gap: 10px;
+      }
+      .swatch:before {
+        content: "";
+        width: 100%;
+        height: 50px;
+        background: var(--c);
+        border: 1px solid #ddccba;
+      }
+      footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 30px;
+        font:
+          9px/1.8 Arial,
+          sans-serif;
+        color: #8b7765;
+        gap: 20px;
+      }
+      a {
+        color: #400102;
+        text-underline-offset: 4px;
+      }
+      .downloads {
+        display: flex;
+        gap: 20px;
+      }
+      @media (max-width: 650px) {
+        main {
+          padding: 25px 20px;
+        }
+        .primary {
+          grid-template-columns: 1fr;
+        }
+        .panel {
+          min-height: 250px;
+        }
+        .details {
+          grid-template-columns: 1fr;
+        }
+        .detail {
+          min-height: 150px;
+        }
+        h1 {
+          font-size: 37px;
+        }
+        header {
+          font-size: 7px;
+        }
+        footer {
+          flex-direction: column;
+          align-items: start;
+        }
+        .downloads {
+          flex-wrap: wrap;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <span>LE CREAZIONI DI GIANSY</span
+        ><span>UN’IDENTITÀ FATTA CON AMORE · 2026</span>
+      </header>
+      <h1>Un po’ di tradizione. Un nuovo capitolo.</h1>
+      <p>
+        Una cornice incisa, delicate volute d’acanto e la firma di Giansy.<br />
+        Un’identità d’ispirazione vintage, in bordeaux e avorio.
+      </p>
+      <div class="primary">
+        <div class="panel">
+          <img
+            src="/brand/giansy-logo-burgundy.svg"
+            alt="Logo bordeaux con cornice incisa"
+          /><span class="caption">01 / L’INCISIONE D’EPOCA</span>
+        </div>
+        <div class="panel wine">
+          <img
+            src="/brand/giansy-logo-ivory.svg"
+            alt="Ivory logo on burgundy"
+          /><span class="caption">02 / UNA SERA IN BORDEAUX</span>
+        </div>
+      </div>
+      <div class="details">
+        <div class="detail">
+          <img
+            src="/brand/giansy-wordmark-burgundy.svg"
+            alt="Simplified script wordmark"
+          /><span class="caption">03 / LA FIRMA</span>
+        </div>
+        <div class="detail">
+          <img
+            class="icon"
+            src="/brand/giansy-monogram.svg"
+            alt="G monogram with ribbon"
+          /><span class="caption">04 / UN PICCOLO SEGNO</span>
+        </div>
+        <div class="detail">
+          <div class="palette">
+            <div class="swatch" style="--c: #400102">#400102</div>
+            <div class="swatch" style="--c: #faf7f0">#FAF7F0</div>
+            <div class="swatch" style="--c: #d8c8b4">#D8C8B4</div>
+          </div>
+          <span class="caption">05 / LA PALETTE</span>
+        </div>
+      </div>
+      <footer>
+        <span
+          >Lettere vettoriali tracciate. Sfondi trasparenti.<br />Ready for the
+          website, labels, and little gift boxes.</span
+        >
+        <div class="downloads">
+          <a href="/brand/giansy-logo-burgundy.svg" download>Scarica SVG</a
+          ><a href="/brand/giansy-logo-burgundy.png" download>Scarica PNG</a
+          ><a href="/">Visita il sito ↗</a>
+        </div>
+      </footer>
+    </main>
+  </body>
+</html>
