@@ -1104,6 +1104,25 @@ select {
   opacity: 0.55;
   z-index: -1;
 }
+.story-divider {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: var(--ivory);
+  padding-block: 8px;
+}
+.story-divider::before,
+.story-divider::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid #f3e6cc80;
+}
+.story-divider .flourish {
+  flex: 0 0 90px;
+  width: 90px;
+  height: 20px;
+  margin: 0;
+}
 .story-section {
   background: var(--wine);
   position: relative;

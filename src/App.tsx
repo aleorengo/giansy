@@ -666,6 +666,10 @@ function Seasonal({ onExplore }: { onExplore: () => void }) {
 }
 function Story() {
   return (
+    <>
+    <div className="story-divider section-width" aria-hidden="true">
+      <Flourish />
+    </div>
     <section className="story-section" id="our-story">
       <div className="section-width story-layout">
         <div className="story-copy">
@@ -709,6 +713,7 @@ function Story() {
         </div>
       </div>
     </section>
+    </>
   );
 }
 function ArticleCard({
