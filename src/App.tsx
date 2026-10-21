@@ -1,7 +1,7 @@
 import { t, useLanguage, getLanguage, setLanguage } from "./i18n";
 import { assetUrl } from "./assets";
 import { useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState } from "react";
-import type { CSSProperties, FormEvent, ReactNode } from "react";
+import type { ChangeEvent, CSSProperties, FormEvent, ReactNode } from "react";
 import { Link, Route, Routes, useLocation, useParams } from "react-router-dom";
 import {
   ArrowDown,
@@ -620,7 +620,7 @@ function Assortment({
               )}{" "}
             </p>
             <a href="#contact" className="button button-primary order-cta">
-              {t("Let’s make it yours")} <ArrowRight size={15} />
+              {t("Complete your request")} <ArrowRight size={15} />
             </a>
             <button
               className="reset-selection"
@@ -667,9 +667,7 @@ function Seasonal({ onExplore }: { onExplore: () => void }) {
 function Story() {
   return (
     <>
-    <div className="story-divider section-width" aria-hidden="true">
-      <Flourish />
-    </div>
+    <div className="story-divider" aria-hidden="true" />
     <section className="story-section" id="our-story">
       <div className="section-width story-layout">
         <div className="story-copy">
@@ -900,7 +898,16 @@ function Contact({
     null,
   );
   const [copied, setCopied] = useState(false);
+  const [fields, setFields] = useState({ name: "", email: "", occasion: "Just because", message: "" });
   const estimate = calculateEstimate(selection, packagingId);
+  useEffect(() => {
+    setDraft(null);
+    setCopied(false);
+  }, [selection, packagingId]);
+  function updateField(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+    const { name, value } = event.target;
+    setFields(previous => ({ ...previous, [name]: value }));
+  }
   function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
@@ -909,7 +916,7 @@ function Contact({
       : "";
     setDraft({
       subject: `${t(String(data.get("occasion")))} — ${t("enquiry from")} ${data.get("name")}`,
-      body: `Ciao Giansy!\n\n${data.get("message")}${assortment}\n\n${data.get("name")}\n${data.get("email")}`,
+      body: `Ciao Giansy!\n\n${t("Occasion")}: ${t(String(data.get("occasion")))}\n${t("Notes and personalisation")}: ${String(data.get("message") || "").trim() || t("No particular preferences.")}${assortment}\n\n${data.get("name")}\n${data.get("email")}`,
     });
     setCopied(false);
   }
@@ -917,14 +924,14 @@ function Contact({
     <section className="contact-section" id="contact">
       <div className="section-width contact-layout">
         <div className="contact-copy">
-          <span className="eyebrow">{t("SOMETHING SPECIAL IN MIND?")} </span>
+          <span className="eyebrow">{t("THE FINAL TOUCH")}</span>
           <h2>
-            {t("Let’s create")} <br />
-            <em>{t("something sweet.")} </em>
+            {t("Your order,")} <br />
+            <em>{t("made personal.")}</em>
           </h2>
           <p>
             {t(
-              "A birthday, a wedding, a thoughtful gift, or just because. Tell me what you’re dreaming of, and we’ll make a little magic together.",
+              "Complete the form with your details and tell me how you would like your creations decorated. We will confirm availability and the final details together.",
             )}{" "}
           </p>
           <div className="contact-links">
@@ -950,10 +957,10 @@ function Contact({
               <div className="draft-check">
                 <Check size={24} />
               </div>
-              <h3>{t("Your sweet note is ready.")} </h3>
+              <h3>{t("Your request is ready to review.")}</h3>
               <p>
                 {t(
-                  "This prototype prepares your message without sending it. The bakery’s contact details will be added before launch.",
+                  "Your request has not been sent yet. Review the details below, then copy it to share with Giansy.",
                 )}{" "}
               </p>
               <pre>{draft.body}</pre>
@@ -971,21 +978,38 @@ function Contact({
                     }
                   }}
                 >
-                  {copied ? t("Message copied") : t("Copy my message")}{" "}
+                  {copied ? t("Message copied") : t("Copy my request")}{" "}
                   {copied ? <Check size={15} /> : <Mail size={15} />}
                 </button>
                 <button className="text-link" onClick={() => setDraft(null)}>
-                  {t("Edit message")}{" "}
+                  {t("Edit request")}{" "}
                 </button>
               </div>
             </div>
           ) : (
             <form className="contact-form" onSubmit={submit}>
+              <div className="order-form-heading">
+                <h3>{t("Complete your request")}</h3>
+                <p>{t("Your selection, your details, and a little room for your wishes.")}</p>
+              </div>
+              {estimate.count > 0 && (
+                <div className="request-assortment" aria-label={t("Your chosen assortment")}>
+                  <div className="request-assortment-heading"><ShoppingBag size={17} /><strong>{t("Your chosen assortment")}</strong><a href="#your-assortment">{t("Review your selection")}</a></div>
+                  <div className="request-assortment-content">
+                    <div className="request-cookie-preview" aria-hidden="true">{estimate.selected.slice(0, 4).map(product => <img key={product.id} src={assetUrl(product.image)} alt="" />)}</div>
+                    <div><strong>{estimate.count} {t("cookies")}</strong><span>{t(estimate.packaging.name)}</span></div>
+                    <div className="request-estimate"><span>{t("Estimated total")}</span><strong>{money(estimate.total)}</strong></div>
+                  </div>
+                  <p><Check size={13} />{t("All selected products and quantities will be included in your request.")}</p>
+                </div>
+              )}
               <div className="form-row">
                 <label>
                   {t("Your name")}{" "}
                   <input
                     name="name"
+                    value={fields.name}
+                    onChange={updateField}
                     autoComplete="name"
                     placeholder={t("A lovely name")}
                     required
@@ -996,6 +1020,8 @@ function Contact({
                   {t("Email address")}{" "}
                   <input
                     name="email"
+                    value={fields.email}
+                    onChange={updateField}
                     type="email"
                     autoComplete="email"
                     placeholder={t("you@example.com")}
@@ -1007,7 +1033,7 @@ function Contact({
               <label>
                 {t("What’s the occasion?")}{" "}
                 <div className="select-wrap">
-                  <select name="occasion" defaultValue="Just because">
+                  <select name="occasion" value={fields.occasion} onChange={updateField}>
                     <option value="Just because">{t("Just because")} </option>
                     <option value="A birthday">{t("A birthday")} </option>
                     <option value="A wedding">{t("A wedding")} </option>
@@ -1024,29 +1050,26 @@ function Contact({
                   <ChevronDown size={14} />
                 </div>
               </label>
-              <label>
-                {t("Your little idea")}{" "}
+              <label className="personalisation-field">
+                <span className="personalisation-title">{t("Notes and personalisation")}</span>
+                <span className="personalisation-hint" id="personalisation-hint">{t("A favourite colour, a theme, a dedication or a decoration you love: tell me here.")}</span>
                 <textarea
                   name="message"
+                  value={fields.message}
+                  onChange={updateField}
+                  aria-describedby="personalisation-hint"
                   placeholder={t(
-                    "Tell me a little about what you have in mind…",
+                    "For example: ivory and burgundy decorations, a ribbon for a gift, or a special dedication…",
                   )}
-                  rows={4}
-                  required
+                  rows={5}
                   maxLength={5000}
                 />
               </label>
-              {estimate.count > 0 && (
-                <span className="selection-attached">
-                  <Check size={13} /> {t("Your selection of")} {estimate.count}{" "}
-                  {t("treats will be included.")}{" "}
-                </span>
-              )}
               <button type="submit" className="button button-primary">
-                {t("Prepare my message")} <ArrowRight size={15} />
+                {t("Review my request")} <ArrowRight size={15} />
               </button>
               <span className="form-note">
-                {t("A friendly first step. No payment or commitment.")}{" "}
+                {t("You can review everything before sharing your request. No payment is required.")}
               </span>
             </form>
           )}

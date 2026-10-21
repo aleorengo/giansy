@@ -1105,23 +1105,10 @@ select {
   z-index: -1;
 }
 .story-divider {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  color: var(--ivory);
-  padding-block: 8px;
-}
-.story-divider::before,
-.story-divider::after {
-  content: "";
-  flex: 1;
-  border-top: 1px solid #f3e6cc80;
-}
-.story-divider .flourish {
-  flex: 0 0 90px;
-  width: 90px;
-  height: 20px;
-  margin: 0;
+  height: 32px;
+  background: url("/images/heritage-tartan.webp") center 47% / 410px auto;
+  border-block: 1px solid #f3e6cc35;
+  box-shadow: inset 0 2px 5px #20000020;
 }
 .story-section {
   background: var(--wine);

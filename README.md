@@ -27,7 +27,7 @@ GitHub Pages hosts the static prototype. Hosted CMS authentication and contact d
 - Burgundy backgrounds throughout, ivory lettering and logo, scalloped antique product labels, overlapping cookie cutouts and soft shadows.
 - A silver plate with one representative image per selected product type, arranged around a filled centre independently of quantities. The full silver plate straddles burgundy and woven tartan; the empty state has no opaque centre overlay.
 - Editable seasonal feature, baker story, journal categories and individual articles.
-- A validated contact form that prepares a copyable enquiry including the current selection. No message or payment is sent.
+- A clear order-request form with an attached assortment preview, packaging and estimate; a prominent notes panel for colours, decorations and dedications; and an editable review before copying. Name, email, occasion and notes survive the review/edit step. Changing the assortment refreshes the review. No message or payment is sent.
 - Responsive navigation, keyboard controls, modal focus handling, reduced-motion support, and saved language preference.
 
 ## Content management
@@ -67,3 +67,5 @@ Replace the placeholder email and Instagram destination, confirm products, price
 The seasonal feature and journal are preserved but hidden, including journal navigation and public routes. Re-enable them in `src/data/features.json` when needed.
 
 Cookie extraction prompts, source mappings and limitations are recorded in `assets/COOKIE_CUTOUTS.md`. Product `fixedPrice` hides the “From” prefix; `provisionalPrice` marks the temporary Halloween/flower prices.
+
+A full-width tartan stripe separates the request form from Giansy’s story.
