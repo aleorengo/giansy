@@ -9,7 +9,7 @@
 .hero-section .hero-values {
   position: relative;
   padding: 0 24px 14px;
-  color: #f3e6cc;
+  color: var(--ivory);
 }
 
 html .hero-values .values-inner {

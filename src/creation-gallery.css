@@ -1,5 +1,5 @@
 .creations-section {
-  background: var(--cream);
+  background: var(--wine);
   position: relative;
 }
 
@@ -30,7 +30,7 @@
   padding: 7px 2px;
   min-height: 36px;
   font-size: 11px;
-  color: var(--wine);
+  color: var(--ivory);
   position: relative;
   background: transparent;
 }
@@ -38,7 +38,7 @@
 .creations .category-tabs button.selected,
 .creations .category-tabs button:hover:not(.selected) {
   background: transparent;
-  color: var(--wine);
+  color: var(--ivory);
 }
 
 .creations .category-tabs button::after {
@@ -48,7 +48,7 @@
   right: 0;
   bottom: 2px;
   height: 1px;
-  background: var(--wine);
+  background: var(--ivory);
   transform: scaleX(0);
   transition: transform 0.2s;
 }
@@ -123,7 +123,7 @@
   text-align: center;
   font-size: 6.5px;
   letter-spacing: 1.7px;
-  color: #93745e;
+  color: var(--ivory);
   pointer-events: none;
 }
 
@@ -155,7 +155,7 @@
   width: 100%;
   height: 100%;
   inset: 0;
-  color: var(--wine);
+  color: var(--ivory);
   overflow: visible;
   pointer-events: none;
   filter: drop-shadow(0 3px 2px #4001020d);
@@ -167,12 +167,12 @@
 }
 
 .antique-label-frame .label-paper {
-  fill: #f3ecdf;
+  fill: var(--wine);
   fill-opacity: 0.72;
 }
 
 .product-selected .antique-label-frame .label-paper {
-  fill: #f0e4cf;
+  fill: var(--wine);
   fill-opacity: 0.8;
 }
 
@@ -198,21 +198,21 @@
   font-size: 24px;
   line-height: 1;
   min-height: 0;
-  color: var(--wine);
+  color: var(--ivory);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .creations .product-name:hover h3 {
-  color: var(--wine);
+  color: var(--ivory);
   text-decoration: underline;
   text-decoration-thickness: 0.6px;
   text-underline-offset: 4px;
 }
 
 .antique-label-content > p {
-  color: #86725e;
+  color: var(--ivory);
   font-size: 10px;
   line-height: 1.3;
   margin: 3px 0 0;
@@ -231,7 +231,7 @@
 }
 
 .creations .product-bottom > span {
-  color: var(--wine);
+  color: var(--ivory);
   font-family: var(--serif);
   font-size: 17px;
   line-height: 1.15;
@@ -256,14 +256,14 @@
 .creations .quantity button {
   width: 34px;
   height: 34px;
-  border: 1px solid var(--wine);
+  border: 1px solid var(--ivory);
   border-radius: 50%;
   background: transparent;
 }
 
 .creations .quantity button:hover:not(:disabled) {
   background: var(--wine);
-  color: var(--cream);
+  color: var(--ivory);
 }
 
 .creations .quantity button:disabled {
@@ -443,7 +443,7 @@
     content: "";
     position: absolute;
     inset: 5px;
-    border: 1px solid var(--wine);
+    border: 1px solid var(--ivory);
     border-radius: 50%;
     pointer-events: none;
   }

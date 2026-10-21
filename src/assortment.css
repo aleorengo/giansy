@@ -1,7 +1,7 @@
 .assortment-section {
   position: relative;
   isolation: isolate;
-  background: var(--cream);
+  background: var(--wine);
   border: 0;
   padding-top: 66px;
   padding-bottom: 58px;
@@ -50,18 +50,18 @@
 }
 
 .assortment-section .plate-note {
-  color: #fff3dc;
+  color: var(--ivory);
   font-style: normal;
   font-size: 9px;
   margin-top: 24px;
   padding: 7px 14px;
-  background: #25030250;
+  background: var(--wine);
   border-radius: 2px;
   text-shadow: 0 1px 2px #21000060;
 }
 
 .assortment-section .order-card {
-  background: #fcf8ee;
+  background: var(--wine);
   box-shadow: 0 9px 24px #25000027;
 }
 

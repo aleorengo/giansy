@@ -21,15 +21,18 @@ GitHub Pages hosts the static prototype. Hosted CMS authentication and contact d
 
 ## Working features
 
-- Eleven sample creations with category filters, details and allergen notes.
-- Quantity controls (0–99), immediate estimates, four packaging options, reset, and saved selections.
-- Scalloped antique product labels, overlapping cookie cutouts and soft shadows, with Natale first and all creations last.
+- Eleven sample creations under Natale, Halloween, Feste e occasioni speciali and Confetture, with product details and allergen notes.
+- A packaging step before the cookies: free paper bag (1–25), free cardboard or €3 decorated plate (6–15), and €0.50 cardboard box (5–20). Valid packaging and quantity changes apply automatically, without an extra confirmation button. Small hand-drawn ivory illustrations with light shading sit above each option.
+- One shared selection limit across the gallery, product dialog and order summary, immediate estimates, reset, and saved selections. Smaller quantities or packages cannot discard an existing selection; the customer removes extras first.
+- Burgundy backgrounds throughout, ivory lettering and logo, scalloped antique product labels, overlapping cookie cutouts and soft shadows.
 - A silver plate with one representative image per selected product type, arranged around a filled centre independently of quantities. The plate straddles an ivory and woven tartan background.
 - Editable seasonal feature, baker story, journal categories and individual articles.
 - A validated contact form that prepares a copyable enquiry including the current selection. No message or payment is sent.
 - Responsive navigation, keyboard controls, modal focus handling, reduced-motion support, and saved language preference.
 
 ## Content management
+
+`npm run test:selection` checks packaging minimums, capacities, hard quantity limits, rapid additions, removal, reset and saved-selection migration. It also runs before each Pages deployment.
 
 Decap CMS is configured at `/admin/` to manage journal articles, products, images, prices, packaging and the seasonal feature. Content lives in:
 
@@ -60,3 +63,5 @@ The portrait and tartan are supplied references. Four temporary transparent PNG 
 ## Launch setup remaining
 
 Replace the placeholder email and Instagram destination, confirm products, prices and allergens, replace illustrative photography, connect CMS authentication, and add final business and privacy details. The contact flow prepares a message locally; a delivery service can be connected later. Checkout and payments are intentionally excluded.
+
+The seasonal feature and journal are preserved but hidden, including journal navigation and public routes. Re-enable them in `src/data/features.json` when needed.

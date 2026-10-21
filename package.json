@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "tsc -b && vite build && node scripts/prepare-static.mjs",
+    "test:selection": "node --experimental-strip-types scripts/check-selection.mjs",
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {

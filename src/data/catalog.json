@@ -6,7 +6,9 @@
       "description": "Ginger-spiced, with a little winter sparkle.",
       "price": 2.5,
       "image": "/images/snowflake-reference.webp",
-      "categories": ["Christmas", "Cookies & Biscuits"],
+      "categories": [
+        "Christmas"
+      ],
       "label": "SEASONAL FAVOURITE",
       "allergens": "Wheat, milk, eggs"
     },
@@ -16,7 +18,10 @@
       "description": "A cosy little character, dressed by hand.",
       "price": 3,
       "image": "/images/gingerbread-friend.webp",
-      "categories": ["Christmas", "Cookies & Biscuits", "Special Occasions"],
+      "categories": [
+        "Christmas",
+        "Special Occasions"
+      ],
       "label": "A LITTLE CHRISTMAS MAGIC",
       "allergens": "Wheat, milk, eggs"
     },
@@ -26,7 +31,9 @@
       "description": "Iced with care. Made for festive moments.",
       "price": 2.8,
       "image": "/images/christmas-tree.webp",
-      "categories": ["Christmas", "Cookies & Biscuits"],
+      "categories": [
+        "Christmas"
+      ],
       "allergens": "Wheat, milk, eggs"
     },
     {
@@ -35,7 +42,10 @@
       "description": "Something sweet for someone special.",
       "price": 2.5,
       "image": "/images/gingerbread-heart.webp",
-      "categories": ["Christmas", "Cookies & Biscuits", "Special Occasions"],
+      "categories": [
+        "Christmas",
+        "Special Occasions"
+      ],
       "label": "GIVE A LITTLE LOVE",
       "allergens": "Wheat, milk, eggs"
     },
@@ -45,7 +55,9 @@
       "description": "Golden, buttery little moments of joy.",
       "price": 1.5,
       "image": "/images/vanilla.webp",
-      "categories": ["Cookies & Biscuits", "Special Occasions"],
+      "categories": [
+        "Special Occasions"
+      ],
       "label": "A LITTLE CLASSIC",
       "allergens": "Wheat, milk, eggs"
     },
@@ -55,7 +67,9 @@
       "description": "Rich chocolate. A beautifully soft heart.",
       "price": 2,
       "image": "/images/chocolate.webp",
-      "categories": ["Cookies & Biscuits", "Special Occasions"],
+      "categories": [
+        "Special Occasions"
+      ],
       "allergens": "Wheat, milk, eggs, soy"
     },
     {
@@ -64,7 +78,10 @@
       "description": "Delicate shortbread, a sweet berry centre.",
       "price": 1.8,
       "image": "/images/linzer.webp",
-      "categories": ["Cookies & Biscuits", "Christmas", "Special Occasions"],
+      "categories": [
+        "Christmas",
+        "Special Occasions"
+      ],
       "label": "MADE TO BE LOVED",
       "allergens": "Wheat, milk, eggs, almonds"
     },
@@ -74,7 +91,10 @@
       "description": "A little jar of sunshine, slowly made.",
       "price": 6,
       "image": "/images/preserve.webp",
-      "categories": ["Jams & Preserves", "Special Occasions"],
+      "categories": [
+        "Jams & Preserves",
+        "Special Occasions"
+      ],
       "allergens": "No listed allergens; made in a shared kitchen"
     },
     {
@@ -83,7 +103,9 @@
       "description": "A little autumn magic, iced by hand.",
       "price": 2.5,
       "image": "/images/pumpkin.webp",
-      "categories": ["Halloween", "Cookies & Biscuits"],
+      "categories": [
+        "Halloween"
+      ],
       "allergens": "Wheat, milk, eggs"
     },
     {
@@ -92,7 +114,9 @@
       "description": "Zesty lemon sponge with a delicate glaze.",
       "price": 4.5,
       "image": "/images/lemon.webp",
-      "categories": ["Cakes & Desserts", "Easter", "Special Occasions"],
+      "categories": [
+        "Special Occasions"
+      ],
       "allergens": "Wheat, milk, eggs"
     },
     {
@@ -101,34 +125,52 @@
       "description": "Sweet springtime wishes in every bite.",
       "price": 2.5,
       "image": "/images/bunny.webp",
-      "categories": ["Easter", "Cookies & Biscuits"],
+      "categories": [
+        "Special Occasions"
+      ],
       "allergens": "Wheat, milk, eggs"
     }
   ],
   "packagingOptions": [
     {
       "id": "paper",
-      "name": "Simple paper bag",
-      "description": "Lovely in its simplicity",
-      "price": 0
-    },
-    {
-      "id": "dish",
-      "name": "Little decorative plate",
-      "description": "A keepsake for one",
-      "price": 3
+      "kind": "bag",
+      "name": "Paper cookie bag",
+      "description": "Simple, sweet and ready to share.",
+      "price": 0,
+      "capacity": 25,
+      "image": "/images/packaging-bag.png",
+      "minimum": 1
     },
     {
       "id": "tray",
-      "name": "Beautiful gift tray",
-      "description": "Made for sharing",
-      "price": 5
+      "kind": "plate",
+      "name": "Cardboard dessert plate",
+      "description": "A little plate for your favourites.",
+      "price": 0,
+      "capacity": 15,
+      "image": "/images/packaging-plate-delicate.png",
+      "minimum": 6
+    },
+    {
+      "id": "dish",
+      "kind": "plate",
+      "name": "Decorated dessert plate",
+      "description": "An extra touch for a special gift.",
+      "price": 3,
+      "capacity": 15,
+      "image": "/images/packaging-plate-delicate.png",
+      "minimum": 6
     },
     {
       "id": "box",
-      "name": "Ribbon-tied gift box",
-      "description": "A little extra magic",
-      "price": 8
+      "kind": "box",
+      "name": "Little cardboard box",
+      "description": "A lovely little box of happiness.",
+      "price": 0.5,
+      "capacity": 20,
+      "image": "/images/packaging-box-etched.png",
+      "minimum": 5
     }
   ]
 }

@@ -3,12 +3,8 @@ import { getLanguage } from "../i18n";
 export const categories = [
   "Christmas",
   "Halloween",
-  "Easter",
-  "Cookies & Biscuits",
-  "Jams & Preserves",
-  "Cakes & Desserts",
   "Special Occasions",
-  "All Creations",
+  "Jams & Preserves",
 ];
 export type Product = {
   id: string;

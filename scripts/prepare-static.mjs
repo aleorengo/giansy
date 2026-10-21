@@ -6,10 +6,11 @@ if (!base.startsWith("/") || !base.endsWith("/")) {
 }
 const index = await readFile("dist/index.html", "utf8");
 const { articles } = JSON.parse(await readFile("src/data/journal.json", "utf8"));
+const features = JSON.parse(await readFile("src/data/features.json", "utf8"));
 
 // GitHub Pages serves real directories, so every journal URL can be opened
 // directly or refreshed without relying on server-side rewrite rules.
-for (const route of ["journal", ...articles.map(({ slug }) => `journal/${slug}`)]) {
+for (const route of features.journal ? ["journal", ...articles.map(({ slug }) => `journal/${slug}`)] : []) {
   if (!/^journal(?:\/[a-z0-9]+(?:-[a-z0-9]+)*)?$/.test(route)) {
     throw new Error(`Invalid article route: ${route}`);
   }

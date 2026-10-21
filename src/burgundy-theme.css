@@ -1,0 +1,102 @@
+/* The hero's oxblood and warm ivory carry through every public page. */
+html,
+body {
+  background-color: var(--wine);
+}
+
+::selection {
+  background: #f3e6cc35;
+  color: var(--ivory);
+}
+
+.site-header {
+  border-bottom-color: var(--line);
+}
+
+.selection-count {
+  border: 1px solid var(--line);
+}
+
+.button:hover,
+.quantity button:hover:not(:disabled),
+.category-tabs button:hover:not(.selected),
+.journal-tabs button.selected {
+  background: #f3e6cc12;
+}
+
+.hero-actions .button-primary:hover,
+.creations .quantity button:hover:not(:disabled) {
+  background: #f3e6cc12;
+  color: var(--ivory);
+}
+
+.journal-tabs button.selected {
+  outline: 1px solid var(--ivory);
+  outline-offset: -1px;
+}
+
+.antique-label-frame {
+  filter: drop-shadow(0 3px 3px #1a000045);
+}
+
+.product-selected .antique-label-frame {
+  filter: drop-shadow(0 0 3px #f3e6cc28);
+}
+
+.creations .product-image-button img {
+  filter: drop-shadow(0 8px 5px #19000060) drop-shadow(2px 2px 1px #19000025);
+}
+
+.handmade-seal {
+  outline: 0;
+  border-color: var(--ivory);
+}
+
+select option {
+  background: var(--wine);
+  color: var(--ivory);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #f3e6ccb3;
+  opacity: 1;
+}
+
+input,
+textarea,
+select {
+  caret-color: var(--ivory);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+  border-color: var(--ivory);
+}
+
+.live-plate .plate-empty {
+  inset: 22% 20%;
+  padding: 12px;
+  gap: 5px;
+  background: var(--wine);
+  border: 1px solid var(--ivory);
+  outline: 1px solid #f3e6cc50;
+  outline-offset: 3px;
+  border-radius: 50%;
+  box-shadow: 0 3px 12px #1a000050;
+}
+
+.live-plate .plate-empty > span {
+  font-size: clamp(18px, 2.1vw, 25px);
+  line-height: 1.1;
+}
+
+.live-plate .plate-empty > svg {
+  width: 20px;
+  height: 20px;
+}
+
+.live-plate .plate-empty a {
+  border-color: var(--ivory);
+}

@@ -6,6 +6,8 @@ import "./styles.css";
 import "./creation-gallery.css";
 import "./assortment.css";
 import "./hero-values.css";
+import "./burgundy-theme.css";
+import "./packaging.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

@@ -1,6 +1,6 @@
 import { t, useLanguage, getLanguage, setLanguage } from "./i18n";
 import { assetUrl } from "./assets";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState } from "react";
 import type { CSSProperties, FormEvent, ReactNode } from "react";
 import { Link, Route, Routes, useLocation, useParams } from "react-router-dom";
 import {
@@ -25,6 +25,10 @@ import {
 import { Flourish, OrnatePortrait } from "./components/Ornaments";
 import AntiqueLabel from "./components/AntiqueLabel";
 import { getTrayLayout } from "./tray-layout";
+import PackagingBuilder, { SelectionProgress } from "./components/PackagingBuilder";
+import { SelectionContext, useSelectionLimit } from "./selection-context";
+import { emptyBuilder, restoreBuilder, updateBuilder } from "./selection";
+import type { BuilderState, BuilderAction } from "./selection";
 import {
   calculateEstimate,
   categories,
@@ -35,6 +39,7 @@ import {
 import type { Product, Selection } from "./data/products";
 import journal from "./data/journal.json";
 import seasonal from "./data/seasonal.json";
+import features from "./data/features.json";
 
 function Logo({ footer = false }: { footer?: boolean }) {
   return (
@@ -44,7 +49,7 @@ function Logo({ footer = false }: { footer?: boolean }) {
       aria-label={t("Le Creazioni di Giansy home")}
     >
       <img
-        src={assetUrl("/brand/giansy-logo-burgundy.svg?v=engraved-01")}
+        src={assetUrl("/brand/giansy-logo-ivory.svg?v=engraved-01")}
         alt={t("Le creazioni di Giansy — engraved vintage frame")}
         width="620"
         height="390"
@@ -107,14 +112,14 @@ function Header({ count }: { count: number }) {
             </Link>
             <Link to="/#creations">{t("The Creations")} </Link>
             <Link to="/#our-story">{t("Our Story")} </Link>
-            <Link
+            {features.journal && <Link
               className={
                 location.pathname.startsWith("/journal") ? "active" : ""
               }
               to="/journal"
             >
               {t("Journal")}{" "}
-            </Link>
+            </Link>}
             <Link to="/#contact">{t("Contact")} </Link>
             {languageSwitch(true)}
           </nav>
@@ -244,6 +249,8 @@ function Quantity({
   onChange: (id: string, delta: number) => void;
   compact?: boolean;
 }) {
+  const { count, cookieCount, isConfigured } = useSelectionLimit();
+  const atLimit = !isConfigured || !cookieCount || count >= cookieCount;
   return (
     <div className={`quantity ${compact ? "quantity-compact" : ""}`}>
       <button
@@ -257,7 +264,8 @@ function Quantity({
         {quantity}
       </span>
       <button
-        disabled={quantity >= 99}
+        disabled={atLimit}
+        title={!cookieCount || !isConfigured ? t("First choose your packaging and cookie quantity.") : atLimit ? t("Your selection is complete.") : undefined}
         onClick={() => onChange(product.id, 1)}
         aria-label={`${t("Add one")} ${t(product.name)}`}
       >
@@ -357,14 +365,9 @@ function Gallery({
   setCategory: (c: string) => void;
   onDetails: (p: Product) => void;
 }) {
-  const [expanded, setExpanded] = useState(false);
-  const filtered = products.filter(
-    (p) => category === "All Creations" || p.categories.includes(category),
-  );
-  const visible =
-    category === "All Creations" && !expanded ? filtered.slice(0, 6) : filtered;
+  const visible = products.filter(p => p.categories.includes(category));
   return (
-    <section className="creations-section" id="creations">
+    <section className="creations-section" id="cookies">
       <div className="collection-tartan" aria-hidden="true" />
       <div className="creations section-width section-space">
         <div className="section-heading">
@@ -391,15 +394,13 @@ function Gallery({
               aria-pressed={category === c}
               className={category === c ? "selected" : ""}
               key={t(c)}
-              onClick={() => {
-                setCategory(c);
-                setExpanded(false);
-              }}
+              onClick={() => setCategory(c)}
             >
               {c === "Christmas" && <Sparkles size={12} />} {t(c)}
             </button>
           ))}
         </div>
+        <SelectionProgress />
         <div className="product-grid">
           {visible.map((p) => (
             <ProductCard
@@ -411,16 +412,6 @@ function Gallery({
             />
           ))}
         </div>
-        {category === "All Creations" && (
-          <button
-            className="text-link view-all"
-            onClick={() => setExpanded(!expanded)}
-          >
-            {expanded ? t("Show a little less") : t("Explore all creations")}{" "}
-            <span>({expanded ? "6" : products.length})</span>
-            <ChevronDown className={expanded ? "rotate" : ""} size={15} />
-          </button>
-        )}
         <div className="gallery-note">
           <Heart size={13} />{" "}
           {t(
@@ -436,15 +427,18 @@ function Assortment({
   selection,
   onChange,
   packagingId,
-  setPackagingId,
+  onPackagingChange,
   reset,
 }: {
   selection: Selection;
   onChange: (id: string, delta: number) => void;
   packagingId: string;
-  setPackagingId: (id: string) => void;
+  onPackagingChange: (id: string) => string;
   reset: () => void;
 }) {
+  const { cookieCount } = useSelectionLimit();
+  const [packagingError, setPackagingError] = useState("");
+  useEffect(() => setPackagingError(""), [selection, packagingId]);
   const estimate = calculateEstimate(selection, packagingId);
   const trayLayout = getTrayLayout(estimate.selected.length);
   const assortmentRef = useRef<HTMLElement>(null);
@@ -581,25 +575,22 @@ function Assortment({
                 ))
               )}
             </div>
-            <div className="packaging">
-              <label htmlFor="packaging">
+            <div className="packaging packaging-summary">
+              <label htmlFor="summary-packaging">
                 <Gift size={15} /> {t("The finishing touch")}{" "}
               </label>
               <div className="select-wrap">
-                <select
-                  id="packaging"
-                  value={packagingId}
-                  onChange={(e) => setPackagingId(e.target.value)}
-                >
-                  {packagingOptions.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {t(p.name)} ·{" "}
-                      {p.price ? `+${money(p.price)}` : t("Included")}
-                    </option>
-                  ))}
+                <select id="summary-packaging" value={packagingId}
+                  aria-describedby={packagingError ? "summary-packaging-error" : undefined}
+                  onChange={event => setPackagingError(onPackagingChange(event.target.value))}>
+                  {packagingOptions.map(option => <option value={option.id} key={option.id}>
+                    {t(option.name)} · {option.price ? `+${money(option.price)}` : t("Free")}
+                  </option>)}
                 </select>
                 <ChevronDown size={14} />
               </div>
+              {cookieCount > 0 && <small>{estimate.count} / {cookieCount} {t("cookies")}</small>}
+              {packagingError && <p id="summary-packaging-error" role="status" className="packaging-error">{packagingError}</p>}
             </div>
             {estimate.selected.length > 0 && (
               <div className="subtotal-lines">
@@ -633,7 +624,7 @@ function Assortment({
             <button
               className="reset-selection"
               onClick={reset}
-              disabled={!estimate.count && packagingId === "paper"}
+              disabled={!estimate.count && !cookieCount}
             >
               <RotateCcw size={12} /> {t("Start afresh")}{" "}
             </button>
@@ -1110,7 +1101,7 @@ function Footer({ onLegal }: { onLegal: (value: string) => void }) {
         <div className="footer-nav">
           <Link to="/#creations">{t("The Creations")} </Link>
           <Link to="/#our-story">{t("Our Story")} </Link>
-          <Link to="/journal">{t("The Journal")} </Link>
+          {features.journal && <Link to="/journal">{t("The Journal")} </Link>}
           <Link to="/#contact">{t("Say Ciao")} </Link>
         </div>
         <div className="footer-contact">
@@ -1156,22 +1147,15 @@ function NotFound() {
     </main>
   );
 }
-function readSaved(): { selection: Selection; packagingId: string } {
+const productIds = products.map(p => p.id);
+function builderReducer(state: BuilderState, action: BuilderAction) {
+  return updateBuilder(state, action, packagingOptions, productIds);
+}
+function readSaved(): BuilderState {
   try {
-    const saved = JSON.parse(localStorage.getItem("giansy-assortment") || "{}");
-    const selection: Selection = {};
-    for (const p of products) {
-      const n = saved.selection?.[p.id];
-      if (Number.isInteger(n) && n > 0 && n <= 99) selection[p.id] = n;
-    }
-    return {
-      selection,
-      packagingId: packagingOptions.some((p) => p.id === saved.packagingId)
-        ? saved.packagingId
-        : "paper",
-    };
+    return restoreBuilder(JSON.parse(localStorage.getItem("giansy-assortment") || "{}"), packagingOptions, productIds);
   } catch {
-    return { selection: {}, packagingId: "paper" };
+    return { ...emptyBuilder };
   }
 }
 export default function App() {
@@ -1183,9 +1167,13 @@ export default function App() {
         ? "Le Creazioni di Giansy — Piccole dolcezze, grande amore"
         : "Le Creazioni di Giansy — Handmade happiness";
   }, [language]);
-  const [saved] = useState(readSaved);
-  const [selection, setSelection] = useState<Selection>(saved.selection);
-  const [packagingId, setPackagingId] = useState(saved.packagingId);
+  const [builder, dispatch] = useReducer(builderReducer, undefined, readSaved);
+  const { selection, packagingId, cookieCount } = builder;
+  const [configurationReady, setConfigurationReady] = useState(cookieCount > 0);
+  const [configurationVersion, setConfigurationVersion] = useState(0);
+  const configure = useCallback((id: string, count: number) => {
+    dispatch({ type: "configure", packagingId: id, cookieCount: count });
+  }, []);
   const [category, setCategory] = useState("Christmas");
   const [detail, setDetail] = useState<Product | null>(null);
   const [legal, setLegal] = useState<string | null>(null);
@@ -1193,21 +1181,31 @@ export default function App() {
     try {
       localStorage.setItem(
         "giansy-assortment",
-        JSON.stringify({ selection, packagingId }),
+        JSON.stringify(builder),
       );
     } catch {
       /* The builder remains usable when browser storage is unavailable. */
     }
-  }, [selection, packagingId]);
+  }, [builder]);
   function change(id: string, delta: number) {
-    setSelection((prev) => ({
-      ...prev,
-      [id]: Math.min(99, Math.max(0, (prev[id] || 0) + delta)),
-    }));
+    if (delta > 0 && !configurationReady) return;
+    dispatch({ type: "change", id, delta });
   }
   const estimate = calculateEstimate(selection, packagingId);
+  function changePackaging(id: string) {
+    const option = packagingOptions.find(p => p.id === id);
+    if (!option) return "";
+    if (estimate.count > option.capacity) {
+      return `${t("This packaging holds up to")} ${option.capacity} ${t("cookies")}. ${t("Remove first:")} ${estimate.count - option.capacity}.`;
+    }
+    dispatch({ type: "configure", packagingId: id,
+      cookieCount: Math.min(option.capacity, Math.max(option.minimum, cookieCount, estimate.count)) });
+    setConfigurationVersion(version => version + 1);
+    setConfigurationReady(true);
+    return "";
+  }
   return (
-    <>
+    <SelectionContext.Provider value={{ count: estimate.count, cookieCount, isConfigured: configurationReady }}>
       <ScrollManager />
       <a href="#main-content" className="skip-link">
         {t("Skip to content")}{" "}
@@ -1222,6 +1220,8 @@ export default function App() {
               <main>
                 <Hero />
                 <TartanDivider />
+                <PackagingBuilder packagingId={packagingId}
+                  onConfigure={configure} onReadinessChange={setConfigurationReady} syncVersion={configurationVersion} />
                 <Gallery
                   selection={selection}
                   onChange={change}
@@ -1233,21 +1233,18 @@ export default function App() {
                   selection={selection}
                   onChange={change}
                   packagingId={packagingId}
-                  setPackagingId={setPackagingId}
-                  reset={() => {
-                    setSelection({});
-                    setPackagingId("paper");
-                  }}
+                  onPackagingChange={changePackaging}
+                  reset={() => dispatch({ type: "reset" })}
                 />
-                <Seasonal onExplore={() => setCategory(seasonal.category)} />
-                <Story />
-                <JournalPreview />
                 <Contact selection={selection} packagingId={packagingId} />
+                {features.seasonalCollection && <Seasonal onExplore={() => setCategory(seasonal.category)} />}
+                <Story />
+                {features.journal && <JournalPreview />}
               </main>
             }
           />
-          <Route path="/journal" element={<JournalPage />} />
-          <Route path="/journal/:slug" element={<ArticlePage />} />
+          {features.journal && <Route path="/journal" element={<JournalPage />} />}
+          {features.journal && <Route path="/journal/:slug" element={<ArticlePage />} />}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
@@ -1327,6 +1324,6 @@ export default function App() {
           )}
         </Modal>
       )}
-    </>
+    </SelectionContext.Provider>
   );
 }

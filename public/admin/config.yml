@@ -97,11 +97,8 @@ collections:
                   [
                     Christmas,
                     Halloween,
-                    Easter,
-                    Cookies & Biscuits,
-                    Jams & Preserves,
-                    Cakes & Desserts,
                     Special Occasions,
+                    Jams & Preserves,
                   ]
               - {
                   name: label,
@@ -117,6 +114,10 @@ collections:
               - { name: id, label: Packaging ID, widget: string }
               - { name: name, label: Name, widget: string }
               - { name: description, label: Short description, widget: string }
+              - { name: kind, label: Packaging kind, widget: select, options: [bag, plate, box] }
+              - { name: capacity, label: Maximum cookies, widget: number, value_type: int, min: 1, max: 25 }
+              - { name: minimum, label: Minimum cookies, widget: number, value_type: int, min: 1, max: 25 }
+              - { name: image, label: Packaging illustration, widget: image }
               - {
                   name: price,
                   label: Additional price in euros,
@@ -143,12 +144,8 @@ collections:
             widget: select
             options:
               [
-                All Creations,
                 Christmas,
                 Halloween,
-                Easter,
-                Cookies & Biscuits,
-                Jams & Preserves,
-                Cakes & Desserts,
                 Special Occasions,
+                Jams & Preserves,
               ]
