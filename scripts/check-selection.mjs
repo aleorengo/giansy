@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
-import { emptyBuilder, restoreBuilder, selectedCount, updateBuilder } from "../src/selection.ts";
+import { emptyBuilder, restoreBuilder, selectedCount, isSelectionReady, updateBuilder } from "../src/selection.ts";
 
 const catalog = JSON.parse(readFileSync(new URL("../src/data/catalog.json", import.meta.url)));
 const packaging = catalog.packagingOptions;
@@ -23,37 +23,47 @@ assert.deepEqual(catalog.products.filter(p => p.categories.includes("Special Occ
 assert.equal(catalog.products.filter(p => p.categories.includes("Halloween")).length, 8);
 const apply = (state, action) => updateBuilder(state, action, packaging, ids);
 
-assert.equal(selectedCount(apply(emptyBuilder, { type: "change", id: ids[0], delta: 1 }).selection), 0);
+assert.equal(selectedCount(apply(emptyBuilder, { type: "change", id: ids[0], delta: 1 }).selection), 1);
+assert.equal(isSelectionReady(emptyBuilder, packaging), false);
 for (const option of packaging) {
-  for (const desired of [option.minimum, Math.min(option.minimum + 2, option.capacity), option.capacity]) {
-    let state = apply(emptyBuilder, { type: "configure", packagingId: option.id, cookieCount: desired });
-    // Rapid adds across multiple product types must count individual pieces.
-    for (let i = 0; i < desired + 12; i++) state = apply(state, { type: "change", id: ids[i % ids.length], delta: 1 });
-    assert.equal(selectedCount(state.selection), desired, `${option.id}: cannot exceed ${desired}`);
-    const first = Object.keys(state.selection)[0];
-    state = apply(state, { type: "change", id: first, delta: -1 });
-    assert.equal(selectedCount(state.selection), desired - 1);
-    state = apply(state, { type: "change", id: ids[1], delta: 50 });
-    assert.equal(selectedCount(state.selection), desired);
-    assert.deepEqual(apply(state, { type: "configure", packagingId: option.id, cookieCount: desired - 1 }), state);
-    assert.deepEqual(restoreBuilder(state, packaging, ids), state);
+  let state = apply(emptyBuilder, { type: "configure", packagingId: option.id });
+  assert.equal(isSelectionReady(state, packaging), false);
+  for (let i = 0; i < option.capacity + 12; i++) {
+    state = apply(state, { type: "change", id: ids[i % ids.length], delta: 1 });
+    const count = selectedCount(state.selection);
+    assert.equal(count, Math.min(i + 1, option.capacity), option.id + ": only capacity limits additions");
+    assert.equal(isSelectionReady(state, packaging), count >= option.minimum);
   }
-  for (const invalid of [0, -1, option.minimum - 1, 1.5, option.capacity + 1, NaN, Infinity]) {
-    assert.deepEqual(apply(emptyBuilder, { type: "configure", packagingId: option.id, cookieCount: invalid }), emptyBuilder);
-  }
+  const first = Object.keys(state.selection)[0];
+  state = apply(state, { type: "change", id: first, delta: -1 });
+  assert.equal(selectedCount(state.selection), option.capacity - 1);
+  state = apply(state, { type: "change", id: ids[1], delta: 50 });
+  assert.equal(selectedCount(state.selection), option.capacity);
+  assert.deepEqual(restoreBuilder(state, packaging, ids), state);
+  assert.deepEqual(apply(state, { type: "configure", packagingId: "unknown" }), state);
+  assert.deepEqual(apply(state, { type: "change", id: ids[0], delta: 1.5 }), state);
+  assert.deepEqual(apply(state, { type: "change", id: "unknown", delta: 1 }), state);
 }
-let fullBag = apply(emptyBuilder, { type: "configure", packagingId: "paper", cookieCount: 25 });
-fullBag = apply(fullBag, { type: "change", id: ids[0], delta: 25 });
-assert.deepEqual(apply(fullBag, { type: "configure", packagingId: "tray", cookieCount: 15 }), fullBag);
-assert.deepEqual(apply(fullBag, { type: "configure", packagingId: "box", cookieCount: 20 }), fullBag);
+let fullBag = apply(emptyBuilder, { type: "change", id: ids[0], delta: 25 });
+assert.deepEqual(apply(fullBag, { type: "configure", packagingId: "tray" }), fullBag);
+assert.deepEqual(apply(fullBag, { type: "configure", packagingId: "box" }), fullBag);
 assert.deepEqual(apply(fullBag, { type: "reset" }), emptyBuilder);
-assert.equal(restoreBuilder({ selection: { [ids[0]]: 13 }, packagingId: "paper" }, packaging, ids).cookieCount, 13);
+// An old six-piece target must never restrict a customer's new choices.
+let flexible = restoreBuilder({ selection: { [ids[0]]: 6 }, packagingId: "box", cookieCount: 6 }, packaging, ids);
+flexible = apply(flexible, { type: "change", id: ids[1], delta: 4 });
+assert.equal(selectedCount(flexible.selection), 10);
+assert.equal(isSelectionReady(flexible, packaging), true);
+let belowMinimum = apply(emptyBuilder, { type: "configure", packagingId: "box" });
+belowMinimum = apply(belowMinimum, { type: "change", id: ids[0], delta: 4 });
+assert.equal(isSelectionReady(belowMinimum, packaging), false);
+belowMinimum = apply(belowMinimum, { type: "change", id: ids[0], delta: 1 });
+assert.equal(isSelectionReady(belowMinimum, packaging), true);
+belowMinimum = apply(belowMinimum, { type: "configure", packagingId: "tray" });
+assert.equal(isSelectionReady(belowMinimum, packaging), false);
 assert.equal(restoreBuilder({ selection: { [ids[0]]: 20 }, packagingId: "dish" }, packaging, ids).packagingId, "paper");
 assert.equal(selectedCount(restoreBuilder({ selection: { [ids[0]]: 99, [ids[1]]: 99, unknown: 2 } }, packaging, ids).selection), 25);
 assert.deepEqual(restoreBuilder(null, packaging, ids), emptyBuilder);
-assert.equal(restoreBuilder({selection:{[ids[0]]:2},packagingId:"box",cookieCount:2},packaging,ids).cookieCount,5);
-assert.equal(restoreBuilder({selection:{[ids[0]]:3},packagingId:"tray",cookieCount:3},packaging,ids).cookieCount,6);
 assert.deepEqual(Object.fromEntries(packaging.map(p => [p.id, [p.price, p.minimum, p.capacity]])), {
   paper: [0, 1, 25], tray: [0, 6, 15], dish: [3, 6, 15], box: [0.5, 5, 20],
 });
-console.log("Selection rules passed: capacities, quantities, rapid adds, removal, reset, migration and packaging prices.");
+console.log("Selection rules passed: flexible counts, capacities, submission minimums, rapid adds, reset, migration and catalogue prices.");

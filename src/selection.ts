@@ -1,16 +1,15 @@
 export type BuilderState = {
   selection: Record<string, number>;
   packagingId: string;
-  cookieCount: number;
 };
 type PackagingRule = { id: string; minimum: number; capacity: number };
 export type BuilderAction =
   | { type: "change"; id: string; delta: number }
-  | { type: "configure"; packagingId: string; cookieCount: number }
+  | { type: "configure"; packagingId: string }
   | { type: "reset" };
 
 export const emptyBuilder: BuilderState = {
-  selection: {}, packagingId: "paper", cookieCount: 0,
+  selection: {}, packagingId: "paper",
 };
 export const selectedCount = (selection: Record<string, number>) =>
   Object.values(selection).reduce((sum, quantity) => sum + quantity, 0);
@@ -35,14 +34,16 @@ export function restoreBuilder(
   const count = selectedCount(selection);
   const option = packaging.find(p => p.id === value.packagingId) ?? packaging[0];
   const chosen = option.capacity >= count ? option : largest;
-  const target = value.cookieCount;
   return {
     selection,
     packagingId: chosen.id,
-    cookieCount: typeof target === "number" && Number.isInteger(target) &&
-      target >= Math.max(chosen.minimum, count) && target <= chosen.capacity
-        ? target : count ? Math.max(chosen.minimum, count) : 0,
   };
+}
+
+export function isSelectionReady(state: BuilderState, packaging: readonly PackagingRule[]) {
+  const option = packaging.find(p => p.id === state.packagingId);
+  const count = selectedCount(state.selection);
+  return !!option && count >= option.minimum && count <= option.capacity;
 }
 
 export function updateBuilder(
@@ -55,14 +56,14 @@ export function updateBuilder(
   const count = selectedCount(state.selection);
   if (action.type === "configure") {
     const option = packaging.find(p => p.id === action.packagingId);
-    if (!option || !Number.isInteger(action.cookieCount) || action.cookieCount < option.minimum ||
-      action.cookieCount > option.capacity || action.cookieCount < count) return state;
-    return { ...state, packagingId: option.id, cookieCount: action.cookieCount };
+    if (!option || count > option.capacity) return state;
+    return { ...state, packagingId: option.id };
   }
   if (!productIds.includes(action.id) || !Number.isInteger(action.delta)) return state;
   const current = state.selection[action.id] || 0;
+  const option = packaging.find(p => p.id === state.packagingId) ?? packaging[0];
   const delta = action.delta > 0
-    ? Math.min(action.delta, Math.max(0, state.cookieCount - count)) : action.delta;
+    ? Math.min(action.delta, Math.max(0, option.capacity - count)) : action.delta;
   const next = Math.max(0, current + delta);
   if (next === current) return state;
   const selection = { ...state.selection };

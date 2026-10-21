@@ -345,5 +345,11 @@
   "Edit details": "Modifica i dettagli",
   "Send my request": "Invia richiesta",
   "Your selection and notes are included. No payment is required.": "La tua selezione e le note sono incluse. Non è richiesto alcun pagamento.",
-  "Contact form details stay in your browser. This preview does not send requests, process payments or use analytics.": "I dati del modulo restano nel tuo browser. Questa anteprima non invia richieste, non elabora pagamenti e non usa strumenti di analisi."
+  "Contact form details stay in your browser. This preview does not send requests, process payments or use analytics.": "I dati del modulo restano nel tuo browser. Questa anteprima non invia richieste, non elabora pagamenti e non usa strumenti di analisi.",
+  "Minimum for this packaging:": "Minimo per questa confezione:",
+  "This packaging is full.": "Hai raggiunto il massimo per questa confezione.",
+  "You can still add:": "Puoi aggiungerne ancora:",
+  "Change packaging": "Cambia confezione",
+  "Choose your packaging, then pick your favourite cookies below. You can keep adding up to its capacity.": "Scegli la confezione, poi aggiungi i tuoi biscotti preferiti qui sotto, fino al massimo indicato.",
+  "Still to add:": "Ne mancano ancora:"
 }

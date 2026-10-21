@@ -22,8 +22,8 @@ GitHub Pages hosts the static prototype. Hosted CMS authentication and contact d
 ## Working features
 
 - Real maker-cookie photo cutouts: 16 Christmas products with supplied prices, 8 Halloween designs and 2 flowers with provisional prices. The placeholder preserve stays only in Confetture. Previous sample occasion products are archived in `assets/archive/sample-occasion-products.json`.
-- A packaging step before the cookies: free paper bag (1–25), free cardboard or €3 decorated plate (6–15), and €0.50 cardboard box (5–20). Valid packaging and quantity changes apply automatically, without an extra confirmation button. Small hand-drawn ivory illustrations with light shading sit above each option.
-- One shared selection limit across the gallery, product dialog and order summary, immediate estimates, reset, and saved selections. Smaller quantities or packages cannot discard an existing selection; the customer removes extras first.
+- A packaging step before the cookies: free paper bag (1–25), free cardboard or €3 decorated plate (6–15), and €0.50 cardboard box (5–20). Packaging changes apply immediately. There is no upfront quantity input: customers choose freely in the gallery, whose live counter shows selected pieces / package capacity. Small hand-drawn ivory illustrations with light shading sit above each option.
+- One capacity limit across the gallery, product dialog and order summary, immediate estimates, reset, and saved selections. Package minimums apply only to the final request; customers can build below them while browsing. Smaller packages cannot discard an existing selection; the customer removes extras first. Legacy saved quantity targets are ignored.
 - Burgundy backgrounds throughout, ivory lettering and logo, scalloped antique product labels, overlapping cookie cutouts and soft shadows.
 - A silver plate with one representative image per selected product type, arranged around a filled centre independently of quantities. The full silver plate straddles burgundy and woven tartan; the empty state has no opaque centre overlay.
 - Editable seasonal feature, baker story, journal categories and individual articles.

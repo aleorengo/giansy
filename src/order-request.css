@@ -29,6 +29,8 @@
 .personalisation-hint { font-size: 12px; line-height: 1.55; }
 .contact-form .personalisation-field textarea { min-height: 150px; margin-top: 5px; }
 .contact-form .form-note { font-size: 11px; line-height: 1.6; margin-top: -10px; }
+.request-minimum { padding: 12px 14px; border: 1px solid var(--line); font-size: 12px; line-height: 1.6; }
+.request-minimum a { display: flex; align-items: center; gap: 6px; width: fit-content; margin-top: 5px; text-decoration: underline; text-underline-offset: 3px; }
 .contact-form-wrap .contact-draft { padding: 0; border: 0; }
 .request-complete-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 16px 0; border-block: 1px solid var(--line); }
 .request-complete-summary strong { font-family: var(--serif); font-size: 24px; font-weight: 500; }

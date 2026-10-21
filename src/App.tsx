@@ -1,6 +1,6 @@
 import { t, useLanguage, getLanguage, setLanguage } from "./i18n";
 import { assetUrl } from "./assets";
-import { useCallback, useEffect, useLayoutEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useReducer, useRef, useState } from "react";
 import type { ChangeEvent, CSSProperties, FormEvent, ReactNode } from "react";
 import { Link, Route, Routes, useLocation, useParams } from "react-router-dom";
 import {
@@ -27,7 +27,7 @@ import AntiqueLabel from "./components/AntiqueLabel";
 import { getTrayLayout } from "./tray-layout";
 import PackagingBuilder, { SelectionProgress } from "./components/PackagingBuilder";
 import { SelectionContext, useSelectionLimit } from "./selection-context";
-import { emptyBuilder, restoreBuilder, updateBuilder } from "./selection";
+import { emptyBuilder, isSelectionReady, restoreBuilder, updateBuilder } from "./selection";
 import type { BuilderState, BuilderAction } from "./selection";
 import {
   calculateEstimate,
@@ -249,8 +249,8 @@ function Quantity({
   onChange: (id: string, delta: number) => void;
   compact?: boolean;
 }) {
-  const { count, cookieCount, isConfigured } = useSelectionLimit();
-  const atLimit = !isConfigured || !cookieCount || count >= cookieCount;
+  const { count, capacity } = useSelectionLimit();
+  const atLimit = count >= capacity;
   return (
     <div className={`quantity ${compact ? "quantity-compact" : ""}`}>
       <button
@@ -265,7 +265,7 @@ function Quantity({
       </span>
       <button
         disabled={atLimit}
-        title={!cookieCount || !isConfigured ? t("First choose your packaging and cookie quantity.") : atLimit ? t("Your selection is complete.") : undefined}
+        title={atLimit ? t("This packaging is full.") : undefined}
         onClick={() => onChange(product.id, 1)}
         aria-label={`${t("Add one")} ${t(product.name)}`}
       >
@@ -437,7 +437,7 @@ function Assortment({
   onPackagingChange: (id: string) => string;
   reset: () => void;
 }) {
-  const { cookieCount } = useSelectionLimit();
+  const { capacity, minimum } = useSelectionLimit();
   const [packagingError, setPackagingError] = useState("");
   useEffect(() => setPackagingError(""), [selection, packagingId]);
   const estimate = calculateEstimate(selection, packagingId);
@@ -590,7 +590,7 @@ function Assortment({
                 </select>
                 <ChevronDown size={14} />
               </div>
-              {cookieCount > 0 && <small>{estimate.count} / {cookieCount} {t("cookies")}</small>}
+              <small>{estimate.count} / {capacity} {t("cookies")}{estimate.count < minimum && ` · ${t("Minimum for this packaging:")} ${minimum}`}</small>
               {packagingError && <p id="summary-packaging-error" role="status" className="packaging-error">{packagingError}</p>}
             </div>
             {estimate.selected.length > 0 && (
@@ -625,7 +625,7 @@ function Assortment({
             <button
               className="reset-selection"
               onClick={reset}
-              disabled={!estimate.count && !cookieCount}
+              disabled={!estimate.count && packagingId === "paper"}
             >
               <RotateCcw size={12} /> {t("Start afresh")}{" "}
             </button>
@@ -899,6 +899,7 @@ function Contact({
   );
   const [fields, setFields] = useState({ name: "", email: "", message: "" });
   const estimate = calculateEstimate(selection, packagingId);
+  const canSubmit = isSelectionReady({ selection, packagingId }, packagingOptions);
   useEffect(() => {
     setDraft(null);
   }, [selection, packagingId]);
@@ -908,6 +909,7 @@ function Contact({
   }
   function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!canSubmit) return;
     const data = new FormData(e.currentTarget);
     const assortment = estimate.selected.length
       ? `\n\n${t("My selection:")}\n${estimate.selected.map((p) => `${selection[p.id]} × ${t(p.name)} — ${money(p.price * selection[p.id])}`).join("\n")}\n${t("Packaging")}: ${t(estimate.packaging.name)}\n${t("Estimated total")}: ${money(estimate.total)}`
@@ -1017,7 +1019,8 @@ function Contact({
                   maxLength={5000}
                 />
               </label>
-              <button type="submit" className="button button-primary">
+              {!canSubmit && <p className="request-minimum" id="request-minimum"><span>{t("Minimum for this packaging:")} {estimate.packaging.minimum} {t("cookies")}. {t("Still to add:")} {Math.max(0, estimate.packaging.minimum - estimate.count)}.</span><a href="#cookies">{t("Choose your cookies")} <ArrowRight size={13} /></a></p>}
+              <button type="submit" className="button button-primary" disabled={!canSubmit} aria-describedby={!canSubmit ? "request-minimum" : undefined}>
                 {t("Send my request")} <ArrowRight size={15} />
               </button>
               <span className="form-note">
@@ -1149,12 +1152,7 @@ export default function App() {
         : "Le Creazioni di Giansy — Handmade happiness";
   }, [language]);
   const [builder, dispatch] = useReducer(builderReducer, undefined, readSaved);
-  const { selection, packagingId, cookieCount } = builder;
-  const [configurationReady, setConfigurationReady] = useState(cookieCount > 0);
-  const [configurationVersion, setConfigurationVersion] = useState(0);
-  const configure = useCallback((id: string, count: number) => {
-    dispatch({ type: "configure", packagingId: id, cookieCount: count });
-  }, []);
+  const { selection, packagingId } = builder;
   const [category, setCategory] = useState("Christmas");
   const [detail, setDetail] = useState<Product | null>(null);
   const [legal, setLegal] = useState<string | null>(null);
@@ -1169,7 +1167,6 @@ export default function App() {
     }
   }, [builder]);
   function change(id: string, delta: number) {
-    if (delta > 0 && !configurationReady) return;
     dispatch({ type: "change", id, delta });
   }
   const estimate = calculateEstimate(selection, packagingId);
@@ -1179,14 +1176,11 @@ export default function App() {
     if (estimate.count > option.capacity) {
       return `${t("This packaging holds up to")} ${option.capacity} ${t("cookies")}. ${t("Remove first:")} ${estimate.count - option.capacity}.`;
     }
-    dispatch({ type: "configure", packagingId: id,
-      cookieCount: Math.min(option.capacity, Math.max(option.minimum, cookieCount, estimate.count)) });
-    setConfigurationVersion(version => version + 1);
-    setConfigurationReady(true);
+    dispatch({ type: "configure", packagingId: id });
     return "";
   }
   return (
-    <SelectionContext.Provider value={{ count: estimate.count, cookieCount, isConfigured: configurationReady }}>
+    <SelectionContext.Provider value={{ count: estimate.count, capacity: estimate.packaging.capacity, minimum: estimate.packaging.minimum }}>
       <ScrollManager />
       <a href="#main-content" className="skip-link">
         {t("Skip to content")}{" "}
@@ -1201,8 +1195,7 @@ export default function App() {
               <main>
                 <Hero />
                 <TartanDivider />
-                <PackagingBuilder packagingId={packagingId}
-                  onConfigure={configure} onReadinessChange={setConfigurationReady} syncVersion={configurationVersion} />
+                <PackagingBuilder packagingId={packagingId} onChange={changePackaging} />
                 <Gallery
                   selection={selection}
                   onChange={change}
