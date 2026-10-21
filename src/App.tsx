@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { Flourish, OrnatePortrait } from "./components/Ornaments";
 import AntiqueLabel from "./components/AntiqueLabel";
+import ProductGallery from "./components/ProductGallery";
 import { getTrayLayout } from "./tray-layout";
 import PackagingBuilder, { SelectionProgress } from "./components/PackagingBuilder";
 import { SelectionContext, useSelectionLimit } from "./selection-context";
@@ -1225,17 +1226,13 @@ export default function App() {
       <Footer onLegal={setLegal} />
       {detail && (
         <Modal title={t(detail.name)} onClose={() => setDetail(null)}>
-          <img
-            className="dialog-product"
-            src={assetUrl(detail.image)}
-            alt={t(detail.name)}
-          />
+          <ProductGallery key={detail.id} product={detail} />
           <p>{t(detail.description)}</p>
           <p className="detail-price">
             {!detail.fixedPrice && `${t("From")} `}{money(detail.price)} {t("per item")}{" "}
           </p>
           <p>
-            <strong>{t("Allergen guide:")} </strong> {t(detail.allergens)}.
+            <strong>{t("Allergen guide:")} </strong> {t(detail.allergens)}
           </p>
           <p className="detail-note">
             {t(

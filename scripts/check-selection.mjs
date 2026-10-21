@@ -9,6 +9,13 @@ assert.equal(new Set(ids).size, ids.length, "Product IDs must remain unique");
 for (const product of catalog.products) {
   assert.ok(existsSync(new URL(`../public${product.image}`, import.meta.url)), `Missing image: ${product.id}`);
   assert.ok(Number.isFinite(product.price) && product.price > 0, `Invalid price: ${product.id}`);
+  const images = new Set([product.image]);
+  for (const version of product.gallery ?? []) {
+    assert.ok(version.label?.trim(), `Missing decoration name: ${product.id}`);
+    assert.ok(!images.has(version.image), `Duplicate gallery image: ${product.id}`);
+    assert.ok(existsSync(new URL(`../public${version.image}`, import.meta.url)), `Missing gallery image: ${version.image}`);
+    images.add(version.image);
+  }
 }
 const christmasPrices = {
   "gingerbread-heart": 1.5, "christmas-gift": 1.5, "christmas-santa": 1.5, "christmas-star": 1.5,

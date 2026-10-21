@@ -14,6 +14,7 @@ export type Product = {
   fixedPrice?: boolean;
   provisionalPrice?: boolean;
   image: string;
+  gallery?: { image: string; label: string }[];
   categories: string[];
   label?: string;
   allergens: string;

@@ -89,6 +89,13 @@ collections:
                   widget: image,
                   hint: "Upload a transparent PNG or WebP.",
                 }
+              - name: gallery
+                label: Additional decorative versions
+                widget: list
+                required: false
+                fields:
+                  - { name: image, label: Transparent variant image, widget: image }
+                  - { name: label, label: Decoration name, widget: string }
               - name: categories
                 label: Categories
                 widget: select

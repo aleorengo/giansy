@@ -9,6 +9,7 @@ import "./hero-values.css";
 import "./burgundy-theme.css";
 import "./packaging.css";
 import "./order-request.css";
+import "./product-gallery.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

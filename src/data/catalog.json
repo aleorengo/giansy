@@ -10,7 +10,25 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "gallery": [
+        {
+          "image": "/images/christmas/variants/snowflake-white-lace.webp",
+          "label": "White lace and silver pearls"
+        },
+        {
+          "image": "/images/christmas/variants/snowflake-rounded.webp",
+          "label": "Rounded branches"
+        },
+        {
+          "image": "/images/christmas/variants/snowflake-colourful.webp",
+          "label": "White icing with colourful accents"
+        },
+        {
+          "image": "/images/christmas/variants/snowflake-blue.webp",
+          "label": "Blue icing and a golden pearl"
+        }
+      ]
     },
     {
       "id": "christmas-tree",
@@ -22,7 +40,29 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "gallery": [
+        {
+          "image": "/images/christmas/variants/tree-blue-curls.webp",
+          "label": "Blue icing curls"
+        },
+        {
+          "image": "/images/christmas/variants/tree-blue-branches.webp",
+          "label": "Blue branches and ornaments"
+        },
+        {
+          "image": "/images/christmas/variants/tree-blue-gold.webp",
+          "label": "Blue branches and gold sprinkles"
+        },
+        {
+          "image": "/images/christmas/variants/tree-green-garlands.webp",
+          "label": "White garlands on green"
+        },
+        {
+          "image": "/images/christmas/variants/tree-blue-garlands.webp",
+          "label": "White garlands on blue"
+        }
+      ]
     },
     {
       "id": "gingerbread",
@@ -34,7 +74,13 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "gallery": [
+        {
+          "image": "/images/christmas/variants/person-teal-cuffs.webp",
+          "label": "Teal cuffs and a white smile"
+        }
+      ]
     },
     {
       "id": "christmas-gift",
@@ -46,7 +92,13 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "gallery": [
+        {
+          "image": "/images/christmas/variants/gift-red-bow.webp",
+          "label": "Red bow and holly"
+        }
+      ]
     },
     {
       "id": "christmas-santa",
@@ -82,7 +134,13 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "gallery": [
+        {
+          "image": "/images/christmas/variants/heart-red.webp",
+          "label": "Red icing"
+        }
+      ]
     },
     {
       "id": "snowflake",
@@ -106,7 +164,13 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "gallery": [
+        {
+          "image": "/images/christmas/variants/reindeer-heart.webp",
+          "label": "A little red heart"
+        }
+      ]
     },
     {
       "id": "christmas-candle",

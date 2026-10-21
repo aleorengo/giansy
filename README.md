@@ -21,6 +21,7 @@ GitHub Pages hosts the static prototype. Hosted CMS authentication and contact d
 
 ## Working features
 
+- Cookie detail galleries show transparent decoration variants as overlapping cookies, with the next image peeking from the right. Customers can swipe, click the rear cookie, use arrows, dots or keyboard controls; the original collection cover remains unchanged. Decoration preferences belong in the order notes. PNG masters, source mappings, prompts and reconstruction limitations are in `assets/COOKIE_VARIANTS.md`.
 - Real maker-cookie photo cutouts: 16 Christmas products with supplied prices, 8 Halloween designs and 2 flowers with provisional prices. The placeholder preserve stays only in Confetture. Previous sample occasion products are archived in `assets/archive/sample-occasion-products.json`.
 - A packaging step before the cookies: free paper bag (1–25), free cardboard or €3 decorated plate (6–15), and €0.50 cardboard box (5–20). Packaging changes apply immediately. There is no upfront quantity input: customers choose freely in the gallery, whose live counter shows selected pieces / package capacity. Small hand-drawn ivory illustrations with light shading sit above each option.
 - One capacity limit across the gallery, product dialog and order summary, immediate estimates, reset, and saved selections. Package minimums apply only to the final request; customers can build below them while browsing. Smaller packages cannot discard an existing selection; the customer removes extras first. Legacy saved quantity targets are ignored.
@@ -37,6 +38,7 @@ GitHub Pages hosts the static prototype. Hosted CMS authentication and contact d
 Decap CMS is configured at `/admin/` to manage journal articles, products, images, prices, packaging and the seasonal feature. Content lives in:
 
 - `src/data/catalog.json` — products and packaging; keep IDs stable. Image values are absolute public paths.
+- Optional product `gallery` entries contain an `image` path and a bilingual `label`; Decap exposes them as a list beneath the cover image.
 - `src/data/seasonal.json` — seasonal image, copy and filter target.
 - `src/data/journal.json` — articles and paragraphs.
 - `src/data/italian.json` — Italian translations of the seeded English text. New Italian text can be entered directly in the CMS; unknown text is shown unchanged. Add translations here when publishing new bilingual content.
