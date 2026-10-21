@@ -897,14 +897,12 @@ function Contact({
   const [draft, setDraft] = useState<{ subject: string; body: string } | null>(
     null,
   );
-  const [copied, setCopied] = useState(false);
-  const [fields, setFields] = useState({ name: "", email: "", occasion: "Just because", message: "" });
+  const [fields, setFields] = useState({ name: "", email: "", message: "" });
   const estimate = calculateEstimate(selection, packagingId);
   useEffect(() => {
     setDraft(null);
-    setCopied(false);
   }, [selection, packagingId]);
-  function updateField(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
+  function updateField(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = event.target;
     setFields(previous => ({ ...previous, [name]: value }));
   }
@@ -915,8 +913,8 @@ function Contact({
       ? `\n\n${t("My selection:")}\n${estimate.selected.map((p) => `${selection[p.id]} × ${t(p.name)} — ${money(p.price * selection[p.id])}`).join("\n")}\n${t("Packaging")}: ${t(estimate.packaging.name)}\n${t("Estimated total")}: ${money(estimate.total)}`
       : "";
     setDraft({
-      subject: `${t(String(data.get("occasion")))} — ${t("enquiry from")} ${data.get("name")}`,
-      body: `Ciao Giansy!\n\n${t("Occasion")}: ${t(String(data.get("occasion")))}\n${t("Notes and personalisation")}: ${String(data.get("message") || "").trim() || t("No particular preferences.")}${assortment}\n\n${data.get("name")}\n${data.get("email")}`,
+      subject: `${t("Order request from")} ${data.get("name")}`,
+      body: `Ciao Giansy!\n\n${t("Notes and personalisation")}: ${String(data.get("message") || "").trim() || t("No particular preferences.")}${assortment}\n\n${data.get("name")}\n${data.get("email")}`,
     });
     setCopied(false);
   }
@@ -954,37 +952,12 @@ function Contact({
         <div className="contact-form-wrap">
           {draft ? (
             <div className="contact-draft" role="status">
-              <div className="draft-check">
-                <Check size={24} />
-              </div>
-              <h3>{t("Your request is ready to review.")}</h3>
-              <p>
-                {t(
-                  "Your request has not been sent yet. Review the details below, then copy it to share with Giansy.",
-                )}{" "}
-              </p>
-              <pre>{draft.body}</pre>
-              <div className="draft-actions">
-                <button
-                  className="button button-primary"
-                  onClick={async () => {
-                    try {
-                      await navigator.clipboard.writeText(
-                        `${t("Subject:")} ${draft.subject}\n\n${draft.body}`,
-                      );
-                      setCopied(true);
-                    } catch {
-                      setCopied(false);
-                    }
-                  }}
-                >
-                  {copied ? t("Message copied") : t("Copy my request")}{" "}
-                  {copied ? <Check size={15} /> : <Mail size={15} />}
-                </button>
-                <button className="text-link" onClick={() => setDraft(null)}>
-                  {t("Edit request")}{" "}
-                </button>
-              </div>
+              <div className="draft-check"><Check size={28} /></div>
+              <h3>{t("Your request is complete.")}</h3>
+              <p>{t("Your details and personalisation notes are ready, together with your chosen assortment.")}</p>
+              {estimate.count > 0 && <p className="request-complete-summary"><strong>{estimate.count} {t("cookies")}</strong><span>{t(estimate.packaging.name)}</span><strong>{money(estimate.total)}</strong></p>}
+              <p className="request-preview-notice">{t("This form is a preview: your request has not been sent. Sending will be enabled when the final contact details are added.")}</p>
+              <button type="button" className="text-link" onClick={() => setDraft(null)}>{t("Edit details")}</button>
             </div>
           ) : (
             <form className="contact-form" onSubmit={submit}>
@@ -1030,26 +1003,6 @@ function Contact({
                   />
                 </label>
               </div>
-              <label>
-                {t("What’s the occasion?")}{" "}
-                <div className="select-wrap">
-                  <select name="occasion" value={fields.occasion} onChange={updateField}>
-                    <option value="Just because">{t("Just because")} </option>
-                    <option value="A birthday">{t("A birthday")} </option>
-                    <option value="A wedding">{t("A wedding")} </option>
-                    <option value="A party or celebration">
-                      {t("A party or celebration")}{" "}
-                    </option>
-                    <option value="A seasonal gift">
-                      {t("A seasonal gift")}{" "}
-                    </option>
-                    <option value="A little question">
-                      {t("A little question")}{" "}
-                    </option>
-                  </select>
-                  <ChevronDown size={14} />
-                </div>
-              </label>
               <label className="personalisation-field">
                 <span className="personalisation-title">{t("Notes and personalisation")}</span>
                 <span className="personalisation-hint" id="personalisation-hint">{t("A favourite colour, a theme, a dedication or a decoration you love: tell me here.")}</span>
@@ -1066,10 +1019,10 @@ function Contact({
                 />
               </label>
               <button type="submit" className="button button-primary">
-                {t("Review my request")} <ArrowRight size={15} />
+                {t("Send my request")} <ArrowRight size={15} />
               </button>
               <span className="form-note">
-                {t("You can review everything before sharing your request. No payment is required.")}
+                {t("Your selection and notes are included. No payment is required.")}
               </span>
             </form>
           )}

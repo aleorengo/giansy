@@ -30,6 +30,10 @@
 .contact-form .personalisation-field textarea { min-height: 150px; margin-top: 5px; }
 .contact-form .form-note { font-size: 11px; line-height: 1.6; margin-top: -10px; }
 .contact-form-wrap .contact-draft { padding: 0; border: 0; }
+.request-complete-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 16px 0; border-block: 1px solid var(--line); }
+.request-complete-summary strong { font-family: var(--serif); font-size: 24px; font-weight: 500; }
+.request-complete-summary strong:last-child { margin-left: auto; }
+.contact-draft .request-preview-notice { padding: 14px; border: 1px solid var(--line); line-height: 1.7; margin-block: 18px; }
 @media (max-width: 850px) {
   .contact-section .contact-layout { gap: 36px; }
   .contact-form-wrap { padding: 22px; }

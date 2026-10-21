@@ -27,7 +27,7 @@ GitHub Pages hosts the static prototype. Hosted CMS authentication and contact d
 - Burgundy backgrounds throughout, ivory lettering and logo, scalloped antique product labels, overlapping cookie cutouts and soft shadows.
 - A silver plate with one representative image per selected product type, arranged around a filled centre independently of quantities. The full silver plate straddles burgundy and woven tartan; the empty state has no opaque centre overlay.
 - Editable seasonal feature, baker story, journal categories and individual articles.
-- A clear order-request form with an attached assortment preview, packaging and estimate; a prominent notes panel for colours, decorations and dedications; and an editable review before copying. Name, email, occasion and notes survive the review/edit step. Changing the assortment refreshes the review. No message or payment is sent.
+- A clear order-request form with an attached assortment preview, packaging and estimate; a prominent notes panel for colours, decorations and dedications; and a final “Invia richiesta” action. Submission currently shows an explicitly labelled preview confirmation; no message or payment is sent while contact details remain provisional. Name, email and notes survive editing; changing the assortment clears the confirmation.
 - Responsive navigation, keyboard controls, modal focus handling, reduced-motion support, and saved language preference.
 
 ## Content management
