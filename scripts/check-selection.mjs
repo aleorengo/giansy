@@ -1,10 +1,26 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { emptyBuilder, restoreBuilder, selectedCount, updateBuilder } from "../src/selection.ts";
 
 const catalog = JSON.parse(readFileSync(new URL("../src/data/catalog.json", import.meta.url)));
 const packaging = catalog.packagingOptions;
 const ids = catalog.products.map(p => p.id);
+assert.equal(new Set(ids).size, ids.length, "Product IDs must remain unique");
+for (const product of catalog.products) {
+  assert.ok(existsSync(new URL(`../public${product.image}`, import.meta.url)), `Missing image: ${product.id}`);
+  assert.ok(Number.isFinite(product.price) && product.price > 0, `Invalid price: ${product.id}`);
+}
+const christmasPrices = {
+  "gingerbread-heart": 1.5, "christmas-gift": 1.5, "christmas-santa": 1.5, "christmas-star": 1.5,
+  gingerbread: 2, snowflake: 2, "christmas-tree": 2, "christmas-reindeer": 2, "christmas-candle": 2, "christmas-mushroom": 2,
+  "christmas-house": 2.5, "christmas-tree-decorated": 2.5, "christmas-wreath": 2.5,
+  "christmas-snowflake-large": 5, "candied-orange": 1, "almond-coffee": 1.2,
+};
+assert.deepEqual(Object.fromEntries(catalog.products.filter(p => p.categories.includes("Christmas")).map(p => [p.id, p.price])), christmasPrices);
+assert.equal(catalog.products.find(p => p.id === "christmas-star").image, "/images/christmas/snowflake.webp");
+assert.equal(catalog.products.find(p => p.id === "snowflake").image, "/images/christmas/snowflake-small.webp");
+assert.deepEqual(catalog.products.filter(p => p.categories.includes("Special Occasions")).map(p => p.id), ["occasion-daisy", "occasion-tulip"]);
+assert.equal(catalog.products.filter(p => p.categories.includes("Halloween")).length, 8);
 const apply = (state, action) => updateBuilder(state, action, packaging, ids);
 
 assert.equal(selectedCount(apply(emptyBuilder, { type: "change", id: ids[0], delta: 1 }).selection), 0);

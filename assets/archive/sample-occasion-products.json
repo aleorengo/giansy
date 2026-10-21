@@ -1,0 +1,59 @@
+[
+  {
+    "id": "vanilla",
+    "name": "Vanilla Butter Biscuits",
+    "description": "Golden, buttery little moments of joy.",
+    "price": 1.5,
+    "image": "/images/vanilla.webp",
+    "categories": [
+      "Special Occasions"
+    ],
+    "label": "A LITTLE CLASSIC",
+    "allergens": "Wheat, milk, eggs"
+  },
+  {
+    "id": "chocolate",
+    "name": "Dark Chocolate Cookies",
+    "description": "Rich chocolate. A beautifully soft heart.",
+    "price": 2,
+    "image": "/images/chocolate.webp",
+    "categories": [
+      "Special Occasions"
+    ],
+    "allergens": "Wheat, milk, eggs, soy"
+  },
+  {
+    "id": "linzer",
+    "name": "Jam-Kissed Linzer Biscuits",
+    "description": "Delicate shortbread, a sweet berry centre.",
+    "price": 1.8,
+    "image": "/images/linzer.webp",
+    "categories": [
+      "Special Occasions"
+    ],
+    "label": "MADE TO BE LOVED",
+    "allergens": "Wheat, milk, eggs, almonds"
+  },
+  {
+    "id": "lemon",
+    "name": "Sunday Lemon Cake",
+    "description": "Zesty lemon sponge with a delicate glaze.",
+    "price": 4.5,
+    "image": "/images/lemon.webp",
+    "categories": [
+      "Special Occasions"
+    ],
+    "allergens": "Wheat, milk, eggs"
+  },
+  {
+    "id": "bunny",
+    "name": "Easter Bunny Biscuits",
+    "description": "Sweet springtime wishes in every bite.",
+    "price": 2.5,
+    "image": "/images/bunny.webp",
+    "categories": [
+      "Special Occasions"
+    ],
+    "allergens": "Wheat, milk, eggs"
+  }
+]

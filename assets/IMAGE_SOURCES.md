@@ -8,6 +8,8 @@ The Giansy portrait is the user's photograph (`public/images/giansy-portrait.web
 
 ## Current approved packaging illustrations
 
+The latest lighter bag/box versions and maker-cookie cutouts supersede the earlier studies below. See [COOKIE_CUTOUTS.md](COOKIE_CUTOUTS.md) for current saved asset paths, source mappings and final built-in image_gen prompts.
+
 Saved project assets: `public/images/packaging-bag.png` (restored original smaller bag), `public/images/packaging-box-etched.png` (compact tall windowed carton with light edge shading), and `public/images/packaging-plate-delicate.png` (fine plate contours, minimal shading). All use transparent alpha and 600 × 400 display canvases. Created with the built-in image_gen tool; bag prompt is retained in the earlier studies section below. Bag and box remain unchanged after approval; only the plate received the final lighter-line revision.
 
 Final box prompt:

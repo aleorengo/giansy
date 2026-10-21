@@ -339,7 +339,7 @@ function ProductCard({
           <p>{t(product.description)}</p>
           <div className="product-bottom">
             <span>
-              {t("From")} <strong>{money(product.price)}</strong>
+              {!product.fixedPrice && `${t("From")} `}<strong>{money(product.price)}</strong>
             </span>
             <Quantity
               product={product}
@@ -418,6 +418,7 @@ function Gallery({
             "Each creation is handmade. A little variation is part of its charm.",
           )}{" "}
         </div>
+        {visible.some(p => p.provisionalPrice) && <p className="provisional-price-note">{t("Provisional prices for Halloween and flower biscuits; to be confirmed with Giansy.")}</p>}
       </div>
       <div className="collection-tartan" aria-hidden="true" />
     </section>
@@ -615,7 +616,7 @@ function Assortment({
             </div>
             <p className="pricing-note">
               {t(
-                "A little guide, not a final quote. Sample prices; your final assortment and details will be confirmed together.",
+                "An indicative total. Availability, your assortment and any special requests will be confirmed together.",
               )}{" "}
             </p>
             <a href="#contact" className="button button-primary order-cta">
@@ -1258,7 +1259,7 @@ export default function App() {
           />
           <p>{t(detail.description)}</p>
           <p className="detail-price">
-            {t("From")} {money(detail.price)} {t("per item")}{" "}
+            {!detail.fixedPrice && `${t("From")} `}{money(detail.price)} {t("per item")}{" "}
           </p>
           <p>
             <strong>{t("Allergen guide:")} </strong> {t(detail.allergens)}.

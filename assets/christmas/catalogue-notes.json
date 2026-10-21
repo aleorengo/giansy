@@ -1,0 +1,101 @@
+{
+  "priceSource": "User-supplied Christmas price list",
+  "products": [
+    {
+      "id": "gingerbread-heart",
+      "name": "Cuore",
+      "price": 1.5,
+      "asset": "public/images/christmas/heart.webp"
+    },
+    {
+      "id": "christmas-gift",
+      "name": "Regalo",
+      "price": 1.5,
+      "asset": "public/images/christmas/gift.webp"
+    },
+    {
+      "id": "christmas-santa",
+      "name": "Babbo Natale",
+      "price": 1.5,
+      "asset": "public/images/christmas/santa.webp"
+    },
+    {
+      "id": "christmas-star",
+      "name": "Stella",
+      "price": 1.5,
+      "asset": "public/images/christmas/snowflake.webp"
+    },
+    {
+      "id": "gingerbread",
+      "name": "Omino",
+      "price": 2,
+      "asset": "public/images/christmas/person.webp"
+    },
+    {
+      "id": "snowflake",
+      "name": "Fiocco di neve",
+      "price": 2,
+      "asset": "public/images/christmas/snowflake-small.webp"
+    },
+    {
+      "id": "christmas-tree",
+      "name": "Albero · Tipo 1",
+      "price": 2,
+      "asset": "public/images/christmas/tree-simple.webp"
+    },
+    {
+      "id": "christmas-reindeer",
+      "name": "Renna",
+      "price": 2,
+      "asset": "public/images/christmas/reindeer.webp"
+    },
+    {
+      "id": "christmas-candle",
+      "name": "Candela",
+      "price": 2,
+      "asset": "public/images/christmas/candle.webp"
+    },
+    {
+      "id": "christmas-mushroom",
+      "name": "Fungo",
+      "price": 2,
+      "asset": "public/images/christmas/mushroom.webp"
+    },
+    {
+      "id": "christmas-house",
+      "name": "Casetta",
+      "price": 2.5,
+      "asset": "public/images/christmas/house.webp"
+    },
+    {
+      "id": "christmas-tree-decorated",
+      "name": "Albero · Tipo 2",
+      "price": 2.5,
+      "asset": "public/images/christmas/tree-decorated.webp"
+    },
+    {
+      "id": "christmas-wreath",
+      "name": "Ghirlanda",
+      "price": 2.5,
+      "asset": "public/images/christmas/wreath.webp"
+    },
+    {
+      "id": "christmas-snowflake-large",
+      "name": "Fiocco di neve grande",
+      "price": 5,
+      "asset": "public/images/christmas/snowflake-large.webp"
+    },
+    {
+      "id": "candied-orange",
+      "name": "Arancia e cioccolato",
+      "price": 1,
+      "asset": "public/images/christmas/orange.webp"
+    },
+    {
+      "id": "almond-coffee",
+      "name": "Mandorla e caffè",
+      "price": 1.2,
+      "asset": "public/images/christmas/almond-coffee.webp"
+    }
+  ]
+}

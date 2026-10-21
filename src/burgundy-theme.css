@@ -79,24 +79,27 @@ select {
   inset: 22% 20%;
   padding: 12px;
   gap: 5px;
-  background: var(--wine);
-  border: 1px solid var(--ivory);
-  outline: 1px solid #f3e6cc50;
-  outline-offset: 3px;
-  border-radius: 50%;
-  box-shadow: 0 3px 12px #1a000050;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--wine);
 }
 
 .live-plate .plate-empty > span {
+  color: var(--wine);
   font-size: clamp(18px, 2.1vw, 25px);
   line-height: 1.1;
 }
 
 .live-plate .plate-empty > svg {
+  color: var(--wine);
   width: 20px;
   height: 20px;
 }
 
 .live-plate .plate-empty a {
-  border-color: var(--ivory);
+  color: var(--wine);
+  border-color: var(--wine);
 }

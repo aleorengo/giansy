@@ -1,89 +1,326 @@
 {
   "products": [
     {
-      "id": "snowflake",
-      "name": "Winter Snowflake Biscuits",
-      "description": "Ginger-spiced, with a little winter sparkle.",
-      "price": 2.5,
-      "image": "/images/snowflake-reference.webp",
+      "id": "christmas-snowflake-large",
+      "name": "Large Christmas Snowflake",
+      "description": "Large · White icing in assorted shapes.",
+      "price": 5,
+      "fixedPrice": true,
+      "image": "/images/christmas/snowflake-large.webp",
       "categories": [
         "Christmas"
       ],
-      "label": "SEASONAL FAVOURITE",
-      "allergens": "Wheat, milk, eggs"
-    },
-    {
-      "id": "gingerbread",
-      "name": "Gingerbread Friends",
-      "description": "A cosy little character, dressed by hand.",
-      "price": 3,
-      "image": "/images/gingerbread-friend.webp",
-      "categories": [
-        "Christmas",
-        "Special Occasions"
-      ],
-      "label": "A LITTLE CHRISTMAS MAGIC",
-      "allergens": "Wheat, milk, eggs"
+      "allergens": "Ingredients and allergens to confirm with Giansy."
     },
     {
       "id": "christmas-tree",
-      "name": "Little Christmas Trees",
-      "description": "Iced with care. Made for festive moments.",
-      "price": 2.8,
-      "image": "/images/christmas-tree.webp",
+      "name": "Christmas Tree · Type 1",
+      "description": "Medium · Simple hand-piped icing.",
+      "price": 2,
+      "fixedPrice": true,
+      "image": "/images/christmas/tree-simple.webp",
       "categories": [
         "Christmas"
       ],
-      "allergens": "Wheat, milk, eggs"
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "gingerbread",
+      "name": "Gingerbread Man",
+      "description": "Medium · A smile and little green buttons.",
+      "price": 2,
+      "fixedPrice": true,
+      "image": "/images/christmas/person.webp",
+      "categories": [
+        "Christmas"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "christmas-gift",
+      "name": "Little Christmas Gift",
+      "description": "Small · A sweet little present.",
+      "price": 1.5,
+      "fixedPrice": true,
+      "image": "/images/christmas/gift.webp",
+      "categories": [
+        "Christmas"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "christmas-santa",
+      "name": "Santa Claus",
+      "description": "Small · A red hat and an icing beard.",
+      "price": 1.5,
+      "fixedPrice": true,
+      "image": "/images/christmas/santa.webp",
+      "categories": [
+        "Christmas"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "christmas-star",
+      "name": "Christmas Star",
+      "description": "Small · A little festive star.",
+      "price": 1.5,
+      "fixedPrice": true,
+      "image": "/images/christmas/snowflake.webp",
+      "categories": [
+        "Christmas"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
     },
     {
       "id": "gingerbread-heart",
-      "name": "Gingerbread Hearts",
-      "description": "Something sweet for someone special.",
-      "price": 2.5,
-      "image": "/images/gingerbread-heart.webp",
-      "categories": [
-        "Christmas",
-        "Special Occasions"
-      ],
-      "label": "GIVE A LITTLE LOVE",
-      "allergens": "Wheat, milk, eggs"
-    },
-    {
-      "id": "vanilla",
-      "name": "Vanilla Butter Biscuits",
-      "description": "Golden, buttery little moments of joy.",
+      "name": "Christmas Heart",
+      "description": "Small · Hand-piped icing scrolls.",
       "price": 1.5,
-      "image": "/images/vanilla.webp",
+      "fixedPrice": true,
+      "image": "/images/christmas/heart.webp",
       "categories": [
-        "Special Occasions"
+        "Christmas"
       ],
-      "label": "A LITTLE CLASSIC",
-      "allergens": "Wheat, milk, eggs"
+      "allergens": "Ingredients and allergens to confirm with Giansy."
     },
     {
-      "id": "chocolate",
-      "name": "Dark Chocolate Cookies",
-      "description": "Rich chocolate. A beautifully soft heart.",
+      "id": "snowflake",
+      "name": "Christmas Snowflake",
+      "description": "Medium · Icing details, piped one by one.",
       "price": 2,
-      "image": "/images/chocolate.webp",
+      "fixedPrice": true,
+      "image": "/images/christmas/snowflake-small.webp",
       "categories": [
-        "Special Occasions"
+        "Christmas"
       ],
-      "allergens": "Wheat, milk, eggs, soy"
+      "allergens": "Ingredients and allergens to confirm with Giansy."
     },
     {
-      "id": "linzer",
-      "name": "Jam-Kissed Linzer Biscuits",
-      "description": "Delicate shortbread, a sweet berry centre.",
-      "price": 1.8,
-      "image": "/images/linzer.webp",
+      "id": "christmas-reindeer",
+      "name": "Christmas Reindeer",
+      "description": "Medium · White antlers and a red nose.",
+      "price": 2,
+      "fixedPrice": true,
+      "image": "/images/christmas/reindeer.webp",
       "categories": [
-        "Christmas",
+        "Christmas"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "christmas-candle",
+      "name": "Christmas Candle",
+      "description": "Medium · A little Christmas glow.",
+      "price": 2,
+      "fixedPrice": true,
+      "image": "/images/christmas/candle.webp",
+      "categories": [
+        "Christmas"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "christmas-mushroom",
+      "name": "Christmas Mushroom",
+      "description": "Medium · A red cap with white dots.",
+      "price": 2,
+      "fixedPrice": true,
+      "image": "/images/christmas/mushroom.webp",
+      "categories": [
+        "Christmas"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "christmas-house",
+      "name": "Gingerbread House",
+      "description": "Richly decorated · A snowy roof and festive details.",
+      "price": 2.5,
+      "fixedPrice": true,
+      "image": "/images/christmas/house.webp",
+      "categories": [
+        "Christmas"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "christmas-tree-decorated",
+      "name": "Christmas Tree · Type 2",
+      "description": "Richly decorated · Garlands, baubles and silver pearls.",
+      "price": 2.5,
+      "fixedPrice": true,
+      "image": "/images/christmas/tree-decorated.webp",
+      "categories": [
+        "Christmas"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "christmas-wreath",
+      "name": "Christmas Wreath",
+      "description": "Richly decorated · Green leaves and a red bow.",
+      "price": 2.5,
+      "fixedPrice": true,
+      "image": "/images/christmas/wreath.webp",
+      "categories": [
+        "Christmas"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "candied-orange",
+      "name": "Chocolate-Dipped Candied Orange",
+      "description": "Candied orange, chocolate and a crunchy finish.",
+      "price": 1,
+      "fixedPrice": true,
+      "image": "/images/christmas/orange.webp",
+      "categories": [
+        "Christmas"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "almond-coffee",
+      "name": "Almond & Coffee Biscuit",
+      "description": "Almond biscuit with coffee icing.",
+      "price": 1.2,
+      "fixedPrice": true,
+      "image": "/images/christmas/almond-coffee.webp",
+      "categories": [
+        "Christmas"
+      ],
+      "allergens": "Contains almonds; other ingredients and allergens to confirm."
+    },
+    {
+      "id": "halloween-skull",
+      "name": "Grinning Skull",
+      "description": "A spooky grin in black and white.",
+      "price": 2.5,
+      "fixedPrice": true,
+      "provisionalPrice": true,
+      "image": "/images/halloween/skull.webp",
+      "categories": [
+        "Halloween"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "halloween-cat",
+      "name": "Black Cat",
+      "description": "Black icing with a little purple bow.",
+      "price": 2,
+      "fixedPrice": true,
+      "provisionalPrice": true,
+      "image": "/images/halloween/cat.webp",
+      "categories": [
+        "Halloween"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "halloween-candy",
+      "name": "Halloween Sweet",
+      "description": "A purple centre and a cheeky smile.",
+      "price": 2,
+      "fixedPrice": true,
+      "provisionalPrice": true,
+      "image": "/images/halloween/candy.webp",
+      "categories": [
+        "Halloween"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "pumpkin",
+      "name": "Halloween Pumpkin",
+      "description": "Orange icing, green curls and a grin.",
+      "price": 2,
+      "fixedPrice": true,
+      "provisionalPrice": true,
+      "image": "/images/halloween/pumpkin.webp",
+      "categories": [
+        "Halloween"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "halloween-mummy",
+      "name": "Little Mummy",
+      "description": "White icing bandages and purple details.",
+      "price": 2.5,
+      "fixedPrice": true,
+      "provisionalPrice": true,
+      "image": "/images/halloween/mummy.webp",
+      "categories": [
+        "Halloween"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "halloween-skeleton",
+      "name": "Little Skeleton",
+      "description": "A little skeleton, piped by hand.",
+      "price": 2,
+      "fixedPrice": true,
+      "provisionalPrice": true,
+      "image": "/images/halloween/skeleton.webp",
+      "categories": [
+        "Halloween"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "halloween-scream",
+      "name": "Spooky Scream",
+      "description": "A little fright, ready for a bite.",
+      "price": 2.5,
+      "fixedPrice": true,
+      "provisionalPrice": true,
+      "image": "/images/halloween/scream.webp",
+      "categories": [
+        "Halloween"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "halloween-ghost",
+      "name": "Little Ghost",
+      "description": "A white little ghost for a sweet trick.",
+      "price": 2,
+      "fixedPrice": true,
+      "provisionalPrice": true,
+      "image": "/images/halloween/ghost.webp",
+      "categories": [
+        "Halloween"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "occasion-daisy",
+      "name": "Iced Daisy",
+      "description": "Pink and white petals with a yellow centre.",
+      "price": 2,
+      "fixedPrice": true,
+      "provisionalPrice": true,
+      "image": "/images/occasions/daisy.webp",
+      "categories": [
         "Special Occasions"
       ],
-      "label": "MADE TO BE LOVED",
-      "allergens": "Wheat, milk, eggs, almonds"
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "occasion-tulip",
+      "name": "Pink Tulip",
+      "description": "A little pink flower, decorated by hand.",
+      "price": 2.5,
+      "fixedPrice": true,
+      "provisionalPrice": true,
+      "image": "/images/occasions/tulip.webp",
+      "categories": [
+        "Special Occasions"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
     },
     {
       "id": "preserve",
@@ -92,43 +329,9 @@
       "price": 6,
       "image": "/images/preserve.webp",
       "categories": [
-        "Jams & Preserves",
-        "Special Occasions"
+        "Jams & Preserves"
       ],
       "allergens": "No listed allergens; made in a shared kitchen"
-    },
-    {
-      "id": "pumpkin",
-      "name": "Little Pumpkin Biscuits",
-      "description": "A little autumn magic, iced by hand.",
-      "price": 2.5,
-      "image": "/images/pumpkin.webp",
-      "categories": [
-        "Halloween"
-      ],
-      "allergens": "Wheat, milk, eggs"
-    },
-    {
-      "id": "lemon",
-      "name": "Sunday Lemon Cake",
-      "description": "Zesty lemon sponge with a delicate glaze.",
-      "price": 4.5,
-      "image": "/images/lemon.webp",
-      "categories": [
-        "Special Occasions"
-      ],
-      "allergens": "Wheat, milk, eggs"
-    },
-    {
-      "id": "bunny",
-      "name": "Easter Bunny Biscuits",
-      "description": "Sweet springtime wishes in every bite.",
-      "price": 2.5,
-      "image": "/images/bunny.webp",
-      "categories": [
-        "Special Occasions"
-      ],
-      "allergens": "Wheat, milk, eggs"
     }
   ],
   "packagingOptions": [
@@ -139,7 +342,7 @@
       "description": "Simple, sweet and ready to share.",
       "price": 0,
       "capacity": 25,
-      "image": "/images/packaging-bag.png",
+      "image": "/images/packaging-bag-light.png",
       "minimum": 1
     },
     {
@@ -169,7 +372,7 @@
       "description": "A lovely little box of happiness.",
       "price": 0.5,
       "capacity": 20,
-      "image": "/images/packaging-box-etched.png",
+      "image": "/images/packaging-box-light.png",
       "minimum": 5
     }
   ]

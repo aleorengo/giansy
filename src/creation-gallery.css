@@ -281,6 +281,14 @@
   margin-top: 35px;
 }
 
+.creations .provisional-price-note {
+  text-align: center;
+  font-size: 10px;
+  margin: 8px auto 0;
+  max-width: 440px;
+  line-height: 1.5;
+}
+
 .creations .view-all {
   margin-top: 28px;
   font-size: 11px;

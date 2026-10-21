@@ -77,7 +77,7 @@ collections:
               - { name: description, label: Description, widget: text }
               - {
                   name: price,
-                  label: Starting price in euros,
+                  label: Price in euros,
                   widget: number,
                   value_type: float,
                   min: 0,
@@ -106,6 +106,8 @@ collections:
                   widget: string,
                   required: false,
                 }
+              - { name: fixedPrice, label: Exact unit price (hide From), widget: boolean, required: false, default: false }
+              - { name: provisionalPrice, label: Provisional price, widget: boolean, required: false, default: false }
               - { name: allergens, label: Allergen information, widget: string }
           - name: packagingOptions
             label: Packaging options

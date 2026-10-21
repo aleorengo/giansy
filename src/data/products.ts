@@ -11,6 +11,8 @@ export type Product = {
   name: string;
   description: string;
   price: number;
+  fixedPrice?: boolean;
+  provisionalPrice?: boolean;
   image: string;
   categories: string[];
   label?: string;
