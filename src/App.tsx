@@ -916,7 +916,6 @@ function Contact({
       subject: `${t("Order request from")} ${data.get("name")}`,
       body: `Ciao Giansy!\n\n${t("Notes and personalisation")}: ${String(data.get("message") || "").trim() || t("No particular preferences.")}${assortment}\n\n${data.get("name")}\n${data.get("email")}`,
     });
-    setCopied(false);
   }
   return (
     <section className="contact-section" id="contact">
@@ -1276,7 +1275,7 @@ export default function App() {
               </p>
               <p>
                 {t(
-                  "Contact form details stay in your browser and are only copied when you choose to do so. This site does not process payments, send messages or use analytics.",
+                  "Contact form details stay in your browser. This preview does not send requests, process payments or use analytics.",
                 )}{" "}
               </p>
               <p>

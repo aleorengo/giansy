@@ -344,5 +344,6 @@
   "This form is a preview: your request has not been sent. Sending will be enabled when the final contact details are added.": "Il modulo è in anteprima: la richiesta non è stata inviata. L’invio sarà attivato quando aggiungeremo il recapito definitivo.",
   "Edit details": "Modifica i dettagli",
   "Send my request": "Invia richiesta",
-  "Your selection and notes are included. No payment is required.": "La tua selezione e le note sono incluse. Non è richiesto alcun pagamento."
+  "Your selection and notes are included. No payment is required.": "La tua selezione e le note sono incluse. Non è richiesto alcun pagamento.",
+  "Contact form details stay in your browser. This preview does not send requests, process payments or use analytics.": "I dati del modulo restano nel tuo browser. Questa anteprima non invia richieste, non elabora pagamenti e non usa strumenti di analisi."
 }
