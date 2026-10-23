@@ -21,9 +21,11 @@ GitHub Pages hosts the static prototype. Hosted CMS authentication and contact d
 
 ## Working features
 
+- “Biscotti senza tempo” groups oranges, almond/coffee biscuits, hazelnut/apricot/chocolate biscuits, Vin Santo/raisin/pine nut biscuits, pumpkin biscuits and marzipan dates. Each flavour is ordered in steps of 15. Bulk quantities are independent of decorated-cookie packaging and persist beyond 25 pieces; bulk packaging is agreed separately. Prices, image prompts and sources are in `assets/TIMELESS_BISCUITS.md`. Mixed requests still respect decorated packaging minimums/capacities.
+
 - Cookie detail galleries show transparent decoration variants as overlapping cookies, with the next image peeking from the right. Customers can swipe, click the rear cookie, use arrows, dots or keyboard controls; the original collection cover remains unchanged. Decoration preferences belong in the order notes. PNG masters, source mappings, prompts and reconstruction limitations are in `assets/COOKIE_VARIANTS.md`.
-- Real maker-cookie photo cutouts: 16 Christmas products with supplied prices, 8 Halloween designs and 2 flowers with provisional prices. The placeholder preserve stays only in Confetture. Previous sample occasion products are archived in `assets/archive/sample-occasion-products.json`.
-- A packaging step before the cookies: free paper bag (1–25), free cardboard or €3 decorated plate (6–15), and €0.50 cardboard box (5–20). Packaging changes apply immediately. There is no upfront quantity input: customers choose freely in the gallery, whose live counter shows selected pieces / package capacity. Small hand-drawn ivory illustrations with light shading sit above each option.
+- Real maker-cookie photo cutouts: 14 Christmas products with supplied prices, 6 timeless treats, 8 Halloween designs and 2 flowers with provisional prices. The placeholder preserve stays only in Confetture. Previous sample occasion products are archived in `assets/archive/sample-occasion-products.json`.
+- A packaging step before the cookies: free paper bag (up to 25 small/medium spaces), free cardboard tray (6–35), €3 small brass tray (6–20), and €0.50 cardboard box (minimum 5, up to 15 small/medium or 10 large). Large cookies take 3 spaces in bags/trays and 1.5 in boxes; package minimums count actual pieces. Packaging changes apply immediately. There is no upfront quantity input: customers choose freely in the gallery, whose live counter shows occupied spaces / package capacity and the actual piece count. Small hand-drawn ivory illustrations with light shading sit above each option.
 - One capacity limit across the gallery, product dialog and order summary, immediate estimates, reset, and saved selections. Package minimums apply only to the final request; customers can build below them while browsing. Smaller packages cannot discard an existing selection; the customer removes extras first. Legacy saved quantity targets are ignored.
 - Burgundy backgrounds throughout, ivory lettering and logo, scalloped antique product labels, overlapping cookie cutouts and soft shadows.
 - A silver plate with one representative image per selected product type, arranged around a filled centre independently of quantities. The full silver plate straddles burgundy and woven tartan; the empty state has no opaque centre overlay.
@@ -37,7 +39,7 @@ GitHub Pages hosts the static prototype. Hosted CMS authentication and contact d
 
 Decap CMS is configured at `/admin/` to manage journal articles, products, images, prices, packaging and the seasonal feature. Content lives in:
 
-- `src/data/catalog.json` — products and packaging; keep IDs stable. Image values are absolute public paths.
+- `src/data/catalog.json` — products and packaging; keep IDs stable. Image values are absolute public paths. `quantityStep: 15` enables batch ordering outside decorated-cookie packaging limits.
 - Optional product `gallery` entries contain an `image` path and a bilingual `label`; Decap exposes them as a list beneath the cover image.
 - `src/data/seasonal.json` — seasonal image, copy and filter target.
 - `src/data/journal.json` — articles and paragraphs.

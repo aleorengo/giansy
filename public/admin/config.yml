@@ -105,6 +105,7 @@ collections:
                     Christmas,
                     Halloween,
                     Special Occasions,
+                    Timeless Biscuits,
                     Jams & Preserves,
                   ]
               - {
@@ -113,6 +114,8 @@ collections:
                   widget: string,
                   required: false,
                 }
+              - { name: size, label: Cookie size for packaging, widget: select, options: [regular, large], required: false, default: regular }
+              - { name: quantityStep, label: Quantity step (15 for timeless biscuits), widget: number, value_type: int, min: 1, required: false, default: 1 }
               - { name: fixedPrice, label: Exact unit price (hide From), widget: boolean, required: false, default: false }
               - { name: provisionalPrice, label: Provisional price, widget: boolean, required: false, default: false }
               - { name: allergens, label: Allergen information, widget: string }
@@ -124,7 +127,8 @@ collections:
               - { name: name, label: Name, widget: string }
               - { name: description, label: Short description, widget: string }
               - { name: kind, label: Packaging kind, widget: select, options: [bag, plate, box] }
-              - { name: capacity, label: Maximum cookies, widget: number, value_type: int, min: 1, max: 25 }
+              - { name: capacity, label: Capacity in small-cookie spaces, widget: number, value_type: int, min: 1, max: 100 }
+              - { name: largeWeight, label: Spaces per large cookie, widget: number, value_type: float, min: 1, step: 0.5 }
               - { name: minimum, label: Minimum cookies, widget: number, value_type: int, min: 1, max: 25 }
               - { name: image, label: Packaging illustration, widget: image }
               - {

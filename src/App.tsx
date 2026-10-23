@@ -28,7 +28,7 @@ import ProductGallery from "./components/ProductGallery";
 import { getTrayLayout } from "./tray-layout";
 import PackagingBuilder, { SelectionProgress } from "./components/PackagingBuilder";
 import { SelectionContext, useSelectionLimit } from "./selection-context";
-import { emptyBuilder, isSelectionReady, restoreBuilder, updateBuilder } from "./selection";
+import { emptyBuilder, isSelectionReady, restoreBuilder, selectionSpace, updateBuilder } from "./selection";
 import type { BuilderState, BuilderAction } from "./selection";
 import {
   calculateEstimate,
@@ -36,6 +36,8 @@ import {
   money,
   packagingOptions,
   products,
+  quantitySteps,
+  largeProductIds,
 } from "./data/products";
 import type { Product, Selection } from "./data/products";
 import journal from "./data/journal.json";
@@ -250,14 +252,16 @@ function Quantity({
   onChange: (id: string, delta: number) => void;
   compact?: boolean;
 }) {
-  const { count, capacity } = useSelectionLimit();
-  const atLimit = count >= capacity;
+  const { usedSpace, capacity, largeWeight } = useSelectionLimit();
+  const step = product.quantityStep ?? 1;
+  const weight = product.size === "large" ? largeWeight : 1;
+  const atLimit = step === 1 && usedSpace + weight > capacity;
   return (
     <div className={`quantity ${compact ? "quantity-compact" : ""}`}>
       <button
         disabled={!quantity}
-        onClick={() => onChange(product.id, -1)}
-        aria-label={`${t("Remove one")} ${t(product.name)}`}
+        onClick={() => onChange(product.id, -step)}
+        aria-label={`${t(step > 1 ? "Remove 15 pieces of" : "Remove one")} ${t(product.name)}`}
       >
         <Minus size={13} />
       </button>
@@ -266,9 +270,9 @@ function Quantity({
       </span>
       <button
         disabled={atLimit}
-        title={atLimit ? t("This packaging is full.") : undefined}
-        onClick={() => onChange(product.id, 1)}
-        aria-label={`${t("Add one")} ${t(product.name)}`}
+        title={atLimit ? t("Not enough space for this cookie.") : undefined}
+        onClick={() => onChange(product.id, step)}
+        aria-label={`${t(step > 1 ? "Add 15 pieces of" : "Add one")} ${t(product.name)}`}
       >
         <Plus size={13} />
       </button>
@@ -306,7 +310,7 @@ function ProductCard({
   }, [quantity]);
   return (
     <article
-      className={`product-card ${quantity ? "product-selected" : ""}`}
+      className={`product-card ${(product.quantityStep ?? 1) > 1 ? "product-batch" : ""} ${quantity ? "product-selected" : ""}`}
       data-product-id={product.id}
       style={
         {
@@ -341,6 +345,7 @@ function ProductCard({
           <div className="product-bottom">
             <span>
               {!product.fixedPrice && `${t("From")} `}<strong>{money(product.price)}</strong>
+              {(product.quantityStep ?? 1) > 1 && <small className="batch-price">{money(product.price * (product.quantityStep ?? 1))} {t("per 15 pieces")}</small>}
             </span>
             <Quantity
               product={product}
@@ -401,7 +406,7 @@ function Gallery({
             </button>
           ))}
         </div>
-        <SelectionProgress />
+        {category === "Timeless Biscuits" ? <div className="timeless-intro" role="status"><strong>{t("15 at a time, for each flavour")}</strong><p>{t("Choose 15, 30, 45 pieces or more of each flavour. Packaging will be agreed with Giansy; these pieces are separate from your decorated-cookie packaging.")}</p><span>{visible.reduce((sum, p) => sum + (selection[p.id] || 0), 0)} {t("selected")}</span></div> : <SelectionProgress />}
         <div className="product-grid">
           {visible.map((p) => (
             <ProductCard
@@ -577,9 +582,9 @@ function Assortment({
                 ))
               )}
             </div>
-            <div className="packaging packaging-summary">
+            {(!estimate.count || estimate.packagedCount > 0) && <div className="packaging packaging-summary">
               <label htmlFor="summary-packaging">
-                <Gift size={15} /> {t("The finishing touch")}{" "}
+                <Gift size={15} /> {t(estimate.bulkCount ? "Packaging for decorated cookies" : "The finishing touch")}{" "}
               </label>
               <div className="select-wrap">
                 <select id="summary-packaging" value={packagingId}
@@ -591,9 +596,10 @@ function Assortment({
                 </select>
                 <ChevronDown size={14} />
               </div>
-              <small>{estimate.count} / {capacity} {t("cookies")}{estimate.count < minimum && ` · ${t("Minimum for this packaging:")} ${minimum}`}</small>
+              <small>{estimate.packagedCount} {t("selected cookies")} · {estimate.usedSpace.toLocaleString(document.documentElement.lang)} / {capacity} {t("spaces")}{estimate.packagedCount < minimum && ` · ${t("Minimum for this packaging:")} ${minimum}`}</small>
               {packagingError && <p id="summary-packaging-error" role="status" className="packaging-error">{packagingError}</p>}
-            </div>
+            </div>}
+            {estimate.bulkCount > 0 && <p className="timeless-order-note"><strong>{t("Timeless pieces:")} {estimate.bulkCount}</strong><span>{t("Packaging for timeless biscuits will be agreed separately.")}</span></p>}
             {estimate.selected.length > 0 && (
               <div className="subtotal-lines">
                 <span>
@@ -601,7 +607,7 @@ function Assortment({
                 </span>
                 <span>
                   {t("Packaging")}{" "}
-                  <span>{money(estimate.packaging.price)}</span>
+                  <span>{estimate.packagedCount ? money(estimate.packagingCost) : t("Packaging to agree")}</span>
                 </span>
               </div>
             )}
@@ -900,7 +906,7 @@ function Contact({
   );
   const [fields, setFields] = useState({ name: "", email: "", message: "" });
   const estimate = calculateEstimate(selection, packagingId);
-  const canSubmit = isSelectionReady({ selection, packagingId }, packagingOptions);
+  const canSubmit = isSelectionReady({ selection, packagingId }, packagingOptions, quantitySteps, largeProductIds);
   useEffect(() => {
     setDraft(null);
   }, [selection, packagingId]);
@@ -913,7 +919,7 @@ function Contact({
     if (!canSubmit) return;
     const data = new FormData(e.currentTarget);
     const assortment = estimate.selected.length
-      ? `\n\n${t("My selection:")}\n${estimate.selected.map((p) => `${selection[p.id]} × ${t(p.name)} — ${money(p.price * selection[p.id])}`).join("\n")}\n${t("Packaging")}: ${t(estimate.packaging.name)}\n${t("Estimated total")}: ${money(estimate.total)}`
+      ? `\n\n${t("My selection:")}\n${estimate.selected.map((p) => `${selection[p.id]} × ${t(p.name)} — ${money(p.price * selection[p.id])}`).join("\n")}\n${t("Packaging")}: ${t(estimate.packagingLabel)}${estimate.bulkCount ? `; ${t("Packaging for timeless biscuits will be agreed separately.")}` : ""}\n${t("Estimated total")}: ${money(estimate.total)}`
       : "";
     setDraft({
       subject: `${t("Order request from")} ${data.get("name")}`,
@@ -957,7 +963,7 @@ function Contact({
               <div className="draft-check"><Check size={28} /></div>
               <h3>{t("Your request is complete.")}</h3>
               <p>{t("Your details and personalisation notes are ready, together with your chosen assortment.")}</p>
-              {estimate.count > 0 && <p className="request-complete-summary"><strong>{estimate.count} {t("cookies")}</strong><span>{t(estimate.packaging.name)}</span><strong>{money(estimate.total)}</strong></p>}
+              {estimate.count > 0 && <p className="request-complete-summary"><strong>{estimate.count} {t("cookies")}</strong><span>{t(estimate.packagingLabel)}</span><strong>{money(estimate.total)}</strong></p>}
               <p className="request-preview-notice">{t("This form is a preview: your request has not been sent. Sending will be enabled when the final contact details are added.")}</p>
               <button type="button" className="text-link" onClick={() => setDraft(null)}>{t("Edit details")}</button>
             </div>
@@ -972,10 +978,10 @@ function Contact({
                   <div className="request-assortment-heading"><ShoppingBag size={17} /><strong>{t("Your chosen assortment")}</strong><a href="#your-assortment">{t("Review your selection")}</a></div>
                   <div className="request-assortment-content">
                     <div className="request-cookie-preview" aria-hidden="true">{estimate.selected.slice(0, 4).map(product => <img key={product.id} src={assetUrl(product.image)} alt="" />)}</div>
-                    <div><strong>{estimate.count} {t("cookies")}</strong><span>{t(estimate.packaging.name)}</span></div>
+                    <div><strong>{estimate.count} {t("cookies")}</strong><span>{t(estimate.packagingLabel)}</span></div>
                     <div className="request-estimate"><span>{t("Estimated total")}</span><strong>{money(estimate.total)}</strong></div>
                   </div>
-                  <p><Check size={13} />{t("All selected products and quantities will be included in your request.")}</p>
+                  <p><Check size={13} />{t("All selected products and quantities will be included in your request.")}</p>{estimate.bulkCount > 0 && <p>{t("Packaging for timeless biscuits will be agreed separately.")}</p>}
                 </div>
               )}
               <div className="form-row">
@@ -1020,7 +1026,7 @@ function Contact({
                   maxLength={5000}
                 />
               </label>
-              {!canSubmit && <p className="request-minimum" id="request-minimum"><span>{t("Minimum for this packaging:")} {estimate.packaging.minimum} {t("cookies")}. {t("Still to add:")} {Math.max(0, estimate.packaging.minimum - estimate.count)}.</span><a href="#cookies">{t("Choose your cookies")} <ArrowRight size={13} /></a></p>}
+              {!canSubmit && <p className="request-minimum" id="request-minimum"><span>{estimate.count ? <>{t("Minimum for this packaging:")} {estimate.packaging.minimum} {t("cookies")}. {t("Still to add:")} {Math.max(0, estimate.packaging.minimum - estimate.packagedCount)}.</> : t("Choose cookies from the collection to complete your request.")}</span><a href="#cookies">{t("Choose your cookies")} <ArrowRight size={13} /></a></p>}
               <button type="submit" className="button button-primary" disabled={!canSubmit} aria-describedby={!canSubmit ? "request-minimum" : undefined}>
                 {t("Send my request")} <ArrowRight size={15} />
               </button>
@@ -1134,11 +1140,11 @@ function NotFound() {
 }
 const productIds = products.map(p => p.id);
 function builderReducer(state: BuilderState, action: BuilderAction) {
-  return updateBuilder(state, action, packagingOptions, productIds);
+  return updateBuilder(state, action, packagingOptions, productIds, quantitySteps, largeProductIds);
 }
 function readSaved(): BuilderState {
   try {
-    return restoreBuilder(JSON.parse(localStorage.getItem("giansy-assortment") || "{}"), packagingOptions, productIds);
+    return restoreBuilder(JSON.parse(localStorage.getItem("giansy-assortment") || "{}"), packagingOptions, productIds, quantitySteps, largeProductIds);
   } catch {
     return { ...emptyBuilder };
   }
@@ -1174,14 +1180,14 @@ export default function App() {
   function changePackaging(id: string) {
     const option = packagingOptions.find(p => p.id === id);
     if (!option) return "";
-    if (estimate.count > option.capacity) {
-      return `${t("This packaging holds up to")} ${option.capacity} ${t("cookies")}. ${t("Remove first:")} ${estimate.count - option.capacity}.`;
+    if (selectionSpace(selection, option, quantitySteps, largeProductIds) > option.capacity) {
+      return t("This packaging does not have enough space for your selection. Remove some cookies first.");
     }
     dispatch({ type: "configure", packagingId: id });
     return "";
   }
   return (
-    <SelectionContext.Provider value={{ count: estimate.count, capacity: estimate.packaging.capacity, minimum: estimate.packaging.minimum }}>
+    <SelectionContext.Provider value={{ count: estimate.packagedCount, usedSpace: estimate.usedSpace, capacity: estimate.packaging.capacity, minimum: estimate.packaging.minimum, largeWeight: estimate.packaging.largeWeight }}>
       <ScrollManager />
       <a href="#main-content" className="skip-link">
         {t("Skip to content")}{" "}
@@ -1231,6 +1237,8 @@ export default function App() {
           <p className="detail-price">
             {!detail.fixedPrice && `${t("From")} `}{money(detail.price)} {t("per item")}{" "}
           </p>
+          {detail.size === "large" && <p className="detail-note">{t("Large cookie · takes 3 spaces in bags and trays, or 1.5 in the box.")}</p>}
+          {(detail.quantityStep ?? 1) > 1 && <p className="timeless-order-note"><strong>{money(detail.price * (detail.quantityStep ?? 1))} {t("per 15 pieces")}</strong><span>{t("Timeless biscuits are ordered in multiples of 15 per flavour, with packaging to agree.")}</span></p>}
           <p>
             <strong>{t("Allergen guide:")} </strong> {t(detail.allergens)}
           </p>

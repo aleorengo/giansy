@@ -1,6 +1,6 @@
 # Cookie gallery variants
 
-Built-in image generation/editing mode, 21 October 2026. AI-assisted extraction and lighting correction from the maker's supplied photos. This adds 13 transparent images to six existing product galleries; collection cover images, prices, ordering and quantities stay the same. Albero Tipo 1 now has six images including its cover.
+Built-in image generation/editing mode, 21 October 2026. AI-assisted extraction and lighting correction from the maker's supplied photos. This adds 13 transparent images to six existing product galleries; collection cover images, prices, ordering and quantities stay the same. The original extraction created six images for Albero Tipo 1. The current catalogue keeps the green cover, blue curls and blue/gold branches in Type 1; the two white-garland versions now belong to Type 2, with green as its cover. The blue/red-ornament version is archived. See TIMELESS_BISCUITS.md for the latest category and price updates.
 
 ## Files and source mapping
 

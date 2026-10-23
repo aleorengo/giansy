@@ -28,13 +28,14 @@
           "image": "/images/christmas/variants/snowflake-blue.webp",
           "label": "Blue icing and a golden pearl"
         }
-      ]
+      ],
+      "size": "large"
     },
     {
       "id": "christmas-tree",
       "name": "Christmas Tree · Type 1",
       "description": "Medium · Simple hand-piped icing.",
-      "price": 2,
+      "price": 1.5,
       "fixedPrice": true,
       "image": "/images/christmas/tree-simple.webp",
       "categories": [
@@ -47,20 +48,8 @@
           "label": "Blue icing curls"
         },
         {
-          "image": "/images/christmas/variants/tree-blue-branches.webp",
-          "label": "Blue branches and ornaments"
-        },
-        {
           "image": "/images/christmas/variants/tree-blue-gold.webp",
           "label": "Blue branches and gold sprinkles"
-        },
-        {
-          "image": "/images/christmas/variants/tree-green-garlands.webp",
-          "label": "White garlands on green"
-        },
-        {
-          "image": "/images/christmas/variants/tree-blue-garlands.webp",
-          "label": "White garlands on blue"
         }
       ]
     },
@@ -68,7 +57,7 @@
       "id": "gingerbread",
       "name": "Gingerbread Man",
       "description": "Medium · A smile and little green buttons.",
-      "price": 2,
+      "price": 1.5,
       "fixedPrice": true,
       "image": "/images/christmas/person.webp",
       "categories": [
@@ -86,7 +75,7 @@
       "id": "christmas-gift",
       "name": "Little Christmas Gift",
       "description": "Small · A sweet little present.",
-      "price": 1.5,
+      "price": 1.2,
       "fixedPrice": true,
       "image": "/images/christmas/gift.webp",
       "categories": [
@@ -104,7 +93,7 @@
       "id": "christmas-santa",
       "name": "Santa Claus",
       "description": "Small · A red hat and an icing beard.",
-      "price": 1.5,
+      "price": 1.2,
       "fixedPrice": true,
       "image": "/images/christmas/santa.webp",
       "categories": [
@@ -116,7 +105,7 @@
       "id": "christmas-star",
       "name": "Christmas Star",
       "description": "Small · A little festive star.",
-      "price": 1.5,
+      "price": 1.2,
       "fixedPrice": true,
       "image": "/images/christmas/snowflake.webp",
       "categories": [
@@ -128,7 +117,7 @@
       "id": "gingerbread-heart",
       "name": "Christmas Heart",
       "description": "Small · Hand-piped icing scrolls.",
-      "price": 1.5,
+      "price": 1.2,
       "fixedPrice": true,
       "image": "/images/christmas/heart.webp",
       "categories": [
@@ -146,7 +135,7 @@
       "id": "snowflake",
       "name": "Christmas Snowflake",
       "description": "Medium · Icing details, piped one by one.",
-      "price": 2,
+      "price": 1.5,
       "fixedPrice": true,
       "image": "/images/christmas/snowflake-small.webp",
       "categories": [
@@ -158,7 +147,7 @@
       "id": "christmas-reindeer",
       "name": "Christmas Reindeer",
       "description": "Medium · White antlers and a red nose.",
-      "price": 2,
+      "price": 1.5,
       "fixedPrice": true,
       "image": "/images/christmas/reindeer.webp",
       "categories": [
@@ -176,7 +165,7 @@
       "id": "christmas-candle",
       "name": "Christmas Candle",
       "description": "Medium · A little Christmas glow.",
-      "price": 2,
+      "price": 1.5,
       "fixedPrice": true,
       "image": "/images/christmas/candle.webp",
       "categories": [
@@ -188,7 +177,7 @@
       "id": "christmas-mushroom",
       "name": "Christmas Mushroom",
       "description": "Medium · A red cap with white dots.",
-      "price": 2,
+      "price": 1.5,
       "fixedPrice": true,
       "image": "/images/christmas/mushroom-v3.webp",
       "categories": [
@@ -200,7 +189,7 @@
       "id": "christmas-house",
       "name": "Gingerbread House",
       "description": "Richly decorated · A snowy roof and festive details.",
-      "price": 2.5,
+      "price": 2.2,
       "fixedPrice": true,
       "image": "/images/christmas/house-v2.webp",
       "categories": [
@@ -212,19 +201,25 @@
       "id": "christmas-tree-decorated",
       "name": "Christmas Tree · Type 2",
       "description": "Richly decorated · Garlands, baubles and silver pearls.",
-      "price": 2.5,
+      "price": 2.2,
       "fixedPrice": true,
-      "image": "/images/christmas/tree-decorated.webp",
+      "image": "/images/christmas/variants/tree-green-garlands.webp",
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "gallery": [
+        {
+          "image": "/images/christmas/variants/tree-blue-garlands.webp",
+          "label": "White garlands on blue"
+        }
+      ]
     },
     {
       "id": "christmas-wreath",
       "name": "Christmas Wreath",
       "description": "Richly decorated · Green leaves and a red bow.",
-      "price": 2.5,
+      "price": 2.2,
       "fixedPrice": true,
       "image": "/images/christmas/wreath.webp",
       "categories": [
@@ -240,9 +235,10 @@
       "fixedPrice": true,
       "image": "/images/christmas/orange.webp",
       "categories": [
-        "Christmas"
+        "Timeless Biscuits"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "quantityStep": 15
     },
     {
       "id": "almond-coffee",
@@ -252,9 +248,10 @@
       "fixedPrice": true,
       "image": "/images/christmas/almond-coffee.webp",
       "categories": [
-        "Christmas"
+        "Timeless Biscuits"
       ],
-      "allergens": "Contains almonds; other ingredients and allergens to confirm."
+      "allergens": "Contains almonds; other ingredients and allergens to confirm.",
+      "quantityStep": 15
     },
     {
       "id": "halloween-skull",
@@ -396,6 +393,58 @@
         "Jams & Preserves"
       ],
       "allergens": "No listed allergens; made in a shared kitchen"
+    },
+    {
+      "id": "hazelnut-apricot",
+      "name": "Hazelnut & Apricot Biscuit",
+      "description": "Hazelnut biscuit with apricot jam filling and chocolate topping.",
+      "price": 1.2,
+      "fixedPrice": true,
+      "quantityStep": 15,
+      "image": "/images/timeless/hazelnut-apricot.webp",
+      "categories": [
+        "Timeless Biscuits"
+      ],
+      "allergens": "Contains hazelnuts; other ingredients and allergens to confirm."
+    },
+    {
+      "id": "vin-santo",
+      "name": "Vin Santo, Raisin & Pine Nut Biscuits",
+      "description": "Rustic biscuits with Vin Santo, raisins and pine nuts.",
+      "price": 1.2,
+      "fixedPrice": true,
+      "quantityStep": 15,
+      "image": "/images/timeless/vin-santo.webp",
+      "categories": [
+        "Timeless Biscuits"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "pumpkin-biscuit",
+      "name": "Pumpkin Biscuits",
+      "description": "Pumpkin biscuits with white icing and colourful sprinkles.",
+      "price": 1.2,
+      "fixedPrice": true,
+      "quantityStep": 15,
+      "image": "/images/timeless/pumpkin-biscuit.webp",
+      "categories": [
+        "Timeless Biscuits"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "marzipan-date",
+      "name": "Chocolate-Covered Marzipan Dates",
+      "description": "Dates filled with marzipan, covered in chocolate and pistachios.",
+      "price": 1.5,
+      "fixedPrice": true,
+      "quantityStep": 15,
+      "image": "/images/timeless/marzipan-date.webp",
+      "categories": [
+        "Timeless Biscuits"
+      ],
+      "allergens": "Contains almonds and pistachios; other ingredients and allergens to confirm."
     }
   ],
   "packagingOptions": [
@@ -407,27 +456,30 @@
       "price": 0,
       "capacity": 25,
       "image": "/images/packaging-bag-light.png",
-      "minimum": 1
+      "minimum": 1,
+      "largeWeight": 3
     },
     {
       "id": "tray",
       "kind": "plate",
-      "name": "Cardboard dessert plate",
+      "name": "Cardboard serving tray",
       "description": "A little plate for your favourites.",
       "price": 0,
-      "capacity": 15,
+      "capacity": 35,
       "image": "/images/packaging-plate-delicate.png",
-      "minimum": 6
+      "minimum": 6,
+      "largeWeight": 3
     },
     {
       "id": "dish",
       "kind": "plate",
-      "name": "Decorated dessert plate",
+      "name": "Small brass serving tray",
       "description": "An extra touch for a special gift.",
       "price": 3,
-      "capacity": 15,
+      "capacity": 20,
       "image": "/images/packaging-plate-delicate.png",
-      "minimum": 6
+      "minimum": 6,
+      "largeWeight": 3
     },
     {
       "id": "box",
@@ -435,9 +487,10 @@
       "name": "Little cardboard box",
       "description": "A lovely little box of happiness.",
       "price": 0.5,
-      "capacity": 20,
+      "capacity": 15,
       "image": "/images/packaging-box-light.png",
-      "minimum": 5
+      "minimum": 5,
+      "largeWeight": 1.5
     }
   ]
 }
