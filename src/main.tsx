@@ -11,6 +11,7 @@ import "./packaging.css";
 import "./order-request.css";
 import "./product-gallery.css";
 import "./timeless.css";
+import "./cart.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

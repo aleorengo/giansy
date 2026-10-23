@@ -106,6 +106,7 @@ collections:
                     Halloween,
                     Special Occasions,
                     Timeless Biscuits,
+                    Gift Bundles,
                     Jams & Preserves,
                   ]
               - {
@@ -114,6 +115,7 @@ collections:
                   widget: string,
                   required: false,
                 }
+              - { name: bundleSize, label: Cookies per ready-made bundle, widget: number, value_type: int, min: 1, required: false }
               - { name: size, label: Cookie size for packaging, widget: select, options: [regular, large], required: false, default: regular }
               - { name: quantityStep, label: Quantity step (15 for timeless biscuits), widget: number, value_type: int, min: 1, required: false, default: 1 }
               - { name: fixedPrice, label: Exact unit price (hide From), widget: boolean, required: false, default: false }

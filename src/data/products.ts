@@ -1,4 +1,5 @@
 import catalog from "./catalog.json";
+import type { CartItem } from "../cart";
 import { selectionSpace } from "../selection";
 import { getLanguage } from "../i18n";
 export const categories = [
@@ -6,6 +7,7 @@ export const categories = [
   "Halloween",
   "Special Occasions",
   "Timeless Biscuits",
+  "Gift Bundles",
   "Jams & Preserves",
 ];
 export type Product = {
@@ -18,6 +20,7 @@ export type Product = {
   image: string;
   gallery?: { image: string; label: string }[];
   quantityStep?: number;
+  bundleSize?: number;
   size?: string;
   categories: string[];
   label?: string;
@@ -61,4 +64,17 @@ export function calculateEstimate(selection: Selection, packagingId: string) {
       100,
     count: selected.reduce((sum, p) => sum + selection[p.id], 0),
   };
+}
+
+export type CartLine = { item: CartItem; title: string; detail: string; unitPrice: number; pieceCount: number; bulkPackaging: boolean; images: string[]; contents: { name: string; quantity: number }[] };
+export function describeCart(cart: CartItem[]) {
+  const lines = cart.flatMap<CartLine>(item => {
+    if (item.kind === "bundle") {
+      const product = products.find(p => p.id === item.productId && p.bundleSize);
+      return product ? [{ item, title: product.name, detail: product.description, unitPrice: product.price, pieceCount: product.bundleSize!, bulkPackaging: false, images: [product.image], contents: [] as { name: string; quantity: number }[] }] : [];
+    }
+    const estimate = calculateEstimate(item.selection, item.packagingId);
+    return [{ item, title: "Your personalised assortment", detail: estimate.packagingLabel, unitPrice: estimate.total, pieceCount: estimate.count, bulkPackaging: estimate.bulkCount > 0, images: estimate.selected.slice(0, 4).map(p => p.image), contents: estimate.selected.map(p => ({ name: p.name, quantity: item.selection[p.id] })) }];
+  });
+  return { lines, total: lines.reduce((sum, line) => sum + Math.round(line.unitPrice * 100) * line.item.quantity, 0) / 100, pieces: lines.reduce((sum, line) => sum + line.pieceCount * line.item.quantity, 0), packages: lines.reduce((sum, line) => sum + line.item.quantity, 0) };
 }

@@ -21,6 +21,9 @@ GitHub Pages hosts the static prototype. Hosted CMS authentication and contact d
 
 ## Working features
 
+- “Piccoli pensieri” sits beside the timeless biscuits: 3-cookie pouch (€4.50), 12-cookie bag (€15), and 15-cookie brass tray (€20), packaging included. Plus/minus chooses whole packages and updates “La tua dolce selezione” immediately. Bundles are listed there but never placed on the silver plate; there is no second cart section. Image masters, prompts and limitations are in `assets/GIFT_BUNDLES.md`.
+- The current custom assortment is included directly in the final request. It can optionally be saved in the same summary, then repeated or followed by another independently composed assortment. Cart lines preserve every product quantity and packaging choice; identical lines merge. Cart and current builder are stored separately. The final request includes a required desired date (today or later), all cart contents and personalisation notes. The date remains subject to confirmation; actual sending and payment are not enabled.
+
 - “Biscotti senza tempo” groups oranges, almond/coffee biscuits, hazelnut/apricot/chocolate biscuits, Vin Santo/raisin/pine nut biscuits, pumpkin biscuits and marzipan dates. Each flavour is ordered in steps of 15. Bulk quantities are independent of decorated-cookie packaging and persist beyond 25 pieces; bulk packaging is agreed separately. Prices, image prompts and sources are in `assets/TIMELESS_BISCUITS.md`. Mixed requests still respect decorated packaging minimums/capacities.
 
 - Cookie detail galleries show transparent decoration variants as overlapping cookies, with the next image peeking from the right. Customers can swipe, click the rear cookie, use arrows, dots or keyboard controls; the original collection cover remains unchanged. Decoration preferences belong in the order notes. PNG masters, source mappings, prompts and reconstruction limitations are in `assets/COOKIE_VARIANTS.md`.

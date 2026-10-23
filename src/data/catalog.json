@@ -445,6 +445,45 @@
         "Timeless Biscuits"
       ],
       "allergens": "Contains almonds and pistachios; other ingredients and allergens to confirm."
+    },
+    {
+      "id": "gift-little-pouch",
+      "name": "A Little Sweet Thought",
+      "description": "A little pouch with 3 small mixed cookies.",
+      "price": 4.5,
+      "fixedPrice": true,
+      "bundleSize": 3,
+      "image": "/images/bundles/little-pouch.webp",
+      "categories": [
+        "Gift Bundles"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "gift-sweet-bag",
+      "name": "A Bag of Smiles",
+      "description": "A gift bag with 12 mixed small and medium cookies.",
+      "price": 15,
+      "fixedPrice": true,
+      "bundleSize": 12,
+      "image": "/images/bundles/sweet-bag.webp",
+      "categories": [
+        "Gift Bundles"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "gift-brass-tray",
+      "name": "Sweet Moments to Share",
+      "description": "A brass tray with 15 mixed small and medium cookies.",
+      "price": 20,
+      "fixedPrice": true,
+      "bundleSize": 15,
+      "image": "/images/bundles/brass-gift-tray.webp",
+      "categories": [
+        "Gift Bundles"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
     }
   ],
   "packagingOptions": [

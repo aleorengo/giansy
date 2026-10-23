@@ -4,11 +4,11 @@ import { emptyBuilder, restoreBuilder, selectedCount, selectionSpace, isSelectio
 
 const catalog = JSON.parse(readFileSync(new URL("../src/data/catalog.json", import.meta.url)));
 const packaging = catalog.packagingOptions;
-const allIds = catalog.products.map(p => p.id);
-const ids = catalog.products.filter(p => (!p.quantityStep || p.quantityStep === 1) && p.size !== "large").map(p => p.id);
+const allIds = catalog.products.filter(p => !p.bundleSize).map(p => p.id);
+const ids = catalog.products.filter(p => (!p.quantityStep || p.quantityStep === 1) && p.size !== "large" && !p.bundleSize).map(p => p.id);
 const largeIds = catalog.products.filter(p => p.size === "large").map(p => p.id);
 const steps = Object.fromEntries(catalog.products.map(p => [p.id, p.quantityStep ?? 1]));
-assert.equal(new Set(allIds).size, allIds.length, "Product IDs must remain unique");
+assert.equal(new Set(catalog.products.map(p => p.id)).size, catalog.products.length, "Product IDs must remain unique");
 for (const product of catalog.products) {
   assert.ok(existsSync(new URL(`../public${product.image}`, import.meta.url)), `Missing image: ${product.id}`);
   assert.ok(Number.isFinite(product.price) && product.price > 0, `Invalid price: ${product.id}`);

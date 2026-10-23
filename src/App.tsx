@@ -25,6 +25,8 @@ import {
 import { Flourish, OrnatePortrait } from "./components/Ornaments";
 import AntiqueLabel from "./components/AntiqueLabel";
 import ProductGallery from "./components/ProductGallery";
+import { addCustomToCart, addBundleToCart, changeCartQuantity, restoreCart, localToday, validRequestedDate } from "./cart";
+import type { CartItem } from "./cart";
 import { getTrayLayout } from "./tray-layout";
 import PackagingBuilder, { SelectionProgress } from "./components/PackagingBuilder";
 import { SelectionContext, useSelectionLimit } from "./selection-context";
@@ -32,6 +34,7 @@ import { emptyBuilder, isSelectionReady, restoreBuilder, selectionSpace, updateB
 import type { BuilderState, BuilderAction } from "./selection";
 import {
   calculateEstimate,
+  describeCart,
   categories,
   money,
   packagingOptions,
@@ -255,7 +258,7 @@ function Quantity({
   const { usedSpace, capacity, largeWeight } = useSelectionLimit();
   const step = product.quantityStep ?? 1;
   const weight = product.size === "large" ? largeWeight : 1;
-  const atLimit = step === 1 && usedSpace + weight > capacity;
+  const atLimit = !product.bundleSize && step === 1 && usedSpace + weight > capacity;
   return (
     <div className={`quantity ${compact ? "quantity-compact" : ""}`}>
       <button
@@ -296,7 +299,7 @@ function ProductCard({
     const added = quantity > previousQuantity.current;
     previousQuantity.current = quantity;
     const cookie = cookieRef.current;
-    if (!added || !cookie || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (product.bundleSize || !added || !cookie || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const turn = parseFloat(getComputedStyle(cookie).getPropertyValue("--cookie-turn")) || 0;
     const animation = cookie.animate(
       [
@@ -310,7 +313,7 @@ function ProductCard({
   }, [quantity]);
   return (
     <article
-      className={`product-card ${(product.quantityStep ?? 1) > 1 ? "product-batch" : ""} ${quantity ? "product-selected" : ""}`}
+      className={`product-card ${(product.quantityStep ?? 1) > 1 ? "product-batch" : ""} ${quantity && !product.bundleSize ? "product-selected" : ""}`}
       data-product-id={product.id}
       style={
         {
@@ -322,7 +325,7 @@ function ProductCard({
         {product.label && (
           <span className="product-label">{t(product.label)}</span>
         )}
-        {quantity > 0 && (
+        {quantity > 0 && !product.bundleSize && (
           <span className="product-check">
             <Check size={13} />
           </span>
@@ -338,14 +341,15 @@ function ProductCard({
       <div className="product-info">
         <AntiqueLabel />
         <div className="antique-label-content">
-          <button className="product-name" onClick={() => onDetails(product)}>
+          <div className="product-copy"><button className="product-name" onClick={() => onDetails(product)}>
             <h3>{t(product.name)}</h3>
           </button>
-          <p>{t(product.description)}</p>
+          <p>{t(product.description)}</p></div>
           <div className="product-bottom">
             <span>
-              {!product.fixedPrice && `${t("From")} `}<strong>{money(product.price)}</strong>
-              {(product.quantityStep ?? 1) > 1 && <small className="batch-price">{money(product.price * (product.quantityStep ?? 1))} {t("per 15 pieces")}</small>}
+              {!product.fixedPrice && `${t("From")} `}<strong>{money(product.price * ((product.quantityStep ?? 1) > 1 ? product.quantityStep! : 1))}</strong>
+              {product.bundleSize && <small className="batch-price">{t("per package")}</small>}
+              {(product.quantityStep ?? 1) > 1 && <small className="batch-price">{t("per 15 pieces")}</small>}
             </span>
             <Quantity
               product={product}
@@ -364,16 +368,19 @@ function Gallery({
   category,
   setCategory,
   onDetails,
+  bundleQuantities, onBundleChange,
 }: {
   selection: Selection;
   onChange: (id: string, delta: number) => void;
   category: string;
   setCategory: (c: string) => void;
   onDetails: (p: Product) => void;
+  bundleQuantities: Record<string, number>;
+  onBundleChange: (id: string, delta: number) => void;
 }) {
   const visible = products.filter(p => p.categories.includes(category));
   return (
-    <section className="creations-section" id="cookies">
+    <section className={`creations-section ${category === "Gift Bundles" ? "gift-section" : ""}`} id="cookies">
       <div className="collection-tartan" aria-hidden="true" />
       <div className="creations section-width section-space">
         <div className="section-heading">
@@ -406,14 +413,14 @@ function Gallery({
             </button>
           ))}
         </div>
-        {category === "Timeless Biscuits" ? <div className="timeless-intro" role="status"><strong>{t("15 at a time, for each flavour")}</strong><p>{t("Choose 15, 30, 45 pieces or more of each flavour. Packaging will be agreed with Giansy; these pieces are separate from your decorated-cookie packaging.")}</p><span>{visible.reduce((sum, p) => sum + (selection[p.id] || 0), 0)} {t("selected")}</span></div> : <SelectionProgress />}
+        {category === "Timeless Biscuits" ? <div className="timeless-intro" role="status"><strong>{t("15 at a time, for each flavour")}</strong><p>{t("Choose 15, 30, 45 pieces or more of each flavour. Packaging will be agreed with Giansy; these pieces are separate from your decorated-cookie packaging.")}</p><span>{visible.reduce((sum, p) => sum + (selection[p.id] || 0), 0)} {t("selected")}</span></div> : category === "Gift Bundles" ? <p className="gift-included">{t("Mixed assortments, already wrapped with care. Choose how many packages you would like.")} {t("Packaging is included. Tell us any preferences in the order notes.")}</p> : <SelectionProgress />}
         <div className="product-grid">
           {visible.map((p) => (
             <ProductCard
               key={p.id}
               product={p}
-              quantity={selection[p.id] || 0}
-              onChange={onChange}
+              quantity={p.bundleSize ? (bundleQuantities[p.id] ?? 0) : (selection[p.id] || 0)}
+              onChange={p.bundleSize ? onBundleChange : onChange}
               onDetails={onDetails}
             />
           ))}
@@ -430,24 +437,44 @@ function Gallery({
     </section>
   );
 }
+function SavedSelections({ cart, onChange }: { cart: CartItem[]; onChange: (id: string, delta: number) => void }) {
+  const summary = describeCart(cart);
+  return (<div className="cart-lines">{summary.lines.map(line => <article className="cart-line" data-cart-kind={line.item.kind} key={line.item.id}>
+          <div className="cart-line-images">{line.images.map((image, i) => <img src={assetUrl(image)} key={i} alt="" />)}</div>
+          <div className="cart-line-copy"><h3>{t(line.title)}</h3><p>{t(line.detail)}</p><small>{line.pieceCount} {t("cookies per package")} · {money(line.unitPrice)} {t("per package")}</small>{line.bulkPackaging && <p>{t("Packaging for timeless biscuits will be agreed separately.")}</p>}
+            {line.contents.length > 0 && <details><summary>{t("See the assortment")}</summary><ul>{line.contents.map(p => <li key={p.name}>{p.quantity} × {t(p.name)}</li>)}</ul></details>}
+          </div>
+          <div className="cart-line-controls"><span className="cart-quantity-label">{t("Packages")}</span><div className="quantity"><button aria-label={`${t("Remove one package of")} ${t(line.title)}`} onClick={() => onChange(line.item.id, -1)}><Minus size={13} /></button><span>{line.item.quantity}</span><button aria-label={`${t("Add one package of")} ${t(line.title)}`} onClick={() => onChange(line.item.id, 1)}><Plus size={13} /></button></div><strong>{money(line.unitPrice * line.item.quantity)}</strong><button className="cart-remove" onClick={() => onChange(line.item.id, -line.item.quantity)}>{t("Remove")}</button></div>
+        </article>)}</div>);
+}
+
 function Assortment({
   selection,
   onChange,
   packagingId,
   onPackagingChange,
   reset,
+  onAdd,
+  cart, onCartChange,
 }: {
   selection: Selection;
   onChange: (id: string, delta: number) => void;
   packagingId: string;
   onPackagingChange: (id: string) => string;
   reset: () => void;
+  onAdd: () => void;
+  cart: CartItem[];
+  onCartChange: (id: string, delta: number) => void;
 }) {
   const { capacity, minimum } = useSelectionLimit();
   const [packagingError, setPackagingError] = useState("");
   useEffect(() => setPackagingError(""), [selection, packagingId]);
   const estimate = calculateEstimate(selection, packagingId);
-  const trayLayout = getTrayLayout(estimate.selected.length);
+  const saved = describeCart(cart);
+  const total = Math.round((saved.total + estimate.total) * 100) / 100;
+  const totalPieces = saved.pieces + estimate.count;
+  const plateProducts = products.filter(p => !p.bundleSize && ((selection[p.id] || 0) > 0 || cart.some(item => item.kind === "custom" && (item.selection[p.id] || 0) > 0)));
+  const trayLayout = getTrayLayout(plateProducts.length);
   const assortmentRef = useRef<HTMLElement>(null);
   const trayRef = useRef<HTMLDivElement>(null);
   useLayoutEffect(() => {
@@ -499,7 +526,7 @@ function Assortment({
               {t("Something lovely is coming together...")}{" "}
             </span>
             <div
-              className={`live-plate ${estimate.selected.length ? "has-products" : ""}`}
+              className={`live-plate ${plateProducts.length ? "has-products" : ""}`}
               ref={trayRef}
             >
               <img
@@ -507,7 +534,7 @@ function Assortment({
                 src={assetUrl("/images/silver-plate.webp")}
                 alt={t("An ornate vintage silver serving platter")}
               />
-              {!estimate.selected.length ? (
+              {!plateProducts.length ? (
                 <div className="plate-empty">
                   <Heart size={29} strokeWidth={1} />
                   <span>
@@ -519,7 +546,7 @@ function Assortment({
                   </a>
                 </div>
               ) : (
-                estimate.selected.map((p, i) => (
+                plateProducts.map((p, i) => (
                   <img
                     key={p.id}
                     className="plate-product"
@@ -532,11 +559,11 @@ function Assortment({
                       transform: `translate(-50%, -50%) rotate(${trayLayout[i].r}deg)`,
                       zIndex:
                         Math.round(trayLayout[i].y * 10) +
-                        estimate.selected.length -
+                        plateProducts.length -
                         i,
                     }}
                     src={assetUrl(p.image)}
-                    alt={`${t("One representative")} ${t(p.name)}; ${selection[p.id]} ${t("selected")}`}
+                    alt={`${t("One representative")} ${t(p.name)}; ${(selection[p.id] || 0) + cart.reduce((n, item) => n + (item.kind === "custom" ? (item.selection[p.id] || 0) * item.quantity : 0), 0)} ${t("selected")}`}
                   />
                 ))
               )}
@@ -553,9 +580,11 @@ function Assortment({
               <h3>{t("Your sweet selection")} </h3>
               <ShoppingBag size={19} strokeWidth={1.2} />
             </div>
+            <SavedSelections cart={cart} onChange={onCartChange} />
+            {saved.lines.length > 0 && estimate.count > 0 && <p className="draft-assortment-label">{t("Your assortment in progress")}</p>}
             <div className="order-items" aria-live="polite" aria-atomic="true">
               {!estimate.selected.length ? (
-                <div className="order-empty">
+                !saved.lines.length && <div className="order-empty">
                   <Cookie size={25} strokeWidth={1} />
                   <p>{t("A lovely assortment is waiting to happen.")} </p>
                   <span>
@@ -568,7 +597,7 @@ function Assortment({
                     <div>
                       <span>{t(p.name)}</span>
                       <small>
-                        {money(p.price)} {t("each")}{" "}
+                        {money(p.price * (p.quantityStep ?? 1))} {t((p.quantityStep ?? 1) > 1 ? "per 15 pieces" : "each")}{" "}
                       </small>
                     </div>
                     <Quantity
@@ -582,7 +611,7 @@ function Assortment({
                 ))
               )}
             </div>
-            {(!estimate.count || estimate.packagedCount > 0) && <div className="packaging packaging-summary">
+            {(estimate.packagedCount > 0 || (!estimate.count && !saved.lines.length)) && <div className="packaging packaging-summary">
               <label htmlFor="summary-packaging">
                 <Gift size={15} /> {t(estimate.bulkCount ? "Packaging for decorated cookies" : "The finishing touch")}{" "}
               </label>
@@ -615,24 +644,23 @@ function Assortment({
               <span>
                 {t("Estimated total")}{" "}
                 <small>
-                  {estimate.count} {t("handmade")}{" "}
-                  {estimate.count === 1 ? t("treat") : t("treats")}
+                  {totalPieces} {t("handmade")}{" "}
+                  {totalPieces === 1 ? t("treat") : t("treats")}
                 </small>
               </span>
-              <strong>{money(estimate.total)}</strong>
+              <strong>{money(total)}</strong>
             </div>
             <p className="pricing-note">
               {t(
                 "An indicative total. Availability, your assortment and any special requests will be confirmed together.",
               )}{" "}
             </p>
-            <a href="#contact" className="button button-primary order-cta">
-              {t("Complete your request")} <ArrowRight size={15} />
-            </a>
+            {estimate.count > 0 && <><button onClick={onAdd} disabled={!isSelectionReady({ selection, packagingId }, packagingOptions, quantitySteps, largeProductIds)} className="button button-outline save-assortment">{t("Save and create another assortment")} <Plus size={14} /></button><p className="cart-builder-hint">{t("Save this assortment to repeat it or compose another. You can also complete your request directly.")}</p></>}
+            <a href="#contact" className="button button-primary order-cta">{t("Complete your request")} <ArrowRight size={15} /></a>
             <button
               className="reset-selection"
               onClick={reset}
-              disabled={!estimate.count && packagingId === "paper"}
+              disabled={!estimate.count && !saved.lines.length && packagingId === "paper"}
             >
               <RotateCcw size={12} /> {t("Start afresh")}{" "}
             </button>
@@ -895,32 +923,29 @@ function ArticlePage() {
   );
 }
 function Contact({
-  selection,
-  packagingId,
+  cart, draftReady,
 }: {
-  selection: Selection;
-  packagingId: string;
+  cart: CartItem[];
+  draftReady: boolean;
 }) {
   const [draft, setDraft] = useState<{ subject: string; body: string } | null>(
     null,
   );
-  const [fields, setFields] = useState({ name: "", email: "", message: "" });
-  const estimate = calculateEstimate(selection, packagingId);
-  const canSubmit = isSelectionReady({ selection, packagingId }, packagingOptions, quantitySteps, largeProductIds);
+  const [fields, setFields] = useState({ name: "", email: "", message: "", date: "" });
+  const estimate = describeCart(cart);
+  const canSubmit = estimate.lines.length > 0 && draftReady;
   useEffect(() => {
     setDraft(null);
-  }, [selection, packagingId]);
+  }, [cart]);
   function updateField(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = event.target;
     setFields(previous => ({ ...previous, [name]: value }));
   }
   function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!canSubmit) return;
+    if (!canSubmit || !validRequestedDate(fields.date)) return;
     const data = new FormData(e.currentTarget);
-    const assortment = estimate.selected.length
-      ? `\n\n${t("My selection:")}\n${estimate.selected.map((p) => `${selection[p.id]} × ${t(p.name)} — ${money(p.price * selection[p.id])}`).join("\n")}\n${t("Packaging")}: ${t(estimate.packagingLabel)}${estimate.bulkCount ? `; ${t("Packaging for timeless biscuits will be agreed separately.")}` : ""}\n${t("Estimated total")}: ${money(estimate.total)}`
-      : "";
+    const assortment = `\n\n${t("Requested date")}: ${fields.date}\n${t("My selection:")}\n${estimate.lines.map(line => `${line.item.quantity} × ${t(line.title)} — ${money(line.unitPrice * line.item.quantity)}\n${t(line.detail)}${line.bulkPackaging ? `; ${t("Packaging for timeless biscuits will be agreed separately.")}` : ""}${line.contents.length ? `\n${line.contents.map(p => `  ${p.quantity} × ${t(p.name)}`).join("\n")}` : ""}`).join("\n\n")}\n${t("Estimated total")}: ${money(estimate.total)}`;
     setDraft({
       subject: `${t("Order request from")} ${data.get("name")}`,
       body: `Ciao Giansy!\n\n${t("Notes and personalisation")}: ${String(data.get("message") || "").trim() || t("No particular preferences.")}${assortment}\n\n${data.get("name")}\n${data.get("email")}`,
@@ -963,7 +988,8 @@ function Contact({
               <div className="draft-check"><Check size={28} /></div>
               <h3>{t("Your request is complete.")}</h3>
               <p>{t("Your details and personalisation notes are ready, together with your chosen assortment.")}</p>
-              {estimate.count > 0 && <p className="request-complete-summary"><strong>{estimate.count} {t("cookies")}</strong><span>{t(estimate.packagingLabel)}</span><strong>{money(estimate.total)}</strong></p>}
+              {estimate.pieces > 0 && <p className="request-complete-summary"><strong>{estimate.pieces} {t("cookies")}</strong><span>{`${estimate.packages} ${t("packages")}`}</span><strong>{money(estimate.total)}</strong></p>}
+              <p className="request-date-summary">{t("Requested date")}: {fields.date}</p>
               <p className="request-preview-notice">{t("This form is a preview: your request has not been sent. Sending will be enabled when the final contact details are added.")}</p>
               <button type="button" className="text-link" onClick={() => setDraft(null)}>{t("Edit details")}</button>
             </div>
@@ -973,15 +999,15 @@ function Contact({
                 <h3>{t("Complete your request")}</h3>
                 <p>{t("Your selection, your details, and a little room for your wishes.")}</p>
               </div>
-              {estimate.count > 0 && (
+              {estimate.pieces > 0 && (
                 <div className="request-assortment" aria-label={t("Your chosen assortment")}>
                   <div className="request-assortment-heading"><ShoppingBag size={17} /><strong>{t("Your chosen assortment")}</strong><a href="#your-assortment">{t("Review your selection")}</a></div>
                   <div className="request-assortment-content">
-                    <div className="request-cookie-preview" aria-hidden="true">{estimate.selected.slice(0, 4).map(product => <img key={product.id} src={assetUrl(product.image)} alt="" />)}</div>
-                    <div><strong>{estimate.count} {t("cookies")}</strong><span>{t(estimate.packagingLabel)}</span></div>
+                    <div className="request-cookie-preview" aria-hidden="true">{estimate.lines.flatMap(line => line.images).slice(0, 4).map((image, index) => <img key={index} src={assetUrl(image)} alt="" />)}</div>
+                    <div><strong>{estimate.pieces} {t("cookies")}</strong><span>{`${estimate.packages} ${t("packages")}`}</span></div>
                     <div className="request-estimate"><span>{t("Estimated total")}</span><strong>{money(estimate.total)}</strong></div>
                   </div>
-                  <p><Check size={13} />{t("All selected products and quantities will be included in your request.")}</p>{estimate.bulkCount > 0 && <p>{t("Packaging for timeless biscuits will be agreed separately.")}</p>}
+                  <p><Check size={13} />{t("All selected products and quantities will be included in your request.")}</p>
                 </div>
               )}
               <div className="form-row">
@@ -1011,6 +1037,7 @@ function Contact({
                   />
                 </label>
               </div>
+              <label className="requested-date-field">{t("Requested date")}<input type="date" name="date" value={fields.date} onChange={updateField} min={localToday()} required aria-describedby="requested-date-hint" /><span id="requested-date-hint">{t("When would you like your cookies? We will confirm availability together.")}</span></label>
               <label className="personalisation-field">
                 <span className="personalisation-title">{t("Notes and personalisation")}</span>
                 <span className="personalisation-hint" id="personalisation-hint">{t("A favourite colour, a theme, a dedication or a decoration you love: tell me here.")}</span>
@@ -1026,7 +1053,7 @@ function Contact({
                   maxLength={5000}
                 />
               </label>
-              {!canSubmit && <p className="request-minimum" id="request-minimum"><span>{estimate.count ? <>{t("Minimum for this packaging:")} {estimate.packaging.minimum} {t("cookies")}. {t("Still to add:")} {Math.max(0, estimate.packaging.minimum - estimate.packagedCount)}.</> : t("Choose cookies from the collection to complete your request.")}</span><a href="#cookies">{t("Choose your cookies")} <ArrowRight size={13} /></a></p>}
+              {!canSubmit && <p className="request-minimum" id="request-minimum">{t(draftReady ? "Add an assortment or a little gift to your selection first." : "Complete or remove your assortment in progress before sending the request.")} <a href="#creations">{t("Choose your cookies")}</a></p>}
               <button type="submit" className="button button-primary" disabled={!canSubmit} aria-describedby={!canSubmit ? "request-minimum" : undefined}>
                 {t("Send my request")} <ArrowRight size={15} />
               </button>
@@ -1138,7 +1165,11 @@ function NotFound() {
     </main>
   );
 }
-const productIds = products.map(p => p.id);
+const productIds = products.filter(p => !p.bundleSize).map(p => p.id);
+const bundleIds = products.filter(p => p.bundleSize).map(p => p.id);
+function readCart(): CartItem[] {
+  try { return restoreCart(JSON.parse(localStorage.getItem("giansy-cart") || "[]"), bundleIds, (selection, packagingId) => Object.keys(selection).every(id => productIds.includes(id)) && isSelectionReady({ selection, packagingId }, packagingOptions, quantitySteps, largeProductIds)); } catch { return []; }
+}
 function builderReducer(state: BuilderState, action: BuilderAction) {
   return updateBuilder(state, action, packagingOptions, productIds, quantitySteps, largeProductIds);
 }
@@ -1158,6 +1189,9 @@ export default function App() {
         ? "Le Creazioni di Giansy — Piccole dolcezze, grande amore"
         : "Le Creazioni di Giansy — Handmade happiness";
   }, [language]);
+  const [cart, setCart] = useState<CartItem[]>(readCart);
+  const bundleDraft = Object.fromEntries(cart.filter(item => item.kind === "bundle").map(item => [item.productId, item.quantity]));
+  useEffect(() => { try { localStorage.setItem("giansy-cart", JSON.stringify(cart)); } catch { /* Cart remains usable without storage. */ } }, [cart]);
   const [builder, dispatch] = useReducer(builderReducer, undefined, readSaved);
   const { selection, packagingId } = builder;
   const [category, setCategory] = useState("Christmas");
@@ -1177,6 +1211,16 @@ export default function App() {
     dispatch({ type: "change", id, delta });
   }
   const estimate = calculateEstimate(selection, packagingId);
+  const cartSummary = describeCart(cart);
+  const requestCart = estimate.count ? addCustomToCart(cart, selection, packagingId) : cart;
+  const draftReady = !estimate.count || isSelectionReady(builder, packagingOptions, quantitySteps, largeProductIds);
+  function changeBundle(id: string, delta: number) { setCart(previous => delta > 0 ? addBundleToCart(previous, id, delta) : changeCartQuantity(previous, `bundle:${id}`, delta)); }
+  function addAssortment() {
+    if (!isSelectionReady(builder, packagingOptions, quantitySteps, largeProductIds)) return;
+    setCart(previous => addCustomToCart(previous, selection, packagingId));
+    dispatch({ type: "reset" });
+    window.setTimeout(() => document.getElementById("your-assortment")?.scrollIntoView({ behavior: "smooth" }), 50);
+  }
   function changePackaging(id: string) {
     const option = packagingOptions.find(p => p.id === id);
     if (!option) return "";
@@ -1193,7 +1237,7 @@ export default function App() {
         {t("Skip to content")}{" "}
       </a>
       <div id="top" />
-      <Header count={estimate.count} />
+      <Header count={cartSummary.packages + (estimate.count ? 1 : 0)} />
       <div id="main-content" tabIndex={-1}>
         <Routes>
           <Route
@@ -1209,15 +1253,18 @@ export default function App() {
                   category={category}
                   setCategory={setCategory}
                   onDetails={setDetail}
+                  bundleQuantities={bundleDraft} onBundleChange={changeBundle}
                 />
                 <Assortment
                   selection={selection}
                   onChange={change}
                   packagingId={packagingId}
                   onPackagingChange={changePackaging}
-                  reset={() => dispatch({ type: "reset" })}
+                  reset={() => { dispatch({ type: "reset" }); setCart([]); }}
+                  onAdd={addAssortment}
+                  cart={cart} onCartChange={(id, delta) => setCart(previous => changeCartQuantity(previous, id, delta))}
                 />
-                <Contact selection={selection} packagingId={packagingId} />
+                <Contact cart={requestCart} draftReady={draftReady} />
                 {features.seasonalCollection && <Seasonal onExplore={() => setCategory(seasonal.category)} />}
                 <Story />
                 {features.journal && <JournalPreview />}
@@ -1235,10 +1282,10 @@ export default function App() {
           <ProductGallery key={detail.id} product={detail} />
           <p>{t(detail.description)}</p>
           <p className="detail-price">
-            {!detail.fixedPrice && `${t("From")} `}{money(detail.price)} {t("per item")}{" "}
+            {!detail.fixedPrice && `${t("From")} `}{money(detail.price * ((detail.quantityStep ?? 1) > 1 ? detail.quantityStep! : 1))} {t(detail.bundleSize ? "per package" : (detail.quantityStep ?? 1) > 1 ? "per 15 pieces" : "per item")}{" "}
           </p>
           {detail.size === "large" && <p className="detail-note">{t("Large cookie · takes 3 spaces in bags and trays, or 1.5 in the box.")}</p>}
-          {(detail.quantityStep ?? 1) > 1 && <p className="timeless-order-note"><strong>{money(detail.price * (detail.quantityStep ?? 1))} {t("per 15 pieces")}</strong><span>{t("Timeless biscuits are ordered in multiples of 15 per flavour, with packaging to agree.")}</span></p>}
+          {(detail.quantityStep ?? 1) > 1 && <p className="timeless-order-note"><span>{t("Timeless biscuits are ordered in multiples of 15 per flavour, with packaging to agree.")}</span></p>}
           <p>
             <strong>{t("Allergen guide:")} </strong> {t(detail.allergens)}
           </p>
@@ -1250,8 +1297,8 @@ export default function App() {
           <div className="dialog-actions">
             <Quantity
               product={detail}
-              quantity={selection[detail.id] || 0}
-              onChange={change}
+              quantity={detail.bundleSize ? (bundleDraft[detail.id] ?? 0) : (selection[detail.id] || 0)}
+              onChange={detail.bundleSize ? changeBundle : change}
             />
             <button
               className="button button-primary"
