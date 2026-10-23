@@ -3,9 +3,9 @@
 .timeless-intro p { font-size: 12px; line-height: 1.7; margin: 9px 0; }
 .timeless-intro > span { font-size: 11px; }
 .creations .product-bottom .batch-price { display: block; font-size: 9px; line-height: 1.4; margin-top: 3px; max-width: 105px; }
-.creations .product-batch .product-info { height: 280px; min-height: 280px; }
-.product-batch .antique-label-content { padding-bottom: 58px; }
-.creations .antique-label-content { justify-content: flex-start; }
+.creations .product-info { height: 280px; min-height: 280px; }
+.creations .product-batch .product-info { height: 300px; min-height: 300px; }
+.creations .antique-label-content { justify-content: flex-start; padding-top: 52px; padding-bottom: 58px; }
 .creations .antique-label-content .product-bottom { margin-top: auto; padding-top: 5px; flex-shrink: 0; }
 .timeless-order-note { border-top: 1px solid var(--line); padding: 15px 0; font-size: 12px; line-height: 1.6; }
 .timeless-order-note strong, .timeless-order-note span { display: block; }
