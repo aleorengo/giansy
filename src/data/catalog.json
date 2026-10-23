@@ -190,7 +190,7 @@
       "description": "Medium · A red cap with white dots.",
       "price": 2,
       "fixedPrice": true,
-      "image": "/images/christmas/mushroom.webp",
+      "image": "/images/christmas/mushroom-v2.webp",
       "categories": [
         "Christmas"
       ],
@@ -202,7 +202,7 @@
       "description": "Richly decorated · A snowy roof and festive details.",
       "price": 2.5,
       "fixedPrice": true,
-      "image": "/images/christmas/house.webp",
+      "image": "/images/christmas/house-v2.webp",
       "categories": [
         "Christmas"
       ],
