@@ -1,0 +1,19 @@
+{
+  "tool_mode": "built-in image_gen",
+  "edits": [
+    {
+      "asset": "public/images/christmas/variants/snowflake-dark-pink-simple.webp",
+      "use": "First image for the small snowflake",
+      "prompt": "Use case: precise-object-edit. Asset type: transparent bakery catalogue cutout. Input image 1 is the EDIT TARGET: the isolated six-point cookie with simple blue icing and a central silver pearl. Input image 2 is only a COLOR REFERENCE: use the muted dark raspberry/dusty rose icing of the cookie in the TOP LEFT corner, not the bright pink cookie at the bottom. Change ONLY all blue icing on image 1 to that dark raspberry pink. Keep the exact same cookie silhouette, grain, brown colour, icing branch pattern and thickness, silver pearl, orientation, camera angle, framing and photographic highlights. Preserve actual alpha transparency, with no backdrop, no new shadow outside the cookie, no text and no other cookies. One isolated cookie only.",
+      "transparent_background": true,
+      "delivery": "640 × 640 WebP with alpha"
+    },
+    {
+      "asset": "public/images/christmas/variants/snowflake-blue-branched.webp",
+      "use": "Last image in the small snowflake gallery",
+      "prompt": "Use case: background-extraction. Asset type: transparent bakery catalogue cutout. The attached photograph is the EDIT TARGET. Extract ONLY the complete BLUE six-point snowflake cookie in the CENTRE of the photograph, with the branched blue icing and single central silver pearl. Remove the wooden table and every neighbouring cookie completely. Preserve this exact cookie's six-point silhouette, slightly rustic edges, natural biscuit colour and texture, blue icing branch design, raised icing texture, silver pearl and top-down camera angle. Do not substitute the blue cookie near the top or copy any pink or white cookie. Keep all six tips intact. Centre this single cookie upright on a transparent canvas with a small even clear margin, matching a professional bakery product cutout. True alpha transparency; no floor, no background, no added decorations, no text, no heavy cast shadow. Do not redesign or simplify the cookie.",
+      "transparent_background": true,
+      "delivery": "640 × 640 WebP with alpha"
+    }
+  ]
+}

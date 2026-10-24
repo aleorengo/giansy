@@ -28,7 +28,7 @@ const christmasPrices = {
 };
 assert.deepEqual(Object.fromEntries(catalog.products.filter(p => p.categories.includes("Christmas")).map(p => [p.id, p.price])), christmasPrices);
 assert.equal(catalog.products.find(p => p.id === "christmas-star").image, "/images/christmas/snowflake.webp");
-assert.equal(catalog.products.find(p => p.id === "snowflake").image, "/images/christmas/variants/snowflake-blue-simple.webp");
+assert.equal(catalog.products.find(p => p.id === "snowflake").image, "/images/christmas/variants/snowflake-dark-pink-simple.webp");
 assert.deepEqual(catalog.products.filter(p => p.categories.includes("Special Occasions")).map(p => p.id), ["occasion-daisy", "occasion-tulip"]);
 assert.equal(catalog.products.filter(p => p.categories.includes("Halloween")).length, 8);
 const apply = (state, action) => updateBuilder(state, action, packaging, allIds, steps, largeIds);

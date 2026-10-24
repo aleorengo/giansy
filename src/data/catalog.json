@@ -137,7 +137,7 @@
       "description": "Icing details, piped one by one.",
       "price": 1.5,
       "fixedPrice": true,
-      "image": "/images/christmas/variants/snowflake-blue-simple.webp",
+      "image": "/images/christmas/variants/snowflake-dark-pink-simple.webp",
       "categories": [
         "Christmas"
       ],
@@ -150,6 +150,10 @@
         {
           "image": "/images/christmas/snowflake-small.webp",
           "label": "Original small snowflake"
+        },
+        {
+          "image": "/images/christmas/variants/snowflake-blue-branched.webp",
+          "label": "Blue branches and a silver pearl"
         }
       ]
     },
