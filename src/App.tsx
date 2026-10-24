@@ -7,6 +7,7 @@ import {
   ArrowDown,
   ArrowRight,
   ArrowUpRight,
+  CalendarDays,
   Check,
   ChevronDown,
   Cookie,
@@ -930,15 +931,35 @@ function ArticlePage() {
 }
 function Contact({ cart, hasDraft }: { cart: CartItem[]; hasDraft: boolean }) {
   const [fields, setFields] = useState({ name: "", message: "", date: "" });
+  const [dateError, setDateError] = useState("");
   const estimate = describeCart(cart);
   const canSubmit = estimate.lines.length > 0 && !hasDraft;
   function updateField(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = event.target;
+    if (name === "date") {
+      // Ignore incomplete year segments while typing; reject a completed past date.
+      if (value && value.slice(0, 4) >= "1000" && value < localToday()) {
+        setDateError(t("Choose today or a future date."));
+        setFields(previous => ({ ...previous, date: "" }));
+        return;
+      }
+      setDateError("");
+    }
     setFields(previous => ({ ...previous, [name]: value }));
+  }
+  function validateDate() {
+    if (fields.date && !validRequestedDate(fields.date)) {
+      setDateError(t("Choose today or a future date."));
+      setFields(previous => ({ ...previous, date: "" }));
+    }
   }
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!canSubmit || !validRequestedDate(fields.date)) return;
+    if (!canSubmit) return;
+    if (!validRequestedDate(fields.date)) {
+      setDateError(t("Choose today or a future date."));
+      return;
+    }
     const order: OrderRequest = {
       ...fields, language: getLanguage(), total: estimate.total, pieces: estimate.pieces, packages: estimate.packages,
       lines: estimate.lines.map(line => ({
@@ -954,7 +975,11 @@ function Contact({ cart, hasDraft }: { cart: CartItem[]; hasDraft: boolean }) {
       <form className="contact-form" onSubmit={submit}>
         <label>{t("Your name")}<input name="name" value={fields.name} onChange={updateField} autoComplete="name" required maxLength={100} /></label>
         <div className="checkout-total"><span>{t("Order total")}<small>{estimate.pieces} {t("cookies")}</small></span><strong>{money(estimate.total)}</strong></div>
-        <label className="requested-date-field">{t("Requested date")}<input type="date" name="date" value={fields.date} onChange={updateField} min={localToday()} required /><span>{t("We will confirm availability together.")}</span></label>
+        <label className="requested-date-field">{t("Requested date")}
+          <span className="date-input-wrap"><input type="date" name="date" value={fields.date} onChange={updateField} onBlur={validateDate} onFocus={event => { event.currentTarget.min = localToday(); }} min={localToday()} step="1" required aria-invalid={!!dateError} aria-describedby={`requested-date-hint${dateError ? " requested-date-error" : ""}`} /><CalendarDays size={20} aria-hidden="true" /></span>
+          <span id="requested-date-hint">{t("We will confirm availability together.")}</span>
+          {dateError && <span className="date-error" id="requested-date-error" role="alert">{dateError}</span>}
+        </label>
         <label className="personalisation-field"><span className="personalisation-title">{t("Notes and personalisation")}</span><span className="personalisation-hint" id="personalisation-hint">{t("A favourite colour, a theme, a dedication or a decoration you love: tell me here.")}</span>
           <textarea name="message" value={fields.message} onChange={updateField} aria-describedby="personalisation-hint" rows={4} maxLength={5000} />
         </label>
