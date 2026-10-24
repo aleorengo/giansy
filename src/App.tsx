@@ -133,9 +133,8 @@ function Header({ count }: { count: number }) {
             <Link to="/#contact">{t("Contact")} </Link>
             {languageSwitch(true)}
           </nav>
-          <Link className="selection-link" to="/#your-assortment">
-            <ShoppingBag size={17} strokeWidth={1.4} />
-            <span>{t("Your selection")} </span>
+          <Link className="selection-link" to="/#your-assortment" aria-label={`${t("Your selection")}: ${count}`}>
+            <ShoppingBag size={20} strokeWidth={1.4} aria-hidden="true" />
             <span className="selection-count">{count}</span>
           </Link>
           {languageSwitch()}
@@ -203,7 +202,7 @@ function Hero() {
           </div>
           <div className="handmade-seal">
             <span>{t("FATTO CON AMORE")} </span>
-            <Heart size={26} strokeWidth={1} />
+            <Heart size={14} strokeWidth={1} aria-hidden="true" />
             <span>{t("ALWAYS HANDMADE")} </span>
           </div>
           <span className="portrait-caption script">

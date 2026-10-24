@@ -84,8 +84,10 @@ html .announcement { padding: 8px 16px; gap: 12px; letter-spacing: 1px; }
 html .hero-actions { flex-wrap: wrap; }
 html .hero-values .values-inner > span:not(.value-star) { font-size: var(--text-body); line-height: 1.4; }
 html .hero-copy p .desktop-break { display: none; }
-html .handmade-seal { width: 116px; height: 116px; gap: 5px; }
-html .handmade-seal span { max-width: 94px; text-align: center; font-size: var(--text-small); letter-spacing: .5px; line-height: 1.35; }
+html .handmade-seal { width: 116px; height: 116px; padding: 12px; gap: 4px; }
+html .handmade-seal span { flex: 0 0 auto; width: 100%; max-width: 84px; text-align: center; font-size: var(--text-small); letter-spacing: 0; line-height: 1.15; }
+html .handmade-seal svg { flex: 0 0 14px; width: 14px; height: 14px; }
+html .selection-link { min-width: 56px; min-height: 44px; justify-content: center; gap: 8px; }
 html .category-tabs button { min-height: 44px; }
 html .creations .category-tabs { display: flex; flex-wrap: wrap; gap: 8px 20px; }
 html .creations .product-label { letter-spacing: 1px; }
