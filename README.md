@@ -17,12 +17,12 @@ The site publishes from `main` through `.github/workflows/pages.yml`. The workfl
 
 For a local project-path check, run `BASE_PATH=/giansy/ npm run build`, then `BASE_PATH=/giansy/ npm run preview` and open `http://localhost:4173/giansy/`. Root deployments continue to work with the ordinary build command. Public logo downloads are adjusted to the same base path automatically.
 
-GitHub Pages hosts the static prototype. Hosted CMS authentication and contact delivery still require their own service setup; the existing Netlify configuration remains an alternative for Git Gateway.
+GitHub Pages hosts the static site. Requests open WhatsApp with a complete prefilled message; customers confirm Send in the chat. PDF export works in the browser. Hosted CMS authentication still requires service setup; the existing Netlify configuration remains an alternative for Git Gateway.
 
 ## Working features
 
 - “Piccoli pensieri” sits beside the timeless biscuits: 3-cookie pouch (€4.50), 12-cookie bag (€15), and 15-cookie brass tray (€20), packaging included. Plus/minus chooses whole packages and updates “La tua dolce selezione” immediately. Bundles are listed there but never placed on the silver plate; there is no second cart section. Image masters, prompts and limitations are in `assets/GIFT_BUNDLES.md`.
-- The current custom assortment is included directly in the final request. It can optionally be saved in the same summary, then repeated or followed by another independently composed assortment. Cart lines preserve every product quantity and packaging choice; identical lines merge. Cart and current builder are stored separately. The final request includes a required desired date (today or later), all cart contents and personalisation notes. The date remains subject to confirmation; actual sending and payment are not enabled.
+- The current custom assortment is included directly in the final request. It can optionally be saved in the same summary, then repeated or followed by another independently composed assortment. Cart lines preserve every product quantity and packaging choice; identical lines merge. Cart and current builder are stored separately. The final request includes a required desired date (today or later), all cart contents and personalisation notes. The date remains subject to confirmation. No payment is collected.
 
 - “Biscotti senza tempo” groups oranges, almond/coffee biscuits, hazelnut/apricot/chocolate biscuits, Vin Santo/raisin/pine nut biscuits, pumpkin biscuits and marzipan dates. Each flavour is ordered in steps of 15. Bulk quantities are independent of decorated-cookie packaging and persist beyond 25 pieces; bulk packaging is agreed separately. Prices, image prompts and sources are in `assets/TIMELESS_BISCUITS.md`. Mixed requests still respect decorated packaging minimums/capacities.
 
@@ -33,7 +33,9 @@ GitHub Pages hosts the static prototype. Hosted CMS authentication and contact d
 - Burgundy backgrounds throughout, ivory lettering and logo, scalloped antique product labels, overlapping cookie cutouts and soft shadows.
 - A silver plate with one representative image per selected product type, arranged around a filled centre independently of quantities. The full silver plate straddles burgundy and woven tartan; the empty state has no opaque centre overlay.
 - Editable seasonal feature, baker story, journal categories and individual articles.
-- A clear order-request form with an attached assortment preview, packaging and estimate; a prominent notes panel for colours, decorations and dedications; and a final “Invia richiesta” action. Submission currently shows an explicitly labelled preview confirmation; no message or payment is sent while contact details remain provisional. Name, email and notes survive editing; changing the assortment clears the confirmation.
+- A clear order-request form includes the complete assortment, packaging, estimate, required date, and prominent personalisation notes. “Invia su WhatsApp” opens a prefilled request addressed to the number in `src/data/contact.json`; the customer confirms Send in WhatsApp. “Scarica PDF” creates a multipage document with the same details, ready to attach manually to the chat. These actions share validation, preserve all repeated packages and notes, and never claim automatic delivery. Name, email, date and notes survive editing; changing the assortment clears the prepared summary. jsPDF and the bundled OFL Noto Sans font load only when a PDF is requested; plain text rendering preserves accented characters and wraps long notes across pages.
+
+  Implementation references: [WhatsApp click to chat](https://faq.whatsapp.com/5913398998672934) and [jsPDF](https://github.com/parallax/jsPDF). No WhatsApp API or automatic file attachment is used.
 - Responsive navigation, keyboard controls, modal focus handling, reduced-motion support, and saved language preference.
 
 ## Content management
@@ -69,7 +71,7 @@ The portrait and tartan are supplied references. Four temporary transparent PNG 
 
 ## Launch setup remaining
 
-Replace the placeholder email and Instagram destination, confirm products, prices and allergens, replace illustrative photography, connect CMS authentication, and add final business and privacy details. The contact flow prepares a message locally; a delivery service can be connected later. Checkout and payments are intentionally excluded.
+Replace the placeholder Instagram destination, confirm products, prices and allergens, replace illustrative photography, connect CMS authentication, and add final business and privacy details. WhatsApp opens a prefilled message; sending is confirmed in the chat. PDF files can be downloaded and attached manually. Checkout and payments are intentionally excluded.
 
 The seasonal feature and journal are preserved but hidden, including journal navigation and public routes. Re-enable them in `src/data/features.json` when needed.
 

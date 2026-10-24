@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0",
     "build": "tsc -b && vite build && node scripts/prepare-static.mjs",
-    "test:selection": "node --experimental-strip-types scripts/check-selection.mjs && node --experimental-strip-types scripts/check-cart.mjs",
+    "test:selection": "node --experimental-strip-types scripts/check-selection.mjs && node --experimental-strip-types scripts/check-cart.mjs && node --experimental-strip-types scripts/check-request.mjs",
     "preview": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
+    "jspdf": "^4.2.1",
     "lucide-react": "^0.468.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

@@ -11,6 +11,11 @@ collections:
   - name: kitchen
     label: Giansy's Kitchen
     files:
+      - name: contact
+        label: Order requests
+        file: src/data/contact.json
+        fields:
+          - { name: whatsapp, label: WhatsApp recipient (international format), widget: string, hint: "Include the country code, e.g. +39…" }
       - name: journal
         label: Journal & Recipes
         file: src/data/journal.json

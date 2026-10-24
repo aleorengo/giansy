@@ -90,24 +90,24 @@
       ]
     },
     {
-      "id": "christmas-santa",
-      "name": "Santa Claus",
-      "description": "Small · A red hat and an icing beard.",
-      "price": 1.2,
-      "fixedPrice": true,
-      "image": "/images/christmas/santa.webp",
-      "categories": [
-        "Christmas"
-      ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
-    },
-    {
       "id": "christmas-star",
       "name": "Christmas Star",
       "description": "Small · A little festive star.",
       "price": 1.2,
       "fixedPrice": true,
       "image": "/images/christmas/snowflake.webp",
+      "categories": [
+        "Christmas"
+      ],
+      "allergens": "Ingredients and allergens to confirm with Giansy."
+    },
+    {
+      "id": "christmas-santa",
+      "name": "Santa Claus",
+      "description": "Small · A red hat and an icing beard.",
+      "price": 1.2,
+      "fixedPrice": true,
+      "image": "/images/christmas/santa.webp",
       "categories": [
         "Christmas"
       ],
@@ -137,11 +137,21 @@
       "description": "Medium · Icing details, piped one by one.",
       "price": 1.5,
       "fixedPrice": true,
-      "image": "/images/christmas/snowflake-small.webp",
+      "image": "/images/christmas/variants/snowflake-blue-simple.webp",
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "gallery": [
+        {
+          "image": "/images/christmas/variants/snowflake-white-simple.webp",
+          "label": "White branches and a silver pearl"
+        },
+        {
+          "image": "/images/christmas/snowflake-small.webp",
+          "label": "Original small snowflake"
+        }
+      ]
     },
     {
       "id": "christmas-reindeer",
@@ -195,7 +205,13 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "gallery": [
+        {
+          "image": "/images/christmas/variants/house-wreath-tree.webp",
+          "label": "Snowy house with wreath and tree"
+        }
+      ]
     },
     {
       "id": "christmas-tree-decorated",

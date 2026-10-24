@@ -10,11 +10,12 @@ import {
   Check,
   ChevronDown,
   Cookie,
+  Download,
   Gift,
   Heart,
   Instagram,
-  Mail,
   Menu,
+  MessageCircle,
   Minus,
   Plus,
   RotateCcw,
@@ -27,6 +28,8 @@ import AntiqueLabel from "./components/AntiqueLabel";
 import ProductGallery from "./components/ProductGallery";
 import { addCustomToCart, addBundleToCart, changeCartQuantity, restoreCart, localToday, validRequestedDate } from "./cart";
 import type { CartItem } from "./cart";
+import { requestDate, requestText, whatsappUrl } from "./order-request";
+import type { OrderRequest } from "./order-request";
 import { getTrayLayout } from "./tray-layout";
 import PackagingBuilder, { SelectionProgress } from "./components/PackagingBuilder";
 import { SelectionContext, useSelectionLimit } from "./selection-context";
@@ -46,6 +49,7 @@ import type { Product, Selection } from "./data/products";
 import journal from "./data/journal.json";
 import seasonal from "./data/seasonal.json";
 import features from "./data/features.json";
+import contact from "./data/contact.json";
 
 function Logo({ footer = false }: { footer?: boolean }) {
   return (
@@ -928,28 +932,47 @@ function Contact({
   cart: CartItem[];
   draftReady: boolean;
 }) {
-  const [draft, setDraft] = useState<{ subject: string; body: string } | null>(
-    null,
-  );
+  const [draft, setDraft] = useState<OrderRequest | null>(null);
+  const [pdfBusy, setPdfBusy] = useState(false);
+  const [exportError, setExportError] = useState("");
   const [fields, setFields] = useState({ name: "", email: "", message: "", date: "" });
   const estimate = describeCart(cart);
   const canSubmit = estimate.lines.length > 0 && draftReady;
   useEffect(() => {
     setDraft(null);
+    setExportError("");
   }, [cart]);
   function updateField(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = event.target;
     setFields(previous => ({ ...previous, [name]: value }));
   }
+  async function downloadPdf(order: OrderRequest) {
+    setPdfBusy(true);
+    setExportError("");
+    try {
+      const { downloadOrderPdf } = await import("./order-pdf");
+      await downloadOrderPdf(order, assetUrl("/fonts/NotoSans-Regular.ttf"));
+    } catch {
+      setExportError(t("The PDF could not be downloaded. Please try again, or send the text on WhatsApp."));
+    } finally {
+      setPdfBusy(false);
+    }
+  }
   function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!canSubmit || !validRequestedDate(fields.date)) return;
-    const data = new FormData(e.currentTarget);
-    const assortment = `\n\n${t("Requested date")}: ${fields.date}\n${t("My selection:")}\n${estimate.lines.map(line => `${line.item.quantity} × ${t(line.title)} — ${money(line.unitPrice * line.item.quantity)}\n${t(line.detail)}${line.bulkPackaging ? `; ${t("Packaging for timeless biscuits will be agreed separately.")}` : ""}${line.contents.length ? `\n${line.contents.map(p => `  ${p.quantity} × ${t(p.name)}`).join("\n")}` : ""}`).join("\n\n")}\n${t("Estimated total")}: ${money(estimate.total)}`;
-    setDraft({
-      subject: `${t("Order request from")} ${data.get("name")}`,
-      body: `Ciao Giansy!\n\n${t("Notes and personalisation")}: ${String(data.get("message") || "").trim() || t("No particular preferences.")}${assortment}\n\n${data.get("name")}\n${data.get("email")}`,
-    });
+    const order: OrderRequest = {
+      ...fields, language: getLanguage(), total: estimate.total, pieces: estimate.pieces, packages: estimate.packages,
+      lines: estimate.lines.map(line => ({
+        title: t(line.title), detail: t(line.detail), quantity: line.item.quantity,
+        pieceCount: line.pieceCount, unitPrice: line.unitPrice, bulkPackaging: line.bulkPackaging,
+        contents: line.contents.map(p => `${p.quantity} × ${t(p.name)}`),
+      })),
+    };
+    setDraft(order);
+    const action = (e.nativeEvent as SubmitEvent).submitter?.getAttribute("value");
+    if (action === "pdf") void downloadPdf(order);
+    else window.open(whatsappUrl(contact.whatsapp, requestText(order)), "_blank", "noopener,noreferrer");
   }
   return (
     <section className="contact-section" id="contact">
@@ -966,9 +989,8 @@ function Contact({
             )}{" "}
           </p>
           <div className="contact-links">
-            <a href="mailto:hello@giansy.example">
-              <Mail size={17} /> {t("hello@giansy.example")}{" "}
-              <span>{t("PLACEHOLDER")} </span>
+            <a href={whatsappUrl(contact.whatsapp, "Ciao Giansy!")} target="_blank" rel="noreferrer">
+              <MessageCircle size={17} /> WhatsApp · {contact.whatsapp}
             </a>
             <a
               href="https://www.instagram.com/"
@@ -986,11 +1008,17 @@ function Contact({
           {draft ? (
             <div className="contact-draft" role="status">
               <div className="draft-check"><Check size={28} /></div>
-              <h3>{t("Your request is complete.")}</h3>
-              <p>{t("Your details and personalisation notes are ready, together with your chosen assortment.")}</p>
+              <h3>{t("Your request is ready.")}</h3>
+              <p>{t("Your assortment, requested date and personalisation notes are ready to share with Giansy.")}</p>
               {estimate.pieces > 0 && <p className="request-complete-summary"><strong>{estimate.pieces} {t("cookies")}</strong><span>{`${estimate.packages} ${t("packages")}`}</span><strong>{money(estimate.total)}</strong></p>}
-              <p className="request-date-summary">{t("Requested date")}: {fields.date}</p>
-              <p className="request-preview-notice">{t("This form is a preview: your request has not been sent. Sending will be enabled when the final contact details are added.")}</p>
+              <p className="request-date-summary">{t("Requested date")}: {requestDate(draft)}</p>
+              <div className="request-delivery-actions">
+                <a className="button button-primary" href={whatsappUrl(contact.whatsapp, requestText(draft))} target="_blank" rel="noreferrer"><MessageCircle size={16} />{t("Send on WhatsApp")}</a>
+                <button type="button" className="button button-outline" disabled={pdfBusy} onClick={() => void downloadPdf(draft)}><Download size={16} />{t(pdfBusy ? "Preparing PDF…" : "Download PDF")}</button>
+              </div>
+              <p className="request-delivery-hint">{t("Confirm Send in WhatsApp to deliver your request. You can download the PDF and attach it in the same chat. Giansy will confirm availability and the final details.")}</p>
+              {exportError && <p className="request-export-error" role="alert">{exportError}</p>}
+              <details className="request-text-preview"><summary>{t("Read the full request")}</summary><pre>{requestText(draft)}</pre></details>
               <button type="button" className="text-link" onClick={() => setDraft(null)}>{t("Edit details")}</button>
             </div>
           ) : (
@@ -1054,11 +1082,12 @@ function Contact({
                 />
               </label>
               {!canSubmit && <p className="request-minimum" id="request-minimum">{t(draftReady ? "Add an assortment or a little gift to your selection first." : "Complete or remove your assortment in progress before sending the request.")} <a href="#creations">{t("Choose your cookies")}</a></p>}
-              <button type="submit" className="button button-primary" disabled={!canSubmit} aria-describedby={!canSubmit ? "request-minimum" : undefined}>
-                {t("Send my request")} <ArrowRight size={15} />
-              </button>
+              <div className="request-delivery-actions">
+                <button type="submit" value="whatsapp" className="button button-primary" disabled={!canSubmit} aria-describedby={!canSubmit ? "request-minimum" : undefined}><MessageCircle size={16} />{t("Send on WhatsApp")}</button>
+                <button type="submit" value="pdf" className="button button-outline" disabled={!canSubmit || pdfBusy}><Download size={16} />{t(pdfBusy ? "Preparing PDF…" : "Download PDF")}</button>
+              </div>
               <span className="form-note">
-                {t("Your selection and notes are included. No payment is required.")}
+                {t("WhatsApp opens with your complete request. Confirm Send in the chat. No payment is required.")}
               </span>
             </form>
           )}
