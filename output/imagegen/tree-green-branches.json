@@ -1,0 +1,8 @@
+{
+  "tool_mode": "built-in image_gen",
+  "asset": "public/images/christmas/variants/tree-green-branches-gold.webp",
+  "use": "Third image in Christmas Tree Type 1, between blue curls and blue branches with gold sprinkles",
+  "prompt": "Use case: background-extraction. Asset type: transparent bakery catalogue product cutout. The attached photograph is the EDIT TARGET. Extract only the complete green Christmas-tree biscuit in the LOWER CENTRE of the photograph, directly below the large central wreath. It has leafy hand-piped teal-green icing branches and scattered small gold sugar squares, with no pink baubles. Remove the pink cloth, wreaths, all neighbouring cookies, and the black screenshot margins. Preserve this exact tree's biscuit outline, rustic brown texture, raised piped branch pattern, teal-green icing hue and gold sprinkles. Rotate this cookie upright so the pointed treetop is at the top and the small trunk is at the bottom. Keep the whole tree intact, including every branch tip and trunk. One isolated tree, centred on a square transparent canvas with a small even margin, consistent with a professional bakery catalogue cutout. True alpha transparency, no backdrop or floor, no cast shadow outside the cookie, no added decorations, no text or watermark. Do not invent a different tree design.",
+  "transparent_background": true,
+  "delivery": "640 × 640 WebP with alpha"
+}
