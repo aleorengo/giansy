@@ -2,7 +2,7 @@
 
 Built-in image_gen editing mode; no CLI fallback. Transparent PNG masters in `assets/cookie-updates-oct24/`, WebP exports in `public/images/christmas/variants/`. Sharp preserves alpha while trimming, fitting and exporting. AI-assisted cutouts preserve the supplied designs but are not pixel-exact manual masks.
 
-The SMALL snowflake starts with turquoise, then white/silver, then its previous cover. The LARGE snowflake and all its original variants remain unchanged. The house keeps its cover and adds the wreath/tree house second. Santa and Star swap catalogue positions.
+The SMALL snowflake starts with turquoise, then white/silver, then its previous cover. The LARGE snowflake and all its original variants remain unchanged. The house starts with the new wreath/tree house and keeps its previous cover second. Santa and Star swap catalogue positions.
 
 ## snowflake-blue-simple
 

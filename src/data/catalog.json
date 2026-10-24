@@ -201,15 +201,15 @@
       "description": "Richly decorated · A snowy roof and festive details.",
       "price": 2.2,
       "fixedPrice": true,
-      "image": "/images/christmas/house-v2.webp",
+      "image": "/images/christmas/variants/house-wreath-tree.webp",
       "categories": [
         "Christmas"
       ],
       "allergens": "Ingredients and allergens to confirm with Giansy.",
       "gallery": [
         {
-          "image": "/images/christmas/variants/house-wreath-tree.webp",
-          "label": "Snowy house with wreath and tree"
+          "image": "/images/christmas/house-v2.webp",
+          "label": "Original snowy house"
         }
       ]
     },
