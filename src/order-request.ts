@@ -49,10 +49,10 @@ export function requestText(order: OrderRequest) {
       "", `${l.custom} — ${price(line)}`,
       `${line.pieceCount * line.quantity} ${l.cookies}`,
       line.quantity > 1 ? `${line.quantity} ${l.identical} · ${line.pieceCount} ${l.each} · ${line.detail}` : line.detail,
-      ...line.contents.map(content => `- ${content.quantity * line.quantity} × ${content.name}`),
+      ...line.contents.map(content => `• ${content.quantity * line.quantity} × ${content.name}`),
     ]),
-    ...(timeless.length ? ["", l.timeless, ...timeless.map(line => `${line.pieceCount * line.quantity} × ${line.title} — ${price(line)}`)] : []),
-    ...(bundles.length ? ["", l.mixed, ...bundles.map(line => `${line.quantity} × ${(line.detail || line.title).replace(/[.!?]+$/, "")} — ${price(line)}`)] : []),
+    ...(timeless.length ? ["", l.timeless, ...timeless.map(line => `• ${line.pieceCount * line.quantity} × ${line.title} — ${price(line)}`)] : []),
+    ...(bundles.length ? ["", l.mixed, ...bundles.map(line => `• ${line.quantity} × ${(line.detail || line.title).replace(/[.!?]+$/, "")} — ${price(line)}`)] : []),
     "",
     `${l.total}: ${requestMoney(order.total, order.language)}`,
   ].join("\n");

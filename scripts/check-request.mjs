@@ -14,9 +14,9 @@ const order = {
 const text = requestText(order);
 assert.ok(text.startsWith(`Nome: Chloé D’Amico\nData desiderata: 20 dicembre 2026\nMessaggio: ${order.message}\n\nOrdine`));
 assert.ok(text.includes('Assortimento personalizzato — 24,00'));
-assert.ok(text.includes('12 biscotti totali\n2 confezioni uguali · 6 biscotti ciascuna · Scatola\n- 6 × Omino\n- 6 × Cuore'), 'Repeat quantities produce a total cookie list and preserve the per-package allocation');
-assert.ok(text.includes('Biscotti senza tempo\n30 × Arancia e cioccolato — 30,00'));
-assert.ok(text.includes('Confezioni miste\n4 × Bustina con 3 biscotti piccoli misti — 18,00'));
+assert.ok(text.includes('12 biscotti totali\n2 confezioni uguali · 6 biscotti ciascuna · Scatola\n• 6 × Omino\n• 6 × Cuore'), 'Repeat quantities produce a total cookie list and preserve the per-package allocation');
+assert.ok(text.includes('Biscotti senza tempo\n• 30 × Arancia e cioccolato — 30,00'));
+assert.ok(text.includes('Confezioni miste\n• 4 × Bustina con 3 biscotti piccoli misti — 18,00'));
 assert.ok(text.includes('Totale ordine: 72,00'));
 for (const amount of ['24,00', '30,00', '18,00']) assert.equal(text.split(amount).length - 1, 1, 'Each line price appears once');
 assert.ok(!text.includes('Long description'));
@@ -31,7 +31,7 @@ assert.throws(() => whatsappUrl('not-a-number', text));
 assert.ok(requestText({ ...order, language: 'en' }).includes('20 December 2026'));
 assert.ok(requestText({ ...order, message: '  ' }).includes('Messaggio: Nessuna nota.'));
 const single = requestText({ ...order, lines: [{ ...order.lines[1], quantity: 1 }], total: 12 });
-assert.ok(single.includes('6 biscotti totali\nScatola\n- 3 × Omino\n- 3 × Cuore'));
+assert.ok(single.includes('6 biscotti totali\nScatola\n• 3 × Omino\n• 3 × Cuore'));
 assert.ok(!single.includes('confezioni uguali'));
 for (const batches of [1, 2, 3]) {
   const batch = requestText({ ...order, lines: [{ ...order.lines[2], quantity: batches }] });
