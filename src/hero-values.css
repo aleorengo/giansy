@@ -29,7 +29,7 @@ html .hero-values .values-inner > span:not(.value-star) {
   gap: 9px;
   color: inherit;
   font-family: var(--serif);
-  font-size: 17px;
+  font-size: var(--text-secondary);
   line-height: 1.25;
   text-align: center;
 }
@@ -64,7 +64,7 @@ html .hero-values .values-inner > span:not(.value-star) {
 @media (max-width: 620px) {
   .hero-section .hero-values { padding: 0 18px 10px; }
   html .hero-values .values-inner { gap: 6px; }
-  html .hero-values .values-inner > span:not(.value-star) { font-size: 14px; }
+  html .hero-values .values-inner > span:not(.value-star) { font-size: var(--text-secondary); }
   .hero-values .values-inner svg { width: 15px; height: 15px; }
   .values-strip { height: 52px; background-size: 350px 350px; }
   .values-strip .tartan-fringe {

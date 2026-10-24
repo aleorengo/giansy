@@ -1,0 +1,183 @@
+/* Shared reading scale. Keep this last so mobile layouts use the same sizes. */
+:root {
+  --text-body: 18px;
+  --text-secondary: 16px;
+  --text-small: 12px;
+}
+
+body { font-size: var(--text-body); line-height: 1.6; }
+
+html p,
+html .hero-copy p,
+html .section-heading p,
+html .story-copy p,
+html .seasonal-copy p,
+html .article-card > p,
+html .article-body p { font-size: var(--text-body); line-height: 1.65; }
+
+html .button,
+html .hero-actions .button,
+html .contact-form .button,
+html .contact-form input,
+html .contact-form textarea,
+html .simple-checkout .date-input-wrap input[type="date"] {
+  font-size: var(--text-body);
+  line-height: 1.5;
+}
+
+html .main-nav a,
+html .selection-link,
+html .language-toggle,
+html .text-link,
+html .hero-actions .text-link,
+html .creations .category-tabs button,
+html .category-tabs button,
+html .footer-nav,
+html .footer-contact,
+html .contact-form label,
+html .simple-checkout .personalisation-title,
+html .packaging-summary > label,
+html .packaging-summary > span,
+html .packaging select,
+html .plate-variants label,
+html .packaging-price,
+html .packaging-capacity,
+html .packaging-feedback p,
+html .packaging-summary .packaging-error,
+html .selection-progress > div,
+html .selection-progress strong,
+html .selection-progress a,
+html .timeless-intro p,
+html .timeless-intro > span,
+html .gift-included,
+html .confirmed-empty,
+html .draft-assortment-label,
+html .subtotal-lines,
+html .pricing-note,
+html .order-empty > span,
+html .simple-checkout .request-minimum,
+html .simple-checkout .personalisation-hint,
+html .product-gallery-hint,
+html .detail-note {
+  font-size: var(--text-secondary);
+  line-height: 1.5;
+}
+
+html .eyebrow,
+html .announcement,
+html .creations .product-label,
+html .creations .gallery-note,
+html .creations .provisional-price-note,
+html .simple-checkout .form-note,
+html .simple-checkout .date-error,
+html .requested-date-field > span,
+html .footer-bottom,
+html .footer-bottom button,
+html .footer-contact small,
+html .article-meta,
+html .creations .product-bottom .batch-price {
+  font-size: var(--text-small);
+  line-height: 1.5;
+}
+
+html .announcement { padding: 8px 16px; gap: 12px; letter-spacing: 1px; }
+html .hero-actions { flex-wrap: wrap; }
+html .hero-values .values-inner > span:not(.value-star) { font-size: var(--text-body); line-height: 1.4; }
+html .hero-copy p .desktop-break { display: none; }
+html .handmade-seal { width: 116px; height: 116px; gap: 5px; }
+html .handmade-seal span { max-width: 94px; text-align: center; font-size: var(--text-small); letter-spacing: .5px; line-height: 1.35; }
+html .category-tabs button { min-height: 44px; }
+html .creations .category-tabs { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+html .creations .product-label { letter-spacing: 1px; }
+
+/* Share the image, copy and controls rows so prices align without empty labels. */
+html .creations .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 32px; }
+html .creations .product-card { display: grid; grid-column: auto !important; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; align-items: stretch; justify-items: center; }
+html .creations .product-info,
+html .creations .product-batch .product-info { display: grid; grid-row: span 2; grid-template-rows: subgrid; row-gap: 0; height: auto; min-height: 0; margin-top: -20px; }
+html .creations .antique-label-content { display: contents; }
+html .creations .product-copy { flex: none; justify-content: flex-start; gap: 0; padding: 32px 24px 0; }
+html .creations .product-card .product-name h3 { font-size: 16px; font-weight: 600; line-height: 1.2; letter-spacing: 0; }
+html .creations .product-bottom { flex-shrink: 0; gap: 6px; padding: 10px 24px 52px; margin: 0; }
+html .creations .product-bottom > span { font-size: var(--text-body); line-height: 1.2; }
+html .creations .product-bottom .batch-price { max-width: none; margin-top: 2px; }
+html .creations .quantity { height: 44px; min-width: 132px; gap: 8px; }
+html .creations .quantity button { width: 44px; height: 44px; }
+html .creations .quantity > span { font-size: var(--text-body); min-width: 24px; }
+html .gift-section .product-copy { padding-top: 26px; }
+
+html .plate-variants { flex-wrap: wrap; }
+html .plate-variants label span { font-size: var(--text-secondary); }
+html .selection-progress { align-items: center; }
+html .selection-progress > div { flex-wrap: wrap; gap: 2px 12px; }
+html .selection-progress a { white-space: normal; text-align: right; }
+html .packaging-summary > small { display: block; font-size: var(--text-small); line-height: 1.5; margin-top: 8px; }
+html .packaging-summary select { padding-right: 34px; }
+html .packaging-builder .section-heading .packaging-size-note,
+html .packaging-builder .section-heading .packaging-timeless-note { font-size: var(--text-secondary); }
+
+/* A name row followed by quantity and price stays readable in narrow summaries. */
+html .order-item { display: grid; grid-template-columns: 1fr auto; gap: 12px; }
+html .order-item > div:first-child { grid-column: 1 / -1; min-width: 0; }
+html .order-item > div:first-child > span { font-size: 24px; line-height: 1.2; }
+html .order-item small { font-size: var(--text-secondary); line-height: 1.5; }
+html .order-item > strong { font-size: var(--text-body); white-space: nowrap; }
+html .quantity { min-height: 44px; }
+html .quantity > span { font-size: var(--text-body); }
+html .quantity button { min-width: 44px; min-height: 44px; }
+html .quantity-compact { width: 132px; min-width: 132px; height: 44px; }
+html .quantity-compact button { width: 44px; min-height: 44px; }
+html .quantity-compact > span { font-size: var(--text-body); min-width: 28px; }
+html .confirmed-item details { font-size: var(--text-secondary); }
+html .confirmed-remove,
+html .reset-selection { font-size: var(--text-secondary); min-height: 44px; }
+html .estimated-total { gap: 16px; }
+html .estimated-total > strong { white-space: nowrap; }
+html .estimated-total small,
+html .checkout-total small { font-size: var(--text-secondary); line-height: 1.5; }
+html .assortment-section .plate-note { font-size: var(--text-small); line-height: 1.5; }
+html .checkout-total { gap: 16px; }
+html .checkout-total strong { white-space: nowrap; }
+html .product-gallery-caption { font-size: var(--text-secondary); line-height: 1.5; }
+html .detail-dialog > p { font-size: var(--text-body); line-height: 1.6; }
+
+@media (max-width: 1100px) {
+  html .creations .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 20px; }
+}
+
+@media (max-width: 700px) {
+  html .creations .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 10px; }
+  html .creations .product-image-wrap { height: 190px; }
+  html .creations .product-image-button { padding: 16px 6px 0; }
+  html .creations .product-copy { padding: 30px 14px 0; }
+  html .creations .product-bottom { padding: 10px 14px 52px; }
+  html .creations .quantity { min-width: 112px; gap: 0; }
+  html .creations .quantity > span { min-width: 24px; }
+  html .creations .quantity button { flex-shrink: 0; }
+  html .creations .product-check { right: 6px; top: 24px; }
+  html .gift-section .product-grid { max-width: none; }
+  html .gift-section .product-image-wrap { height: 210px; }
+  html .gift-section .product-copy { padding-top: 26px; }
+  html .packaging-options { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+  html .packaging-choice { padding: 5px 4px 14px; }
+  html .packaging-illustration { width: 100%; height: 102px; margin-bottom: 9px; }
+  html .packaging-choice-heading { flex-direction: column; font-size: 18px; line-height: 1.2; }
+  html .packaging-name { min-height: 2.4em; }
+  html .packaging-price { font-size: 14px; line-height: 1.4; min-height: 60px; margin-top: 8px; }
+  html .packaging-capacity { font-size: var(--text-small); line-height: 1.5; letter-spacing: 0; }
+  html .selection-progress { gap: 16px; }
+  html .selection-progress > div { align-items: flex-start; flex-direction: column; }
+  html .hero-actions { gap: 16px; }
+  html .hero-actions .button { padding-inline: 16px; }
+  html .footer-main { gap: 28px; }
+  html .hero-art { max-width: 100%; }
+  html .portrait-frame { max-width: 100%; }
+}
+
+@media (max-width: 360px) {
+  html .creations .product-image-wrap { height: 165px; }
+  html .creations .product-copy { padding-inline: 12px; }
+  html .creations .product-bottom { padding-inline: 12px; }
+  html .checkout-total > span { font-size: 24px; }
+  html .checkout-total strong { font-size: 28px; }
+}

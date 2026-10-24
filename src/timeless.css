@@ -1,8 +1,8 @@
 .timeless-intro { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 18px 20px; margin: -6px auto 36px; max-width: 660px; text-align: center; }
 .timeless-intro > strong { font-family: var(--serif); font-size: 28px; font-weight: 400; }
 .timeless-intro p { font-size: 12px; line-height: 1.7; margin: 9px 0; }
-.timeless-intro > span { font-size: 11px; }
-.creations .product-bottom .batch-price { display: block; font-size: 9px; line-height: 1.4; margin-top: 3px; max-width: 105px; }
+.timeless-intro > span { font-size: var(--text-small); }
+.creations .product-bottom .batch-price { display: block; font-size: var(--text-small); line-height: 1.4; margin-top: 3px; max-width: 105px; }
 .creations .product-info { height: 280px; min-height: 280px; }
 .creations .product-batch .product-info { height: 300px; min-height: 300px; }
 .creations .antique-label-content { justify-content: flex-start; padding-top: 52px; padding-bottom: 58px; }
@@ -10,15 +10,15 @@
 .timeless-order-note { border-top: 1px solid var(--line); padding: 15px 0; font-size: 12px; line-height: 1.6; }
 .timeless-order-note strong, .timeless-order-note span { display: block; }
 .timeless-order-note span { margin-top: 5px; }
-.packaging-builder .section-heading .packaging-timeless-note { font-size: 11px; max-width: 520px; margin-top: 14px; }
+.packaging-builder .section-heading .packaging-timeless-note { font-size: var(--text-small); max-width: 520px; margin-top: 14px; }
 @media (max-width: 620px) {
   .timeless-intro { margin-bottom: 28px; padding: 16px 10px; }
   .timeless-intro > strong { font-size: 24px; }
-  .creations .product-bottom .batch-price { font-size: 8px; max-width: 65px; }
+  .creations .product-bottom .batch-price { font-size: var(--text-small); max-width: 65px; }
 }
 @media (max-width: 350px) {
   .creations .product-batch .product-name h3 { font-size: 18px; }
-  .product-batch .antique-label-content > p { font-size: 8.5px; }
+  .product-batch .antique-label-content > p { font-size: var(--text-small); }
 }
 
-.packaging-builder .section-heading .packaging-size-note { font-size: 11px; line-height: 1.7; max-width: 570px; margin-top: 14px; }
+.packaging-builder .section-heading .packaging-size-note { font-size: var(--text-small); line-height: 1.7; max-width: 570px; margin-top: 14px; }

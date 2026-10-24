@@ -3,7 +3,7 @@
     {
       "id": "christmas-snowflake-large",
       "name": "Large Christmas Snowflake",
-      "description": "Large · White icing in assorted shapes.",
+      "description": "White icing in assorted shapes.",
       "price": 5,
       "fixedPrice": true,
       "image": "/images/christmas/snowflake-large.webp",
@@ -34,7 +34,7 @@
     {
       "id": "christmas-tree",
       "name": "Christmas Tree · Type 1",
-      "description": "Medium · Simple hand-piped icing.",
+      "description": "Simple hand-piped icing.",
       "price": 1.5,
       "fixedPrice": true,
       "image": "/images/christmas/tree-simple.webp",
@@ -56,7 +56,7 @@
     {
       "id": "gingerbread",
       "name": "Gingerbread Man",
-      "description": "Medium · A smile and little green buttons.",
+      "description": "A smile and little green buttons.",
       "price": 1.5,
       "fixedPrice": true,
       "image": "/images/christmas/person.webp",
@@ -74,7 +74,7 @@
     {
       "id": "christmas-gift",
       "name": "Little Christmas Gift",
-      "description": "Small · A sweet little present.",
+      "description": "A sweet little present.",
       "price": 1.2,
       "fixedPrice": true,
       "image": "/images/christmas/gift.webp",
@@ -92,7 +92,7 @@
     {
       "id": "christmas-star",
       "name": "Christmas Star",
-      "description": "Small · A little festive star.",
+      "description": "A little festive star.",
       "price": 1.2,
       "fixedPrice": true,
       "image": "/images/christmas/snowflake.webp",
@@ -104,7 +104,7 @@
     {
       "id": "christmas-santa",
       "name": "Santa Claus",
-      "description": "Small · A red hat and an icing beard.",
+      "description": "A red hat and an icing beard.",
       "price": 1.2,
       "fixedPrice": true,
       "image": "/images/christmas/santa.webp",
@@ -116,7 +116,7 @@
     {
       "id": "gingerbread-heart",
       "name": "Christmas Heart",
-      "description": "Small · Hand-piped icing scrolls.",
+      "description": "Hand-piped icing scrolls.",
       "price": 1.2,
       "fixedPrice": true,
       "image": "/images/christmas/heart.webp",
@@ -134,7 +134,7 @@
     {
       "id": "snowflake",
       "name": "Christmas Snowflake",
-      "description": "Medium · Icing details, piped one by one.",
+      "description": "Icing details, piped one by one.",
       "price": 1.5,
       "fixedPrice": true,
       "image": "/images/christmas/variants/snowflake-blue-simple.webp",
@@ -156,7 +156,7 @@
     {
       "id": "christmas-reindeer",
       "name": "Christmas Reindeer",
-      "description": "Medium · White antlers and a red nose.",
+      "description": "White antlers and a red nose.",
       "price": 1.5,
       "fixedPrice": true,
       "image": "/images/christmas/reindeer.webp",
@@ -174,7 +174,7 @@
     {
       "id": "christmas-candle",
       "name": "Christmas Candle",
-      "description": "Medium · A little Christmas glow.",
+      "description": "A little Christmas glow.",
       "price": 1.5,
       "fixedPrice": true,
       "image": "/images/christmas/candle.webp",
@@ -186,7 +186,7 @@
     {
       "id": "christmas-mushroom",
       "name": "Christmas Mushroom",
-      "description": "Medium · A red cap with white dots.",
+      "description": "A red cap with white dots.",
       "price": 1.5,
       "fixedPrice": true,
       "image": "/images/christmas/mushroom-v3.webp",
@@ -198,7 +198,7 @@
     {
       "id": "christmas-house",
       "name": "Gingerbread House",
-      "description": "Richly decorated · A snowy roof and festive details.",
+      "description": "A snowy roof and festive details.",
       "price": 2.2,
       "fixedPrice": true,
       "image": "/images/christmas/variants/house-wreath-tree.webp",
@@ -216,7 +216,7 @@
     {
       "id": "christmas-tree-decorated",
       "name": "Christmas Tree · Type 2",
-      "description": "Richly decorated · Garlands, baubles and silver pearls.",
+      "description": "Garlands, baubles and silver pearls.",
       "price": 2.2,
       "fixedPrice": true,
       "image": "/images/christmas/variants/tree-green-garlands.webp",
@@ -234,7 +234,7 @@
     {
       "id": "christmas-wreath",
       "name": "Christmas Wreath",
-      "description": "Richly decorated · Green leaves and a red bow.",
+      "description": "Green leaves and a red bow.",
       "price": 2.2,
       "fixedPrice": true,
       "image": "/images/christmas/wreath.webp",

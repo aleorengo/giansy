@@ -23,7 +23,7 @@ html {
 }
 body {
   margin: 0;
-  font-size: 13px;
+  font-size: var(--text-secondary);
   line-height: 1.8;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%2383684f' opacity='.035' filter='url(%23n)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
 }
@@ -110,7 +110,7 @@ h2 em {
 }
 p {
   color: var(--ivory);
-  font-size: 13px;
+  font-size: var(--text-secondary);
   line-height: 1.95;
 }
 .section-width {
@@ -130,7 +130,7 @@ p {
   display: flex;
   align-items: center;
   gap: 9px;
-  font-size: 9px;
+  font-size: var(--text-small);
   letter-spacing: 2px;
   font-weight: 600;
   line-height: 1.6;
@@ -147,7 +147,7 @@ p {
   justify-content: center;
   gap: 23px;
   padding: 14px 22px;
-  font-size: 10px;
+  font-size: var(--text-small);
   font-weight: 500;
   letter-spacing: 0.25px;
   border: 1px solid var(--ivory);
@@ -180,7 +180,7 @@ p {
   justify-content: center;
   gap: 12px;
   color: var(--ivory);
-  font-size: 10px;
+  font-size: var(--text-small);
   font-weight: 500;
   border-bottom: 1px solid #b99091;
   padding: 4px 0;
@@ -206,11 +206,11 @@ p {
   align-items: center;
   justify-content: center;
   gap: 23px;
-  font-size: 8px;
+  font-size: var(--text-small);
   letter-spacing: 2.4px;
 }
 .announcement > span {
-  font-size: 13px;
+  font-size: var(--text-secondary);
 }
 .site-header {
   position: sticky;
@@ -241,7 +241,7 @@ p {
 }
 .brand-kicker {
   font-family: var(--serif);
-  font-size: 10px;
+  font-size: var(--text-small);
   line-height: 1.5;
   letter-spacing: 3px;
   padding-left: 3px;
@@ -261,7 +261,7 @@ p {
   top: 4px;
 }
 .brand-tagline {
-  font-size: 5.1px;
+  font-size: var(--text-small);
   letter-spacing: 1.1px;
   margin-top: 8px;
 }
@@ -271,7 +271,7 @@ p {
   padding-left: 55px;
 }
 .main-nav a {
-  font-size: 10px;
+  font-size: var(--text-small);
   position: relative;
   padding-block: 7px;
 }
@@ -301,7 +301,7 @@ p {
   align-items: center;
   gap: 10px;
   color: var(--ivory);
-  font-size: 10px;
+  font-size: var(--text-small);
   white-space: nowrap;
 }
 .selection-count {
@@ -312,7 +312,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 9px;
+  font-size: var(--text-small);
 }
 .mobile-menu {
   display: none;
@@ -368,7 +368,7 @@ p {
   line-height: 1.5;
 }
 .hero-signoff > span:last-child {
-  font-size: 6.5px;
+  font-size: var(--text-small);
   letter-spacing: 1.7px;
   color: var(--ivory);
   padding-left: 4px;
@@ -409,7 +409,7 @@ p {
   display: block;
   text-align: center;
   margin-top: 6px;
-  font-size: 7px;
+  font-size: var(--text-small);
   letter-spacing: 2px;
   color: var(--ivory);
 }
@@ -462,7 +462,7 @@ p {
   box-shadow: 2px 5px 9px #321d1726;
 }
 .handmade-seal span {
-  font-size: 6px;
+  font-size: var(--text-small);
   letter-spacing: 1.1px;
 }
 .handmade-seal svg {
@@ -514,7 +514,7 @@ p {
   align-items: center;
   gap: 10px;
   font-family: var(--serif);
-  font-size: 16px;
+  font-size: var(--text-secondary);
   color: var(--ivory);
 }
 .values-inner svg {
@@ -525,7 +525,7 @@ p {
 }
 .value-star {
   color: var(--ivory);
-  font-size: 16px;
+  font-size: var(--text-secondary);
 }
 .section-heading {
   text-align: center;
@@ -567,7 +567,7 @@ p {
 }
 .category-tabs button {
   padding: 9px 12px;
-  font-size: 9px;
+  font-size: var(--text-small);
   white-space: nowrap;
   display: flex;
   align-items: center;
@@ -653,7 +653,7 @@ p {
   position: absolute;
   left: 12px;
   top: 11px;
-  font-size: 6px;
+  font-size: var(--text-small);
   font-weight: 500;
   letter-spacing: 1.35px;
   color: var(--ivory);
@@ -689,7 +689,7 @@ p {
   color: var(--ivory);
 }
 .product-info > p {
-  font-size: 9px;
+  font-size: var(--text-small);
   line-height: 1.8;
   margin-top: 5px;
 }
@@ -701,7 +701,7 @@ p {
   gap: 10px;
 }
 .product-bottom > span {
-  font-size: 9px;
+  font-size: var(--text-small);
   color: var(--ivory);
 }
 .product-bottom strong {
@@ -734,7 +734,7 @@ p {
   opacity: 0.3;
 }
 .quantity > span {
-  font-size: 10px;
+  font-size: var(--text-small);
   text-align: center;
   min-width: 22px;
   font-variant-numeric: tabular-nums;
@@ -753,10 +753,10 @@ p {
   display: flex;
   width: fit-content;
   margin: 31px auto 0;
-  font-size: 10px;
+  font-size: var(--text-small);
 }
 .view-all > span {
-  font-size: 9px;
+  font-size: var(--text-small);
   color: var(--ivory);
 }
 .view-all .rotate {
@@ -767,7 +767,7 @@ p {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-size: 9px;
+  font-size: var(--text-small);
   color: var(--ivory);
   margin-top: 27px;
 }
@@ -845,7 +845,7 @@ p {
 }
 .plate-empty > a {
   margin-top: 3px;
-  font-size: 8px;
+  font-size: var(--text-small);
   display: flex;
   gap: 5px;
   align-items: center;
@@ -865,7 +865,7 @@ p {
   align-items: center;
   justify-content: center;
   gap: 7px;
-  font-size: 8px;
+  font-size: var(--text-small);
   font-style: italic;
   margin-top: 22px;
   color: var(--ivory);
@@ -909,7 +909,7 @@ p {
   color: var(--ivory);
 }
 .order-empty > span {
-  font-size: 8px;
+  font-size: var(--text-small);
   margin-top: 5px;
 }
 .order-item {
@@ -925,17 +925,17 @@ p {
 }
 .order-item > div:first-child > span {
   font-family: var(--serif);
-  font-size: 17px;
+  font-size: var(--text-secondary);
   color: var(--ivory);
   display: block;
   line-height: 1.3;
 }
 .order-item small {
-  font-size: 8px;
+  font-size: var(--text-small);
   color: var(--ivory);
 }
 .order-item > strong {
-  font-size: 11px;
+  font-size: var(--text-small);
   color: var(--ivory);
   font-weight: 500;
   min-width: 40px;
@@ -948,7 +948,7 @@ p {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 9px;
+  font-size: var(--text-small);
   font-weight: 500;
   color: var(--ivory);
   margin-bottom: 8px;
@@ -972,7 +972,7 @@ select {
   border-radius: 0;
   color: var(--ivory);
   padding: 11px 32px 11px 12px;
-  font-size: 9px;
+  font-size: var(--text-small);
   line-height: 1.5;
   cursor: pointer;
 }
@@ -981,7 +981,7 @@ select {
   flex-direction: column;
   gap: 2px;
   padding-top: 14px;
-  font-size: 9px;
+  font-size: var(--text-small);
   color: var(--ivory);
 }
 .subtotal-lines > span {
@@ -1005,7 +1005,7 @@ select {
 .estimated-total small {
   display: block;
   font-family: "DM Sans", sans-serif;
-  font-size: 7px;
+  font-size: var(--text-small);
   color: var(--ivory);
   margin-top: 6px;
   letter-spacing: 0.5px;
@@ -1017,7 +1017,7 @@ select {
   line-height: 1;
 }
 .pricing-note {
-  font-size: 8px;
+  font-size: var(--text-small);
   line-height: 1.7;
   margin: 15px 0;
   color: var(--ivory);
@@ -1033,7 +1033,7 @@ select {
   align-items: center;
   justify-content: center;
   gap: 7px;
-  font-size: 8px;
+  font-size: var(--text-small);
   color: var(--ivory);
   padding: 4px 15px;
 }
@@ -1074,7 +1074,7 @@ select {
   white-space: nowrap;
   background: var(--wine);
   padding: 7px 16px;
-  font-size: 6px;
+  font-size: var(--text-small);
   letter-spacing: 2px;
   color: var(--ivory);
 }
@@ -1133,7 +1133,7 @@ select {
 }
 .story-copy .eyebrow {
   color: var(--ivory);
-  font-size: 8px;
+  font-size: var(--text-small);
   letter-spacing: 1.7px;
 }
 .story-copy h2 {
@@ -1149,7 +1149,7 @@ select {
   color: var(--ivory);
 }
 .story-copy p {
-  font-size: 11px;
+  font-size: var(--text-small);
   line-height: 1.95;
   color: var(--ivory);
   margin-top: 12px;
@@ -1198,7 +1198,7 @@ select {
   display: block;
   text-align: center;
   letter-spacing: 1.6px;
-  font-size: 6px;
+  font-size: var(--text-small);
   color: var(--ivory);
 }
 .journal-preview {
@@ -1269,7 +1269,7 @@ select {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  font-size: 7px;
+  font-size: var(--text-small);
   color: var(--ivory);
   margin: 15px 0 9px;
 }
@@ -1287,12 +1287,12 @@ select {
   color: var(--ivory);
 }
 .article-card > p {
-  font-size: 10px;
+  font-size: var(--text-small);
   line-height: 1.9;
   margin: 12px 0 13px;
 }
 .article-card > .text-link {
-  font-size: 9px;
+  font-size: var(--text-small);
 }
 .contact-section {
   border-top: 1px solid #ded2c0;
@@ -1324,12 +1324,12 @@ select {
   display: flex;
   align-items: center;
   gap: 9px;
-  font-size: 10px;
+  font-size: var(--text-small);
   color: var(--ivory);
   width: fit-content;
 }
 .contact-links a > span {
-  font-size: 5px;
+  font-size: var(--text-small);
   letter-spacing: 1px;
   border: 1px solid #cfbca5;
   padding: 1px 4px;
@@ -1348,7 +1348,7 @@ select {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 9px;
+  font-size: var(--text-small);
   color: var(--ivory);
 }
 .form-row {
@@ -1362,7 +1362,7 @@ select {
   border: 1px solid #d9c9b6;
   border-radius: 0;
   background: var(--wine);
-  font-size: 10px;
+  font-size: var(--text-small);
   padding: 12px;
   width: 100%;
   color: var(--ivory);
@@ -1383,12 +1383,12 @@ select {
   min-width: 218px;
 }
 .form-note {
-  font-size: 7px;
+  font-size: var(--text-small);
   color: var(--ivory);
   margin-top: -6px;
 }
 .selection-attached {
-  font-size: 9px;
+  font-size: var(--text-small);
   color: var(--ivory);
   display: flex;
   align-items: center;
@@ -1407,7 +1407,7 @@ select {
   font-size: 30px;
 }
 .contact-draft p {
-  font-size: 10px;
+  font-size: var(--text-small);
   margin-top: 12px;
 }
 .contact-draft pre {
@@ -1418,7 +1418,7 @@ select {
   background: var(--wine);
   padding: 14px;
   font:
-    10px/1.8 "DM Sans",
+    var(--text-secondary)/1.8 "DM Sans",
     sans-serif;
   margin-block: 20px;
 }
@@ -1442,7 +1442,7 @@ select {
   width: 156px;
 }
 .footer-main > p {
-  font-size: 10px;
+  font-size: var(--text-small);
   line-height: 1.9;
 }
 .footer-main > p .script {
@@ -1454,7 +1454,7 @@ select {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  font-size: 9px;
+  font-size: var(--text-small);
   color: var(--ivory);
 }
 .footer-nav a:hover {
@@ -1464,11 +1464,11 @@ select {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-size: 9px;
+  font-size: var(--text-small);
   color: var(--ivory);
 }
 .footer-contact > span {
-  font-size: 6px;
+  font-size: var(--text-small);
   letter-spacing: 1.5px;
   color: var(--ivory);
 }
@@ -1478,7 +1478,7 @@ select {
   gap: 7px;
 }
 .footer-contact > small {
-  font-size: 6px;
+  font-size: var(--text-small);
   color: var(--ivory);
 }
 .footer-bottom {
@@ -1489,7 +1489,7 @@ select {
   gap: 20px;
   min-height: 50px;
   color: var(--ivory);
-  font-size: 7px;
+  font-size: var(--text-small);
 }
 .footer-bottom > div {
   display: flex;
@@ -1498,7 +1498,7 @@ select {
 }
 .footer-bottom button {
   padding: 5px 0;
-  font-size: 7px;
+  font-size: var(--text-small);
 }
 .footer-bottom > a {
   display: flex;
@@ -1562,7 +1562,7 @@ select {
   max-width: 800px;
 }
 .article-date {
-  font-size: 10px;
+  font-size: var(--text-small);
   color: var(--ivory);
 }
 .article-cover {
@@ -1575,7 +1575,7 @@ select {
   margin: 40px auto;
 }
 .article-body p {
-  font-size: 14px;
+  font-size: var(--text-secondary);
   line-height: 2;
   margin-bottom: 22px;
 }
@@ -1639,7 +1639,7 @@ select {
   font-size: 22px;
 }
 .detail-dialog .detail-note {
-  font-size: 10px;
+  font-size: var(--text-small);
 }
 .dialog-product {
   height: 190px;
@@ -1711,7 +1711,7 @@ select {
     font-size: 80px;
   }
   .hero-copy p {
-    font-size: 13px;
+    font-size: var(--text-secondary);
   }
   .portrait-caption {
     bottom: 0;
@@ -1769,7 +1769,7 @@ select {
     top: 22px;
   }
   .handmade-seal span {
-    font-size: 5px;
+    font-size: var(--text-small);
   }
   .portrait-caption {
     font-size: 27px;
@@ -1789,20 +1789,20 @@ select {
   .hero-actions .button {
     padding-inline: 15px;
     gap: 10px;
-    font-size: 9px;
+    font-size: var(--text-small);
   }
   .hero-copy p {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .values-inner {
     gap: 25px;
   }
   .values-inner > span:not(.value-star) {
-    font-size: 14px;
+    font-size: var(--text-secondary);
     gap: 7px;
   }
   .category-tabs button {
-    font-size: 8px;
+    font-size: var(--text-small);
     padding: 9px 8px;
   }
   .product-grid {
@@ -1812,7 +1812,7 @@ select {
     font-size: 20px;
   }
   .product-info > p {
-    font-size: 8px;
+    font-size: var(--text-small);
   }
   .product-bottom {
     gap: 5px;
@@ -1824,10 +1824,10 @@ select {
     width: 25px;
   }
   .product-bottom > span {
-    font-size: 8px;
+    font-size: var(--text-small);
   }
   .product-bottom strong {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .assortment-layout {
     gap: 35px;
@@ -1837,7 +1837,7 @@ select {
     padding: 23px 22px 16px;
   }
   .plate-note {
-    font-size: 7px;
+    font-size: var(--text-small);
   }
   .plate-script {
     font-size: 25px;
@@ -1864,11 +1864,11 @@ select {
     font-size: 24px;
   }
   .article-meta {
-    font-size: 6px;
+    font-size: var(--text-small);
   }
   .footer-contact > span {
     letter-spacing: 1px;
-    font-size: 5px;
+    font-size: var(--text-small);
   }
 }
 @media (max-width: 850px) {
@@ -1887,19 +1887,19 @@ select {
     font-size: 45px;
   }
   .brand-kicker {
-    font-size: 8px;
+    font-size: var(--text-small);
   }
   .brand-tagline {
-    font-size: 4.5px;
+    font-size: var(--text-small);
   }
   .main-nav {
     gap: 18px;
   }
   .main-nav a {
-    font-size: 9px;
+    font-size: var(--text-small);
   }
   .selection-link {
-    font-size: 9px;
+    font-size: var(--text-small);
     gap: 7px;
   }
   .hero {
@@ -1911,25 +1911,25 @@ select {
     letter-spacing: -2px;
   }
   .hero-copy .eyebrow {
-    font-size: 7px;
+    font-size: var(--text-small);
     letter-spacing: 1.5px;
     margin-bottom: 20px;
   }
   .hero-copy p {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .hero-actions {
     gap: 17px;
     margin-top: 20px;
   }
   .hero-actions .button {
-    font-size: 8px;
+    font-size: var(--text-small);
     padding-inline: 12px;
     gap: 9px;
     min-height: 43px;
   }
   .hero-actions .text-link {
-    font-size: 8px;
+    font-size: var(--text-small);
     gap: 5px;
   }
   .hero-signoff {
@@ -1939,7 +1939,7 @@ select {
     font-size: 25px;
   }
   .hero-signoff > span:last-child {
-    font-size: 5px;
+    font-size: var(--text-small);
   }
   .hero-art {
     height: 430px;
@@ -1958,7 +1958,7 @@ select {
     padding: 6px 6px 25px;
   }
   .hero-photo span {
-    font-size: 16px;
+    font-size: var(--text-secondary);
     width: calc(100% - 12px);
   }
   .handmade-seal {
@@ -1969,7 +1969,7 @@ select {
     gap: 5px;
   }
   .handmade-seal span {
-    font-size: 4px;
+    font-size: var(--text-small);
     letter-spacing: 0.8px;
   }
   .portrait-caption {
@@ -2007,7 +2007,7 @@ select {
     gap: 5px;
   }
   .category-tabs button {
-    font-size: 9px;
+    font-size: var(--text-small);
     padding: 8px 13px;
   }
   .product-grid {
@@ -2021,16 +2021,16 @@ select {
     font-size: 24px;
   }
   .product-info > p {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .product-bottom {
     margin-top: 12px;
   }
   .product-bottom > span {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .product-bottom strong {
-    font-size: 13px;
+    font-size: var(--text-secondary);
   }
   .quantity {
     min-width: 95px;
@@ -2043,7 +2043,7 @@ select {
     padding: 22px 25px 12px;
   }
   .product-label {
-    font-size: 7px;
+    font-size: var(--text-small);
   }
   .assortment-layout {
     gap: 28px;
@@ -2059,7 +2059,7 @@ select {
     font-size: 23px;
   }
   .plate-note {
-    font-size: 7px;
+    font-size: var(--text-small);
     max-width: 260px;
     line-height: 1.9;
   }
@@ -2076,14 +2076,14 @@ select {
     gap: 7px;
   }
   .plate-empty > a {
-    font-size: 7px;
+    font-size: var(--text-small);
   }
   .order-item {
     gap: 7px;
     flex-wrap: wrap;
   }
   .order-item > div:first-child > span {
-    font-size: 15px;
+    font-size: var(--text-secondary);
   }
   .quantity-compact {
     min-width: 64px;
@@ -2093,11 +2093,11 @@ select {
     width: 21px;
   }
   .order-item > strong {
-    font-size: 9px;
+    font-size: var(--text-small);
     min-width: 34px;
   }
   .order-item small {
-    font-size: 7px;
+    font-size: var(--text-small);
   }
   .estimated-total > span {
     font-size: 21px;
@@ -2115,10 +2115,10 @@ select {
     font-size: 43px;
   }
   .seasonal-copy p {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .seasonal-copy .eyebrow {
-    font-size: 7px;
+    font-size: var(--text-small);
     letter-spacing: 1.4px;
   }
   .seasonal-botanical {
@@ -2132,10 +2132,10 @@ select {
     font-size: 43px;
   }
   .story-copy p {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .story-copy .eyebrow {
-    font-size: 7px;
+    font-size: var(--text-small);
   }
   .story-image > div {
     height: 315px;
@@ -2161,7 +2161,7 @@ select {
     font-size: 24px;
   }
   .article-card > p {
-    font-size: 9px;
+    font-size: var(--text-small);
   }
   .contact-layout {
     gap: 35px;
@@ -2171,17 +2171,17 @@ select {
     font-size: 45px;
   }
   .contact-copy p {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .contact-links a {
-    font-size: 8px;
+    font-size: var(--text-small);
     gap: 7px;
   }
   .contact-links a > span {
-    font-size: 4px;
+    font-size: var(--text-small);
   }
   .contact-copy > .eyebrow {
-    font-size: 7px;
+    font-size: var(--text-small);
   }
   .form-row {
     gap: 10px;
@@ -2192,11 +2192,11 @@ select {
   .contact-form input,
   .contact-form textarea,
   .contact-form select {
-    font-size: 9px;
+    font-size: var(--text-small);
     padding: 11px;
   }
   .contact-form label {
-    font-size: 8px;
+    font-size: var(--text-small);
   }
   .footer-main {
     gap: 25px;
@@ -2206,14 +2206,14 @@ select {
     display: none;
   }
   .footer-contact > span {
-    font-size: 5px;
+    font-size: var(--text-small);
   }
   .footer-bottom {
-    font-size: 6px;
+    font-size: var(--text-small);
     gap: 10px;
   }
   .footer-bottom button {
-    font-size: 6px;
+    font-size: var(--text-small);
   }
   .footer-bottom > a {
     display: none;
@@ -2243,13 +2243,13 @@ select {
     padding-block: 55px;
   }
   .announcement {
-    font-size: 6.5px;
+    font-size: var(--text-small);
     min-height: 27px;
     letter-spacing: 1.9px;
     gap: 15px;
   }
   .announcement > span {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .header-inner {
     min-height: 85px;
@@ -2263,10 +2263,10 @@ select {
     font-size: 45px;
   }
   .brand-kicker {
-    font-size: 8px;
+    font-size: var(--text-small);
   }
   .brand-tagline {
-    font-size: 4.5px;
+    font-size: var(--text-small);
   }
   .mobile-menu {
     display: flex;
@@ -2278,7 +2278,7 @@ select {
   }
   .selection-link {
     margin-left: auto;
-    font-size: 8px;
+    font-size: var(--text-small);
     gap: 6px;
   }
   .selection-link svg {
@@ -2287,7 +2287,7 @@ select {
   .selection-count {
     width: 18px;
     height: 18px;
-    font-size: 8px;
+    font-size: var(--text-small);
   }
   .main-nav {
     display: none;
@@ -2307,7 +2307,7 @@ select {
     gap: 6px;
   }
   .main-nav a {
-    font-size: 14px;
+    font-size: var(--text-secondary);
     padding: 8px 20px;
   }
   .hero {
@@ -2324,7 +2324,7 @@ select {
     text-align: center;
   }
   .hero-copy .eyebrow {
-    font-size: 7px;
+    font-size: var(--text-small);
     justify-content: center;
     letter-spacing: 1.7px;
     gap: 8px;
@@ -2341,7 +2341,7 @@ select {
     white-space: normal;
   }
   .hero-copy p {
-    font-size: 11px;
+    font-size: var(--text-small);
     line-height: 1.85;
     margin-bottom: 9px;
   }
@@ -2351,13 +2351,13 @@ select {
     margin-top: 24px;
   }
   .hero-actions .button {
-    font-size: 9px;
+    font-size: var(--text-small);
     gap: 15px;
     padding: 13px 17px;
     min-height: 45px;
   }
   .hero-actions .text-link {
-    font-size: 9px;
+    font-size: var(--text-small);
     gap: 7px;
   }
   .hero-signoff {
@@ -2380,7 +2380,7 @@ select {
     height: calc(100% - 21px);
   }
   .portrait-bottom {
-    font-size: 5px;
+    font-size: var(--text-small);
     letter-spacing: 1.6px;
   }
   .hero-photo {
@@ -2390,7 +2390,7 @@ select {
     padding-bottom: 25px;
   }
   .hero-photo span {
-    font-size: 17px;
+    font-size: var(--text-secondary);
   }
   .handmade-seal {
     width: 79px;
@@ -2399,7 +2399,7 @@ select {
     top: 21px;
   }
   .handmade-seal span {
-    font-size: 4.7px;
+    font-size: var(--text-small);
     letter-spacing: 0.7px;
   }
   .handmade-seal svg {
@@ -2445,17 +2445,17 @@ select {
     height: 13px;
   }
   .values-inner .value-star {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .section-heading {
     gap: 14px;
   }
   .section-heading .eyebrow {
-    font-size: 7px;
+    font-size: var(--text-small);
     letter-spacing: 1.5px;
   }
   .section-heading p {
-    font-size: 11px;
+    font-size: var(--text-small);
     line-height: 1.8;
     max-width: 310px;
   }
@@ -2477,7 +2477,7 @@ select {
     padding-block: 10px;
   }
   .category-tabs button {
-    font-size: 8px;
+    font-size: var(--text-small);
     min-height: 34px;
     padding: 7px 11px;
   }
@@ -2491,7 +2491,7 @@ select {
     padding: 24px 8px 13px;
   }
   .product-label {
-    font-size: 4.7px;
+    font-size: var(--text-small);
     letter-spacing: 0.8px;
     left: 9px;
     top: 10px;
@@ -2505,7 +2505,7 @@ select {
     min-height: 48px;
   }
   .product-info > p {
-    font-size: 8px;
+    font-size: var(--text-small);
     line-height: 1.8;
     min-height: 29px;
     margin-top: 4px;
@@ -2516,10 +2516,10 @@ select {
     flex-wrap: wrap;
   }
   .product-bottom > span {
-    font-size: 8px;
+    font-size: var(--text-small);
   }
   .product-bottom strong {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .quantity {
     min-width: 75px;
@@ -2529,7 +2529,7 @@ select {
     width: 24px;
   }
   .quantity > span {
-    font-size: 10px;
+    font-size: var(--text-small);
     min-width: 20px;
   }
   .product-check {
@@ -2543,10 +2543,10 @@ select {
   }
   .view-all {
     margin-top: 26px;
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .gallery-note {
-    font-size: 7px;
+    font-size: var(--text-small);
     gap: 5px;
     line-height: 1.7;
     margin-top: 23px;
@@ -2578,7 +2578,7 @@ select {
     max-width: 440px;
   }
   .plate-note {
-    font-size: 8px;
+    font-size: var(--text-small);
     max-width: 100%;
     margin-top: 14px;
   }
@@ -2590,7 +2590,7 @@ select {
     height: 27px;
   }
   .plate-empty > a {
-    font-size: 8px;
+    font-size: var(--text-small);
   }
   .order-card {
     padding: 23px 23px 17px;
@@ -2609,11 +2609,11 @@ select {
     font-size: 19px;
   }
   .order-item > strong {
-    font-size: 10px;
+    font-size: var(--text-small);
     min-width: 38px;
   }
   .order-item small {
-    font-size: 8px;
+    font-size: var(--text-small);
   }
   .quantity-compact {
     min-width: 73px;
@@ -2626,10 +2626,10 @@ select {
     min-width: 18px;
   }
   .packaging > label {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .packaging select {
-    font-size: 10px;
+    font-size: var(--text-small);
     padding-block: 12px;
   }
   .estimated-total > span {
@@ -2639,15 +2639,15 @@ select {
     font-size: 38px;
   }
   .pricing-note {
-    font-size: 9px;
+    font-size: var(--text-small);
     line-height: 1.8;
   }
   .order-cta {
-    font-size: 11px;
+    font-size: var(--text-small);
     min-height: 47px;
   }
   .reset-selection {
-    font-size: 9px;
+    font-size: var(--text-small);
     margin-top: 12px;
   }
   .seasonal {
@@ -2663,7 +2663,7 @@ select {
     height: 290px;
   }
   .seasonal-photo-label {
-    font-size: 5px;
+    font-size: var(--text-small);
     padding: 7px 12px;
   }
   .seasonal-copy {
@@ -2675,7 +2675,7 @@ select {
     margin: 15px 0 20px;
   }
   .seasonal-copy .eyebrow {
-    font-size: 7px;
+    font-size: var(--text-small);
   }
   .seasonal-copy p {
     font-size: 12px;
@@ -2683,7 +2683,7 @@ select {
     padding-right: 22px;
   }
   .seasonal-copy .button {
-    font-size: 10px;
+    font-size: var(--text-small);
     margin-top: 12px;
   }
   .seasonal-botanical {
@@ -2708,11 +2708,11 @@ select {
     margin-top: 15px;
   }
   .story-copy .eyebrow {
-    font-size: 6.5px;
+    font-size: var(--text-small);
     letter-spacing: 1.3px;
   }
   .story-copy p {
-    font-size: 11px;
+    font-size: var(--text-small);
     line-height: 2;
   }
   .story-hello {
@@ -2745,10 +2745,10 @@ select {
     margin-top: 10px;
   }
   .journal-heading > .text-link {
-    font-size: 9px;
+    font-size: var(--text-small);
   }
   .journal-heading .eyebrow {
-    font-size: 7px;
+    font-size: var(--text-small);
   }
   .articles-grid {
     grid-template-columns: 1fr;
@@ -2760,7 +2760,7 @@ select {
   .article-meta {
     flex-direction: row;
     align-items: center;
-    font-size: 7px;
+    font-size: var(--text-small);
     margin-top: 16px;
   }
   .article-card h3 {
@@ -2768,11 +2768,11 @@ select {
     max-width: 100%;
   }
   .article-card > p {
-    font-size: 11px;
+    font-size: var(--text-small);
     margin-block: 12px;
   }
   .article-card > .text-link {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .contact-section {
     padding-block: 50px;
@@ -2799,10 +2799,10 @@ select {
     margin-top: 21px;
   }
   .contact-links a {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .contact-links a > span {
-    font-size: 5px;
+    font-size: var(--text-small);
   }
   .contact-copy > .flourish {
     display: none;
@@ -2817,7 +2817,7 @@ select {
     gap: 17px;
   }
   .contact-form label {
-    font-size: 10px;
+    font-size: var(--text-small);
     gap: 7px;
   }
   .contact-form input,
@@ -2833,26 +2833,26 @@ select {
     min-width: 0;
   }
   .contact-form .button {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .form-note {
-    font-size: 8px;
+    font-size: var(--text-small);
     margin-top: -7px;
   }
   .contact-draft h3 {
     font-size: 28px;
   }
   .contact-draft p {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .contact-draft pre {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .draft-actions {
     gap: 12px;
   }
   .draft-actions .button {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .footer-main {
     display: grid;
@@ -2866,7 +2866,7 @@ select {
     justify-self: start;
   }
   .footer-nav {
-    font-size: 10px;
+    font-size: var(--text-small);
     padding-left: 24px;
     gap: 7px;
   }
@@ -2875,25 +2875,25 @@ select {
     padding-top: 20px;
     border-top: 1px solid #e1d5c5;
     gap: 10px;
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .footer-contact > span {
-    font-size: 6px;
+    font-size: var(--text-small);
     letter-spacing: 1.4px;
   }
   .footer-contact > small {
-    font-size: 7px;
+    font-size: var(--text-small);
   }
   .footer-bottom {
     padding-block: 17px;
     flex-direction: column;
     align-items: flex-start;
     gap: 7px;
-    font-size: 7px;
+    font-size: var(--text-small);
     min-height: 76px;
   }
   .footer-bottom button {
-    font-size: 7px;
+    font-size: var(--text-small);
   }
   .journal-page {
     padding-top: 43px;
@@ -2908,7 +2908,7 @@ select {
     margin-top: 28px;
   }
   .journal-tabs button {
-    font-size: 8px;
+    font-size: var(--text-small);
   }
   .journal-empty {
     padding: 45px 5px;
@@ -2923,7 +2923,7 @@ select {
     padding-top: 35px;
   }
   .article-page > .text-link {
-    font-size: 10px;
+    font-size: var(--text-small);
     margin-bottom: 30px;
   }
   .article-page .section-heading h1 {
@@ -2938,13 +2938,13 @@ select {
     margin-top: 28px;
   }
   .article-body p {
-    font-size: 13px;
+    font-size: var(--text-secondary);
   }
   .article-body .article-intro {
     font-size: 24px;
   }
   .article-date {
-    font-size: 9px;
+    font-size: var(--text-small);
   }
   .detail-dialog {
     padding: 30px 25px;
@@ -2956,7 +2956,7 @@ select {
     gap: 15px;
   }
   .dialog-actions .button {
-    font-size: 9px;
+    font-size: var(--text-small);
     padding-inline: 13px;
     gap: 9px;
   }
@@ -2988,11 +2988,11 @@ select {
     gap: 16px;
   }
   .hero-actions .button {
-    font-size: 8px;
+    font-size: var(--text-small);
     padding-inline: 13px;
   }
   .hero-actions .text-link {
-    font-size: 8px;
+    font-size: var(--text-small);
   }
   .hero-art {
     height: 370px;
@@ -3012,17 +3012,17 @@ select {
     right: 0;
   }
   .handmade-seal span {
-    font-size: 4px;
+    font-size: var(--text-small);
   }
   .values-inner {
     gap: 8px;
   }
   .values-inner > span:not(.value-star) {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .category-tabs button {
     padding-inline: 9px;
-    font-size: 7px;
+    font-size: var(--text-small);
   }
   .product-name h3 {
     font-size: 20px;
@@ -3031,7 +3031,7 @@ select {
     row-gap: 8px;
   }
   .product-bottom > span {
-    font-size: 8px;
+    font-size: var(--text-small);
     width: 100%;
   }
   .quantity {
@@ -3046,7 +3046,7 @@ select {
     min-width: 64px;
   }
   .order-item > div:first-child > span {
-    font-size: 16px;
+    font-size: var(--text-secondary);
   }
   .contact-copy h2 {
     font-size: 43px;
@@ -3083,39 +3083,39 @@ select {
   font-size: 12px;
 }
 .selection-link {
-  font-size: 11px;
+  font-size: var(--text-small);
 }
 .hero-copy p {
-  font-size: 13px;
+  font-size: var(--text-secondary);
 }
 .hero-actions .button,
 .button {
-  font-size: 11px;
+  font-size: var(--text-small);
 }
 .hero-actions .text-link {
-  font-size: 11px;
+  font-size: var(--text-small);
 }
 .category-tabs button {
-  font-size: 10px;
+  font-size: var(--text-small);
 }
 .product-info > p {
-  font-size: 11px;
+  font-size: var(--text-small);
 }
 .product-bottom > span {
-  font-size: 10px;
+  font-size: var(--text-small);
 }
 .product-bottom strong {
-  font-size: 13px;
+  font-size: var(--text-secondary);
 }
 .product-label {
-  font-size: 7px;
+  font-size: var(--text-small);
 }
 .quantity {
   height: 34px;
   min-width: 94px;
 }
 .quantity > span {
-  font-size: 11px;
+  font-size: var(--text-small);
 }
 .quantity button {
   width: 31px;
@@ -3131,19 +3131,19 @@ select {
   gap: 4px;
 }
 .packaging > label {
-  font-size: 10px;
+  font-size: var(--text-small);
 }
 .packaging select {
-  font-size: 11px;
+  font-size: var(--text-small);
 }
 .pricing-note {
-  font-size: 9px;
+  font-size: var(--text-small);
 }
 .order-item small {
-  font-size: 9px;
+  font-size: var(--text-small);
 }
 .contact-form label {
-  font-size: 11px;
+  font-size: var(--text-small);
 }
 .contact-form input,
 .contact-form textarea,
@@ -3151,32 +3151,32 @@ select {
   font-size: 12px;
 }
 .contact-form .button {
-  font-size: 11px;
+  font-size: var(--text-small);
 }
 .contact-links a {
-  font-size: 11px;
+  font-size: var(--text-small);
 }
 .form-note {
-  font-size: 9px;
+  font-size: var(--text-small);
 }
 .article-card > p {
   font-size: 12px;
 }
 .article-meta {
-  font-size: 8px;
+  font-size: var(--text-small);
 }
 .footer-nav,
 .footer-contact {
-  font-size: 10px;
+  font-size: var(--text-small);
 }
 .footer-bottom {
-  font-size: 8px;
+  font-size: var(--text-small);
 }
 .footer-bottom button {
-  font-size: 8px;
+  font-size: var(--text-small);
 }
 .section-heading p {
-  font-size: 13px;
+  font-size: var(--text-secondary);
 }
 @media (max-width: 1100px) {
   .brand {
@@ -3189,26 +3189,26 @@ select {
     gap: 20px;
   }
   .main-nav a {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .hero-copy p {
     font-size: 12px;
   }
   .hero-actions .button {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .hero-actions .text-link {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .category-tabs button {
-    font-size: 9px;
+    font-size: var(--text-small);
     padding-inline: 9px;
   }
   .product-info > p {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .product-bottom > span {
-    font-size: 9px;
+    font-size: var(--text-small);
   }
   .product-bottom strong {
     font-size: 12px;
@@ -3226,7 +3226,7 @@ select {
     width: 24px;
   }
   .contact-links a {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
 }
 @media (max-width: 850px) {
@@ -3240,23 +3240,23 @@ select {
     gap: 16px;
   }
   .main-nav a {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .hero-copy p {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .hero-actions .button,
   .hero-actions .text-link {
-    font-size: 9px;
+    font-size: var(--text-small);
   }
   .selection-link {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .category-tabs button {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .product-info > p {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .quantity {
     min-width: 94px;
@@ -3271,33 +3271,33 @@ select {
     width: 21px;
   }
   .product-bottom > span {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .product-bottom strong {
-    font-size: 13px;
+    font-size: var(--text-secondary);
   }
   .product-label {
-    font-size: 7px;
+    font-size: var(--text-small);
   }
   .article-card > p {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .contact-form label {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .contact-form input,
   .contact-form textarea,
   .contact-form select {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .contact-links a {
-    font-size: 9px;
+    font-size: var(--text-small);
   }
   .footer-bottom {
-    font-size: 7px;
+    font-size: var(--text-small);
   }
   .footer-bottom button {
-    font-size: 7px;
+    font-size: var(--text-small);
   }
 }
 @media (max-width: 620px) {
@@ -3308,35 +3308,35 @@ select {
     min-height: 91px;
   }
   .selection-link {
-    font-size: 9px;
+    font-size: var(--text-small);
   }
   .main-nav a {
-    font-size: 15px;
+    font-size: var(--text-secondary);
   }
   .hero-copy p {
     font-size: 12px;
   }
   .hero-actions .button,
   .hero-actions .text-link {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .category-tabs button {
-    font-size: 9px;
+    font-size: var(--text-small);
     padding-inline: 11px;
   }
   .product-label {
-    font-size: 5px;
+    font-size: var(--text-small);
     letter-spacing: 0.8px;
   }
   .product-info > p {
-    font-size: 10px;
+    font-size: var(--text-small);
     min-height: 36px;
   }
   .product-bottom > span {
-    font-size: 9px;
+    font-size: var(--text-small);
   }
   .product-bottom strong {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .quantity {
     min-width: 82px;
@@ -3346,7 +3346,7 @@ select {
     width: 26px;
   }
   .quantity > span {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .quantity-compact {
     min-width: 76px;
@@ -3361,32 +3361,32 @@ select {
   .contact-form input,
   .contact-form textarea,
   .contact-form select {
-    font-size: 16px;
+    font-size: var(--text-secondary);
     padding: 12px 10px;
   }
   .contact-form label {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .contact-links a {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .article-card > p {
     font-size: 12px;
   }
   .article-meta {
-    font-size: 8px;
+    font-size: var(--text-small);
   }
   .brand-footer {
     width: 170px;
   }
   .footer-bottom {
-    font-size: 7px;
+    font-size: var(--text-small);
   }
   .form-note {
-    font-size: 9px;
+    font-size: var(--text-small);
   }
   .pricing-note {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .packaging select {
     font-size: 12px;
@@ -3397,12 +3397,12 @@ select {
     width: 136px;
   }
   .category-tabs button {
-    font-size: 8px;
+    font-size: var(--text-small);
     padding-inline: 10px;
   }
   .hero-actions .button,
   .hero-actions .text-link {
-    font-size: 9px;
+    font-size: var(--text-small);
   }
   .quantity {
     width: 100%;
@@ -3415,10 +3415,10 @@ select {
     width: 21px;
   }
   .product-label {
-    font-size: 4.5px;
+    font-size: var(--text-small);
   }
   .product-info > p {
-    font-size: 9px;
+    font-size: var(--text-small);
   }
 }
 
@@ -3458,7 +3458,7 @@ select {
   height: 88px;
 }
 .handmade-seal span {
-  font-size: 5px;
+  font-size: var(--text-small);
 }
 @media (min-width: 1450px) {
   .portrait-frame {
@@ -3506,7 +3506,7 @@ select {
     top: 36px;
   }
   .handmade-seal span {
-    font-size: 4px;
+    font-size: var(--text-small);
   }
   .hero-photo {
     bottom: 21px;
@@ -3544,7 +3544,7 @@ select {
     height: 74px;
   }
   .handmade-seal span {
-    font-size: 4px;
+    font-size: var(--text-small);
   }
   .portrait-caption {
     right: 0;
@@ -3630,7 +3630,7 @@ select {
 }
 .hero-copy p {
   color: var(--ivory);
-  font-size: 13px;
+  font-size: var(--text-secondary);
   line-height: 2;
 }
 .hero-actions .button-primary {
@@ -3710,7 +3710,7 @@ select {
     font-size: 12px;
   }
   .hero-photo span {
-    font-size: 17px;
+    font-size: var(--text-secondary);
   }
   .hero-botanical {
     width: 106px;
@@ -3728,13 +3728,13 @@ select {
     padding-block: 35px;
   }
   .hero-copy p {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .hero-copy .eyebrow {
     letter-spacing: 1.5px;
   }
   .hero-photo span {
-    font-size: 14px;
+    font-size: var(--text-secondary);
   }
   .hero-botanical {
     width: 90px;
@@ -3758,7 +3758,7 @@ select {
     outline-offset: 3px;
   }
   .hero-copy .eyebrow {
-    font-size: 7px;
+    font-size: var(--text-small);
     letter-spacing: 1.5px;
   }
   .hero-copy p {
@@ -3773,10 +3773,10 @@ select {
     margin-top: 26px;
   }
   .hero-actions .button {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .hero-actions .text-link {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   .hero-art {
     margin-top: 18px;
@@ -3792,7 +3792,7 @@ select {
     bottom: 26px;
   }
   .hero-photo span {
-    font-size: 15px;
+    font-size: var(--text-secondary);
     white-space: normal;
     letter-spacing: -0.3px;
   }
@@ -3822,11 +3822,11 @@ select {
     font-size: 41px;
   }
   .hero-copy p {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   .hero-actions .button,
   .hero-actions .text-link {
-    font-size: 9px;
+    font-size: var(--text-small);
   }
   .hero-art {
     height: 391px;
@@ -3835,7 +3835,7 @@ select {
     width: 143px;
   }
   .hero-photo span {
-    font-size: 14px;
+    font-size: var(--text-secondary);
   }
   .portrait-caption.script {
     font-size: 25px;
@@ -3843,7 +3843,7 @@ select {
 }
 
 .language-toggle {
-  font-size: 8px;
+  font-size: var(--text-small);
   letter-spacing: 1px;
   color: var(--ivory);
   border-bottom: 1px solid #d8c7b3;
@@ -3884,7 +3884,7 @@ html[lang="it"] .values-inner {
   gap: 25px;
 }
 html[lang="it"] .values-inner > span:not(.value-star) {
-  font-size: 15px;
+  font-size: var(--text-secondary);
 }
 html[lang="it"] .product-name h3 {
   font-size: 23px;
@@ -3899,7 +3899,7 @@ html[lang="it"] .hero-photo span {
     padding-left: 0;
   }
   html[lang="it"] .main-nav a {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   html[lang="it"] .hero h1 {
     font-size: 62px;
@@ -3908,13 +3908,13 @@ html[lang="it"] .hero-photo span {
     gap: 18px;
   }
   html[lang="it"] .values-inner > span:not(.value-star) {
-    font-size: 13px;
+    font-size: var(--text-secondary);
   }
   html[lang="it"] .product-name h3 {
     font-size: 21px;
   }
   html[lang="it"] .hero-photo span {
-    font-size: 17px;
+    font-size: var(--text-secondary);
   }
 }
 @media (max-width: 850px) {
@@ -3922,7 +3922,7 @@ html[lang="it"] .hero-photo span {
     gap: 12px;
   }
   html[lang="it"] .main-nav a {
-    font-size: 9px;
+    font-size: var(--text-small);
   }
   html[lang="it"] .hero h1 {
     font-size: 51px;
@@ -3931,14 +3931,14 @@ html[lang="it"] .hero-photo span {
     gap: 15px;
   }
   html[lang="it"] .values-inner > span:not(.value-star) {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   html[lang="it"] .hero-photo span {
-    font-size: 14px;
+    font-size: var(--text-secondary);
   }
   .language-toggle {
     margin-left: -10px;
-    font-size: 7px;
+    font-size: var(--text-small);
   }
   .header-inner {
     gap: 15px;
@@ -3949,41 +3949,41 @@ html[lang="it"] .hero-photo span {
     gap: 13px;
   }
   .selection-link {
-    font-size: 8px;
+    font-size: var(--text-small);
     gap: 5px;
   }
   .language-toggle {
     margin-left: -5px;
-    font-size: 7px;
+    font-size: var(--text-small);
     padding: 4px 0;
   }
   html[lang="it"] .hero h1 {
     font-size: clamp(44px, 11.8vw, 65px);
   }
   html[lang="it"] .hero-photo span {
-    font-size: 17px;
+    font-size: var(--text-secondary);
   }
   html[lang="it"] .main-nav {
     gap: 6px;
   }
   html[lang="it"] .main-nav a {
-    font-size: 15px;
+    font-size: var(--text-secondary);
   }
   html[lang="it"] .values-inner {
     gap: 7px 11px;
   }
   html[lang="it"] .values-inner > span:not(.value-star) {
-    font-size: 11px;
+    font-size: var(--text-small);
   }
   html[lang="it"] .product-name h3 {
     font-size: 23px;
     min-height: 76px;
   }
   html[lang="it"] .hero-actions .text-link {
-    font-size: 9px;
+    font-size: var(--text-small);
   }
   .category-tabs button {
-    font-size: 8px;
+    font-size: var(--text-small);
     padding-inline: 9px;
   }
 }
@@ -3995,13 +3995,13 @@ html[lang="it"] .hero-photo span {
     font-size: 41px;
   }
   html[lang="it"] .values-inner > span:not(.value-star) {
-    font-size: 10px;
+    font-size: var(--text-small);
   }
   html[lang="it"] .product-name h3 {
     font-size: 21px;
   }
   html[lang="it"] .hero-photo span {
-    font-size: 15px;
+    font-size: var(--text-secondary);
   }
   .language-toggle {
     margin-left: 0;

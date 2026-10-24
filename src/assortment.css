@@ -52,7 +52,7 @@
 .assortment-section .plate-note {
   color: var(--ivory);
   font-style: normal;
-  font-size: 9px;
+  font-size: var(--text-small);
   margin-top: 24px;
   padding: 7px 14px;
   background: var(--wine);
@@ -92,7 +92,7 @@
     margin-bottom: 11px;
   }
   .assortment-section .plate-note {
-    font-size: 8px;
+    font-size: var(--text-small);
     margin-top: 14px;
     line-height: 1.8;
     max-width: 310px;

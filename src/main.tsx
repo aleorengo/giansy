@@ -12,6 +12,7 @@ import "./order-request.css";
 import "./product-gallery.css";
 import "./timeless.css";
 import "./cart.css";
+import "./readability.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

@@ -347,8 +347,7 @@ function ProductCard({
         <div className="antique-label-content">
           <div className="product-copy"><button className="product-name" onClick={() => onDetails(product)}>
             <h3>{t(product.name)}</h3>
-          </button>
-          <p>{t(product.description)}</p></div>
+          </button></div>
           <div className="product-bottom">
             <span>
               {!product.fixedPrice && `${t("From")} `}<strong>{money(product.price * ((product.quantityStep ?? 1) > 1 ? product.quantityStep! : 1))}</strong>
