@@ -74,8 +74,7 @@ html .requested-date-field > span,
 html .footer-bottom,
 html .footer-bottom button,
 html .footer-contact small,
-html .article-meta,
-html .creations .product-bottom .batch-price {
+html .article-meta {
   font-size: var(--text-small);
   line-height: 1.5;
 }
@@ -105,7 +104,7 @@ html .creations .product-name { flex: 0 0 auto; }
 html .creations .product-card .product-name h3 { font-size: 16px; font-weight: 600; line-height: 1.2; letter-spacing: 0; }
 html .creations .antique-label-content .product-bottom { flex: 0 0 auto; gap: 6px; padding: 0; margin: auto 0 0; }
 html .creations .product-bottom > span { font-size: var(--text-body); line-height: 1.2; }
-html .creations .product-bottom .batch-price { max-width: none; margin-top: 2px; }
+html .creations .product-bottom .batch-price { max-width: none; margin-top: 4px; font-family: "DM Sans", sans-serif; font-size: var(--text-secondary); font-weight: 500; line-height: 1.4; }
 html .creations .quantity { height: 44px; min-width: 132px; gap: 8px; }
 html .creations .quantity button { width: 44px; height: 44px; }
 html .creations .quantity > span { font-size: var(--text-body); min-width: 24px; }
