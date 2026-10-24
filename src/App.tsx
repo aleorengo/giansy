@@ -942,9 +942,9 @@ function Contact({ cart, hasDraft }: { cart: CartItem[]; hasDraft: boolean }) {
     const order: OrderRequest = {
       ...fields, language: getLanguage(), total: estimate.total, pieces: estimate.pieces, packages: estimate.packages,
       lines: estimate.lines.map(line => ({
-        title: t(line.title), detail: t(line.detail), quantity: line.item.quantity,
+        kind: line.item.kind, title: t(line.title), detail: t(line.detail), quantity: line.item.quantity,
         pieceCount: line.pieceCount, unitPrice: line.unitPrice, bulkPackaging: line.bulkPackaging,
-        contents: line.contents.map(p => `${p.quantity} × ${t(p.name)}`),
+        contents: line.contents.map(p => ({ name: t(p.name), quantity: p.quantity })),
       })),
     };
     window.open(whatsappUrl(contact.whatsapp, requestText(order)), "_blank", "noopener,noreferrer");

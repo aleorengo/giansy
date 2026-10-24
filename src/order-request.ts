@@ -1,10 +1,11 @@
 export type RequestLine = {
+  kind: "custom" | "timeless" | "bundle";
   title: string;
   detail: string;
   quantity: number;
   pieceCount: number;
   unitPrice: number;
-  contents: string[];
+  contents: { name: string; quantity: number }[];
   bulkPackaging: boolean;
 };
 export type OrderRequest = {
@@ -20,19 +21,13 @@ export type OrderRequest = {
 
 export function requestLabels(language: OrderRequest["language"]) {
   return language === "it" ? {
-    title: "Richiesta biscotti", date: "Data desiderata", customer: "Nome",
-    selection: "La tua dolce selezione", notes: "Note e personalizzazioni", none: "Nessuna preferenza particolare.",
-    packages: "confezioni", cookies: "biscotti", perPackage: "per confezione", total: "Totale indicativo",
-    bulk: "Confezionamento dei biscotti senza tempo da concordare.",
-    confirmation: "Richiesta da confermare con Giansy: disponibilità, data e dettagli finali. Nessun pagamento effettuato.",
-    page: "Pagina",
+    date: "Data desiderata", customer: "Nome", notes: "Messaggio", none: "Nessuna nota.",
+    selection: "Ordine", custom: "Assortimento personalizzato", timeless: "Biscotti senza tempo", mixed: "Confezioni miste",
+    cookies: "biscotti totali", identical: "confezioni uguali", each: "biscotti ciascuna", total: "Totale ordine",
   } : {
-    title: "Cookie request", date: "Requested date", customer: "Name",
-    selection: "Your sweet selection", notes: "Notes and personalisation", none: "No particular preferences.",
-    packages: "packages", cookies: "cookies", perPackage: "per package", total: "Estimated total",
-    bulk: "Packaging for timeless biscuits will be agreed separately.",
-    confirmation: "Request subject to confirmation with Giansy: availability, date and final details. No payment has been made.",
-    page: "Page",
+    date: "Requested date", customer: "Name", notes: "Message", none: "No notes.",
+    selection: "Order", custom: "Personalised assortment", timeless: "Timeless biscuits", mixed: "Mixed gift packages",
+    cookies: "cookies in total", identical: "identical packages", each: "cookies each", total: "Order total",
   };
 }
 export const requestMoney = (value: number, language: OrderRequest["language"]) =>
@@ -41,22 +36,25 @@ export const requestDate = (order: OrderRequest) =>
   new Intl.DateTimeFormat(order.language === "it" ? "it-IT" : "en-GB", { day: "2-digit", month: "long", year: "numeric" }).format(new Date(`${order.date}T12:00:00`));
 export function requestText(order: OrderRequest) {
   const l = requestLabels(order.language);
+  const price = (line: RequestLine) => requestMoney(line.unitPrice * line.quantity, order.language);
+  const custom = order.lines.filter(line => line.kind === "custom");
+  const timeless = order.lines.filter(line => line.kind === "timeless");
+  const bundles = order.lines.filter(line => line.kind === "bundle");
   return [
     `${l.customer}: ${order.name.trim()}`,
     `${l.date}: ${requestDate(order)}`,
-    `Le Creazioni di Giansy — ${l.title}`,
+    `${l.notes}: ${order.message.trim() || l.none}`,
     "", l.selection,
-    ...order.lines.flatMap(line => [
-      `${line.quantity} × ${line.title} — ${requestMoney(line.unitPrice * line.quantity, order.language)}`,
-      line.detail,
-      `${line.pieceCount} ${l.cookies} ${l.perPackage} · ${requestMoney(line.unitPrice, order.language)} ${l.perPackage}`,
-      ...line.contents.map(content => `  ${content}`),
-      ...(line.bulkPackaging ? [l.bulk] : []), "",
+    ...custom.flatMap(line => [
+      "", `${l.custom} — ${price(line)}`,
+      `${line.pieceCount * line.quantity} ${l.cookies}`,
+      line.quantity > 1 ? `${line.quantity} ${l.identical} · ${line.pieceCount} ${l.each} · ${line.detail}` : line.detail,
+      ...line.contents.map(content => `- ${content.quantity * line.quantity} × ${content.name}`),
     ]),
-    `${order.packages} ${l.packages} · ${order.pieces} ${l.cookies}`,
+    ...(timeless.length ? ["", l.timeless, ...timeless.map(line => `${line.pieceCount * line.quantity} × ${line.title} — ${price(line)}`)] : []),
+    ...(bundles.length ? ["", l.mixed, ...bundles.map(line => `${line.quantity} × ${(line.detail || line.title).replace(/[.!?]+$/, "")} — ${price(line)}`)] : []),
+    "",
     `${l.total}: ${requestMoney(order.total, order.language)}`,
-    "", `${l.notes}:`, order.message.trim() || l.none,
-    "", l.confirmation,
   ].join("\n");
 }
 export function whatsappUrl(phone: string, text: string) {
