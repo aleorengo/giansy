@@ -1,0 +1,8 @@
+{
+  "tool_mode": "built-in image_gen",
+  "asset": "public/images/christmas/variants/tree-green-flowing-icing.webp",
+  "use": "Corrected third image in Christmas Tree Type 1, using the user's close-up of the left-hand tree",
+  "prompt": "Use case: background-extraction. Asset type: transparent bakery catalogue cutout. The attached close-up photograph is the EDIT TARGET. Extract ONLY the green Christmas-tree biscuit in the middle. This is a faithful cutout of the photographed cookie, NOT a redesigned or idealised tree. CRITICAL: preserve the EXACT icing construction visible here: long narrow continuous raised green strands sweep down from the top and centre, widening only at their lower ends into hanging rounded teardrops; the icing drapes downwards, rather than forming separate broad leaves stacked around a thick central trunk. Keep its asymmetric hand-piped curves, its particularly long sweeping lower-right icing strand curling toward the right edge, and the hanging rounded lobes at the bottom. Preserve the scattered small gold sugar squares in their existing locations, muted teal-green colour, thin piping ridges, biscuit shape, brown baked texture, angle and photographic softness. Remove the pink cloth and every neighbouring wreath, bow and cookie. Restore only the tiny outer edge clipped on the far left as needed to make a complete silhouette, without changing the icing pattern. Centre this ONE biscuit upright on a square transparent canvas with a small even margin. Genuine alpha transparency, no floor or background, no external shadow, no text, no added ornaments. Do not turn the flowing icing into a leaf pattern and do not replace this cookie with another tree.",
+  "transparent_background": true,
+  "delivery": "640 × 640 WebP with alpha"
+}
