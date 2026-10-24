@@ -9,7 +9,6 @@ export type RequestLine = {
 };
 export type OrderRequest = {
   name: string;
-  email: string;
   date: string;
   message: string;
   lines: RequestLine[];
@@ -21,14 +20,14 @@ export type OrderRequest = {
 
 export function requestLabels(language: OrderRequest["language"]) {
   return language === "it" ? {
-    title: "Richiesta biscotti", date: "Data desiderata", customer: "Cliente", email: "Email",
+    title: "Richiesta biscotti", date: "Data desiderata", customer: "Nome",
     selection: "La tua dolce selezione", notes: "Note e personalizzazioni", none: "Nessuna preferenza particolare.",
     packages: "confezioni", cookies: "biscotti", perPackage: "per confezione", total: "Totale indicativo",
     bulk: "Confezionamento dei biscotti senza tempo da concordare.",
     confirmation: "Richiesta da confermare con Giansy: disponibilità, data e dettagli finali. Nessun pagamento effettuato.",
     page: "Pagina",
   } : {
-    title: "Cookie request", date: "Requested date", customer: "Customer", email: "Email",
+    title: "Cookie request", date: "Requested date", customer: "Name",
     selection: "Your sweet selection", notes: "Notes and personalisation", none: "No particular preferences.",
     packages: "packages", cookies: "cookies", perPackage: "per package", total: "Estimated total",
     bulk: "Packaging for timeless biscuits will be agreed separately.",
@@ -43,10 +42,9 @@ export const requestDate = (order: OrderRequest) =>
 export function requestText(order: OrderRequest) {
   const l = requestLabels(order.language);
   return [
-    `Le Creazioni di Giansy — ${l.title}`,
     `${l.customer}: ${order.name.trim()}`,
-    `${l.email}: ${order.email.trim()}`,
     `${l.date}: ${requestDate(order)}`,
+    `Le Creazioni di Giansy — ${l.title}`,
     "", l.selection,
     ...order.lines.flatMap(line => [
       `${line.quantity} × ${line.title} — ${requestMoney(line.unitPrice * line.quantity, order.language)}`,

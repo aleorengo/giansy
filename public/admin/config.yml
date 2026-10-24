@@ -136,6 +136,7 @@ collections:
               - { name: kind, label: Packaging kind, widget: select, options: [bag, plate, box] }
               - { name: capacity, label: Capacity in small-cookie spaces, widget: number, value_type: int, min: 1, max: 100 }
               - { name: largeWeight, label: Spaces per large cookie, widget: number, value_type: float, min: 1, step: 0.5 }
+              - { name: minimumLargeWeight, label: Large cookie equivalents for minimum, widget: number, value_type: int, min: 1, required: false, default: 1 }
               - { name: minimum, label: Minimum cookies, widget: number, value_type: int, min: 1, max: 25 }
               - { name: image, label: Packaging illustration, widget: image }
               - {

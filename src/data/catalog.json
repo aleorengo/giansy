@@ -522,8 +522,9 @@
       "price": 0,
       "capacity": 35,
       "image": "/images/packaging-plate-delicate.png",
-      "minimum": 6,
-      "largeWeight": 3
+      "minimum": 20,
+      "largeWeight": 3,
+      "minimumLargeWeight": 3
     },
     {
       "id": "dish",
@@ -544,8 +545,9 @@
       "price": 0.5,
       "capacity": 15,
       "image": "/images/packaging-box-light.png",
-      "minimum": 5,
-      "largeWeight": 1.5
+      "minimum": 6,
+      "largeWeight": 1.5,
+      "minimumLargeWeight": 3
     }
   ]
 }

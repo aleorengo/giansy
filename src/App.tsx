@@ -10,7 +10,6 @@ import {
   Check,
   ChevronDown,
   Cookie,
-  Download,
   Gift,
   Heart,
   Instagram,
@@ -26,9 +25,9 @@ import {
 import { Flourish, OrnatePortrait } from "./components/Ornaments";
 import AntiqueLabel from "./components/AntiqueLabel";
 import ProductGallery from "./components/ProductGallery";
-import { addCustomToCart, addBundleToCart, changeCartQuantity, restoreCart, localToday, validRequestedDate } from "./cart";
+import { addCustomToCart, addBundleToCart, addTimelessToCart, changeCartQuantity, restoreCart, localToday, validRequestedDate } from "./cart";
 import type { CartItem } from "./cart";
-import { requestDate, requestText, whatsappUrl } from "./order-request";
+import { requestText, whatsappUrl } from "./order-request";
 import type { OrderRequest } from "./order-request";
 import { getTrayLayout } from "./tray-layout";
 import PackagingBuilder, { SelectionProgress } from "./components/PackagingBuilder";
@@ -372,15 +371,15 @@ function Gallery({
   category,
   setCategory,
   onDetails,
-  bundleQuantities, onBundleChange,
+  confirmedQuantities, onConfirmedChange,
 }: {
   selection: Selection;
   onChange: (id: string, delta: number) => void;
   category: string;
   setCategory: (c: string) => void;
   onDetails: (p: Product) => void;
-  bundleQuantities: Record<string, number>;
-  onBundleChange: (id: string, delta: number) => void;
+  confirmedQuantities: Record<string, number>;
+  onConfirmedChange: (id: string, delta: number) => void;
 }) {
   const visible = products.filter(p => p.categories.includes(category));
   return (
@@ -417,14 +416,14 @@ function Gallery({
             </button>
           ))}
         </div>
-        {category === "Timeless Biscuits" ? <div className="timeless-intro" role="status"><strong>{t("15 at a time, for each flavour")}</strong><p>{t("Choose 15, 30, 45 pieces or more of each flavour. Packaging will be agreed with Giansy; these pieces are separate from your decorated-cookie packaging.")}</p><span>{visible.reduce((sum, p) => sum + (selection[p.id] || 0), 0)} {t("selected")}</span></div> : category === "Gift Bundles" ? <p className="gift-included">{t("Mixed assortments, already wrapped with care. Choose how many packages you would like.")} {t("Packaging is included. Tell us any preferences in the order notes.")}</p> : <SelectionProgress />}
+        {category === "Timeless Biscuits" ? <div className="timeless-intro" role="status"><strong>{t("15 at a time, for each flavour")}</strong><p>{t("Choose 15, 30, 45 pieces or more of each flavour. Packaging will be agreed with Giansy; these pieces are separate from your decorated-cookie packaging.")}</p><span>{visible.reduce((sum, p) => sum + (confirmedQuantities[p.id] || 0), 0)} {t("selected")}</span></div> : category === "Gift Bundles" ? <p className="gift-included">{t("Mixed assortments, already wrapped with care. Choose how many packages you would like.")} {t("Packaging is included. Tell us any preferences in the order notes.")}</p> : <SelectionProgress />}
         <div className="product-grid">
           {visible.map((p) => (
             <ProductCard
               key={p.id}
               product={p}
-              quantity={p.bundleSize ? (bundleQuantities[p.id] ?? 0) : (selection[p.id] || 0)}
-              onChange={p.bundleSize ? onBundleChange : onChange}
+              quantity={p.bundleSize || (p.quantityStep ?? 1) > 1 ? (confirmedQuantities[p.id] ?? 0) : (selection[p.id] || 0)}
+              onChange={p.bundleSize || (p.quantityStep ?? 1) > 1 ? onConfirmedChange : onChange}
               onDetails={onDetails}
             />
           ))}
@@ -443,13 +442,25 @@ function Gallery({
 }
 function SavedSelections({ cart, onChange }: { cart: CartItem[]; onChange: (id: string, delta: number) => void }) {
   const summary = describeCart(cart);
-  return (<div className="cart-lines">{summary.lines.map(line => <article className="cart-line" data-cart-kind={line.item.kind} key={line.item.id}>
-          <div className="cart-line-images">{line.images.map((image, i) => <img src={assetUrl(image)} key={i} alt="" />)}</div>
-          <div className="cart-line-copy"><h3>{t(line.title)}</h3><p>{t(line.detail)}</p><small>{line.pieceCount} {t("cookies per package")} · {money(line.unitPrice)} {t("per package")}</small>{line.bulkPackaging && <p>{t("Packaging for timeless biscuits will be agreed separately.")}</p>}
-            {line.contents.length > 0 && <details><summary>{t("See the assortment")}</summary><ul>{line.contents.map(p => <li key={p.name}>{p.quantity} × {t(p.name)}</li>)}</ul></details>}
-          </div>
-          <div className="cart-line-controls"><span className="cart-quantity-label">{t("Packages")}</span><div className="quantity"><button aria-label={`${t("Remove one package of")} ${t(line.title)}`} onClick={() => onChange(line.item.id, -1)}><Minus size={13} /></button><span>{line.item.quantity}</span><button aria-label={`${t("Add one package of")} ${t(line.title)}`} onClick={() => onChange(line.item.id, 1)}><Plus size={13} /></button></div><strong>{money(line.unitPrice * line.item.quantity)}</strong><button className="cart-remove" onClick={() => onChange(line.item.id, -line.item.quantity)}>{t("Remove")}</button></div>
-        </article>)}</div>);
+  return <div className="confirmed-items" aria-live="polite">{summary.lines.map(line => {
+    const timeless = line.item.kind === "timeless";
+    const shownQuantity = line.item.quantity * (timeless ? line.pieceCount : 1);
+    return <div className="order-item confirmed-item" data-cart-kind={line.item.kind} key={line.item.id}>
+      <div className="confirmed-item-copy">
+        <span>{t(line.title)}</span>
+        <small>{timeless ? `${money(line.unitPrice)} ${t("per 15 pieces")}` : `${line.pieceCount} ${t("cookies")} · ${money(line.unitPrice)} ${t("per package")}`}</small>
+        {line.item.kind === "custom" && <small>{t(line.detail)}</small>}
+        {line.contents.length > 0 && <details><summary>{t("See the assortment")}</summary><ul>{line.contents.map(p => <li key={p.name}>{p.quantity} × {t(p.name)}</li>)}</ul></details>}
+        <button className="confirmed-remove" onClick={() => onChange(line.item.id, -line.item.quantity)}>{t("Remove")}</button>
+      </div>
+      <div className="quantity quantity-compact">
+        <button aria-label={`${t("Remove")} ${timeless ? line.pieceCount : 1} ${t(line.title)}`} onClick={() => onChange(line.item.id, -1)}><Minus size={12} /></button>
+        <span>{shownQuantity}</span>
+        <button aria-label={`${t("Add")} ${timeless ? line.pieceCount : 1} ${t(line.title)}`} onClick={() => onChange(line.item.id, 1)}><Plus size={12} /></button>
+      </div>
+      <strong>{money(line.unitPrice * line.item.quantity)}</strong>
+    </div>;
+  })}</div>;
 }
 
 function Assortment({
@@ -470,14 +481,12 @@ function Assortment({
   cart: CartItem[];
   onCartChange: (id: string, delta: number) => void;
 }) {
-  const { capacity, minimum } = useSelectionLimit();
+  const { capacity, minimum, minimumCount, minimumLabel } = useSelectionLimit();
   const [packagingError, setPackagingError] = useState("");
   useEffect(() => setPackagingError(""), [selection, packagingId]);
   const estimate = calculateEstimate(selection, packagingId);
   const saved = describeCart(cart);
-  const total = Math.round((saved.total + estimate.total) * 100) / 100;
-  const totalPieces = saved.pieces + estimate.count;
-  const plateProducts = products.filter(p => !p.bundleSize && ((selection[p.id] || 0) > 0 || cart.some(item => item.kind === "custom" && (item.selection[p.id] || 0) > 0)));
+  const plateProducts = products.filter(p => !p.bundleSize && (p.quantityStep ?? 1) === 1 && (selection[p.id] || 0) > 0);
   const trayLayout = getTrayLayout(plateProducts.length);
   const assortmentRef = useRef<HTMLElement>(null);
   const trayRef = useRef<HTMLDivElement>(null);
@@ -567,7 +576,7 @@ function Assortment({
                         i,
                     }}
                     src={assetUrl(p.image)}
-                    alt={`${t("One representative")} ${t(p.name)}; ${(selection[p.id] || 0) + cart.reduce((n, item) => n + (item.kind === "custom" ? (item.selection[p.id] || 0) * item.quantity : 0), 0)} ${t("selected")}`}
+                    alt={`${t("One representative")} ${t(p.name)}; ${selection[p.id]} ${t("selected")}`}
                   />
                 ))
               )}
@@ -584,11 +593,10 @@ function Assortment({
               <h3>{t("Your sweet selection")} </h3>
               <ShoppingBag size={19} strokeWidth={1.2} />
             </div>
-            <SavedSelections cart={cart} onChange={onCartChange} />
-            {saved.lines.length > 0 && estimate.count > 0 && <p className="draft-assortment-label">{t("Your assortment in progress")}</p>}
+            <p className="draft-assortment-label">{t("Your assortment in progress")}</p>
             <div className="order-items" aria-live="polite" aria-atomic="true">
               {!estimate.selected.length ? (
-                !saved.lines.length && <div className="order-empty">
+                <div className="order-empty">
                   <Cookie size={25} strokeWidth={1} />
                   <p>{t("A lovely assortment is waiting to happen.")} </p>
                   <span>
@@ -629,7 +637,7 @@ function Assortment({
                 </select>
                 <ChevronDown size={14} />
               </div>
-              <small>{estimate.packagedCount} {t("selected cookies")} · {estimate.usedSpace.toLocaleString(document.documentElement.lang)} / {capacity} {t("spaces")}{estimate.packagedCount < minimum && ` · ${t("Minimum for this packaging:")} ${minimum}`}</small>
+              <small>{estimate.packagedCount} {t("selected cookies")} · {estimate.usedSpace.toLocaleString(document.documentElement.lang)} / {capacity} {t("spaces")}{minimumCount < minimum && ` · ${minimumLabel}`}</small>
               {packagingError && <p id="summary-packaging-error" role="status" className="packaging-error">{packagingError}</p>}
             </div>}
             {estimate.bulkCount > 0 && <p className="timeless-order-note"><strong>{t("Timeless pieces:")} {estimate.bulkCount}</strong><span>{t("Packaging for timeless biscuits will be agreed separately.")}</span></p>}
@@ -644,23 +652,17 @@ function Assortment({
                 </span>
               </div>
             )}
-            <div className="estimated-total" aria-live="polite">
-              <span>
-                {t("Estimated total")}{" "}
-                <small>
-                  {totalPieces} {t("handmade")}{" "}
-                  {totalPieces === 1 ? t("treat") : t("treats")}
-                </small>
-              </span>
-              <strong>{money(total)}</strong>
+            {estimate.count > 0 && <>
+              <div className="estimated-total draft-total"><span>{t("Selection subtotal")}</span><strong>{money(estimate.total)}</strong></div>
+              <button onClick={onAdd} disabled={!isSelectionReady({ selection, packagingId }, packagingOptions, quantitySteps, largeProductIds)} className="button button-primary confirm-assortment">{t("Confirm selection")} <Check size={15} /></button>
+            </>}
+            <div className="confirmed-selection">
+              <h4>{t("Confirmed selections")}</h4>
+              {saved.lines.length ? <SavedSelections cart={cart} onChange={onCartChange} /> : <p className="confirmed-empty">{t("Confirm your assortment here. Timeless biscuits and little gifts are added directly.")}</p>}
+              <div className="estimated-total" aria-live="polite"><span>{t("Order total")}<small>{saved.pieces} {t("cookies")}</small></span><strong>{money(saved.total)}</strong></div>
+              {saved.lines.some(line => line.bulkPackaging) && <p className="pricing-note">{t("Packaging for timeless biscuits will be agreed separately.")}</p>}
+              {saved.lines.length > 0 && <a href="#contact" className="button button-outline order-cta">{t("Complete your order")} <ArrowRight size={15} /></a>}
             </div>
-            <p className="pricing-note">
-              {t(
-                "An indicative total. Availability, your assortment and any special requests will be confirmed together.",
-              )}{" "}
-            </p>
-            {estimate.count > 0 && <><button onClick={onAdd} disabled={!isSelectionReady({ selection, packagingId }, packagingOptions, quantitySteps, largeProductIds)} className="button button-outline save-assortment">{t("Save and create another assortment")} <Plus size={14} /></button><p className="cart-builder-hint">{t("Save this assortment to repeat it or compose another. You can also complete your request directly.")}</p></>}
-            <a href="#contact" className="button button-primary order-cta">{t("Complete your request")} <ArrowRight size={15} /></a>
             <button
               className="reset-selection"
               onClick={reset}
@@ -926,40 +928,16 @@ function ArticlePage() {
     </main>
   );
 }
-function Contact({
-  cart, draftReady,
-}: {
-  cart: CartItem[];
-  draftReady: boolean;
-}) {
-  const [draft, setDraft] = useState<OrderRequest | null>(null);
-  const [pdfBusy, setPdfBusy] = useState(false);
-  const [exportError, setExportError] = useState("");
-  const [fields, setFields] = useState({ name: "", email: "", message: "", date: "" });
+function Contact({ cart, hasDraft }: { cart: CartItem[]; hasDraft: boolean }) {
+  const [fields, setFields] = useState({ name: "", message: "", date: "" });
   const estimate = describeCart(cart);
-  const canSubmit = estimate.lines.length > 0 && draftReady;
-  useEffect(() => {
-    setDraft(null);
-    setExportError("");
-  }, [cart]);
+  const canSubmit = estimate.lines.length > 0 && !hasDraft;
   function updateField(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = event.target;
     setFields(previous => ({ ...previous, [name]: value }));
   }
-  async function downloadPdf(order: OrderRequest) {
-    setPdfBusy(true);
-    setExportError("");
-    try {
-      const { downloadOrderPdf } = await import("./order-pdf");
-      await downloadOrderPdf(order, assetUrl("/fonts/NotoSans-Regular.ttf"));
-    } catch {
-      setExportError(t("The PDF could not be downloaded. Please try again, or send the text on WhatsApp."));
-    } finally {
-      setPdfBusy(false);
-    }
-  }
-  function submit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  function submit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
     if (!canSubmit || !validRequestedDate(fields.date)) return;
     const order: OrderRequest = {
       ...fields, language: getLanguage(), total: estimate.total, pieces: estimate.pieces, packages: estimate.packages,
@@ -969,132 +947,23 @@ function Contact({
         contents: line.contents.map(p => `${p.quantity} × ${t(p.name)}`),
       })),
     };
-    setDraft(order);
-    const action = (e.nativeEvent as SubmitEvent).submitter?.getAttribute("value");
-    if (action === "pdf") void downloadPdf(order);
-    else window.open(whatsappUrl(contact.whatsapp, requestText(order)), "_blank", "noopener,noreferrer");
+    window.open(whatsappUrl(contact.whatsapp, requestText(order)), "_blank", "noopener,noreferrer");
   }
-  return (
-    <section className="contact-section" id="contact">
-      <div className="section-width contact-layout">
-        <div className="contact-copy">
-          <span className="eyebrow">{t("THE FINAL TOUCH")}</span>
-          <h2>
-            {t("Your order,")} <br />
-            <em>{t("made personal.")}</em>
-          </h2>
-          <p>
-            {t(
-              "Complete the form with your details and tell me how you would like your creations decorated. We will confirm availability and the final details together.",
-            )}{" "}
-          </p>
-          <div className="contact-links">
-            <a href={whatsappUrl(contact.whatsapp, "Ciao Giansy!")} target="_blank" rel="noreferrer">
-              <MessageCircle size={17} /> WhatsApp · {contact.whatsapp}
-            </a>
-            <a
-              href="https://www.instagram.com/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Instagram size={17} />{" "}
-              {t("Find a little inspiration on Instagram")}{" "}
-              <ArrowUpRight size={14} />
-            </a>
-          </div>
-          <Flourish />
-        </div>
-        <div className="contact-form-wrap">
-          {draft ? (
-            <div className="contact-draft" role="status">
-              <div className="draft-check"><Check size={28} /></div>
-              <h3>{t("Your request is ready.")}</h3>
-              <p>{t("Your assortment, requested date and personalisation notes are ready to share with Giansy.")}</p>
-              {estimate.pieces > 0 && <p className="request-complete-summary"><strong>{estimate.pieces} {t("cookies")}</strong><span>{`${estimate.packages} ${t("packages")}`}</span><strong>{money(estimate.total)}</strong></p>}
-              <p className="request-date-summary">{t("Requested date")}: {requestDate(draft)}</p>
-              <div className="request-delivery-actions">
-                <a className="button button-primary" href={whatsappUrl(contact.whatsapp, requestText(draft))} target="_blank" rel="noreferrer"><MessageCircle size={16} />{t("Send on WhatsApp")}</a>
-                <button type="button" className="button button-outline" disabled={pdfBusy} onClick={() => void downloadPdf(draft)}><Download size={16} />{t(pdfBusy ? "Preparing PDF…" : "Download PDF")}</button>
-              </div>
-              <p className="request-delivery-hint">{t("Confirm Send in WhatsApp to deliver your request. You can download the PDF and attach it in the same chat. Giansy will confirm availability and the final details.")}</p>
-              {exportError && <p className="request-export-error" role="alert">{exportError}</p>}
-              <details className="request-text-preview"><summary>{t("Read the full request")}</summary><pre>{requestText(draft)}</pre></details>
-              <button type="button" className="text-link" onClick={() => setDraft(null)}>{t("Edit details")}</button>
-            </div>
-          ) : (
-            <form className="contact-form" onSubmit={submit}>
-              <div className="order-form-heading">
-                <h3>{t("Complete your request")}</h3>
-                <p>{t("Your selection, your details, and a little room for your wishes.")}</p>
-              </div>
-              {estimate.pieces > 0 && (
-                <div className="request-assortment" aria-label={t("Your chosen assortment")}>
-                  <div className="request-assortment-heading"><ShoppingBag size={17} /><strong>{t("Your chosen assortment")}</strong><a href="#your-assortment">{t("Review your selection")}</a></div>
-                  <div className="request-assortment-content">
-                    <div className="request-cookie-preview" aria-hidden="true">{estimate.lines.flatMap(line => line.images).slice(0, 4).map((image, index) => <img key={index} src={assetUrl(image)} alt="" />)}</div>
-                    <div><strong>{estimate.pieces} {t("cookies")}</strong><span>{`${estimate.packages} ${t("packages")}`}</span></div>
-                    <div className="request-estimate"><span>{t("Estimated total")}</span><strong>{money(estimate.total)}</strong></div>
-                  </div>
-                  <p><Check size={13} />{t("All selected products and quantities will be included in your request.")}</p>
-                </div>
-              )}
-              <div className="form-row">
-                <label>
-                  {t("Your name")}{" "}
-                  <input
-                    name="name"
-                    value={fields.name}
-                    onChange={updateField}
-                    autoComplete="name"
-                    placeholder={t("A lovely name")}
-                    required
-                    maxLength={100}
-                  />
-                </label>
-                <label>
-                  {t("Email address")}{" "}
-                  <input
-                    name="email"
-                    value={fields.email}
-                    onChange={updateField}
-                    type="email"
-                    autoComplete="email"
-                    placeholder={t("you@example.com")}
-                    required
-                    maxLength={200}
-                  />
-                </label>
-              </div>
-              <label className="requested-date-field">{t("Requested date")}<input type="date" name="date" value={fields.date} onChange={updateField} min={localToday()} required aria-describedby="requested-date-hint" /><span id="requested-date-hint">{t("When would you like your cookies? We will confirm availability together.")}</span></label>
-              <label className="personalisation-field">
-                <span className="personalisation-title">{t("Notes and personalisation")}</span>
-                <span className="personalisation-hint" id="personalisation-hint">{t("A favourite colour, a theme, a dedication or a decoration you love: tell me here.")}</span>
-                <textarea
-                  name="message"
-                  value={fields.message}
-                  onChange={updateField}
-                  aria-describedby="personalisation-hint"
-                  placeholder={t(
-                    "For example: ivory and burgundy decorations, a ribbon for a gift, or a special dedication…",
-                  )}
-                  rows={5}
-                  maxLength={5000}
-                />
-              </label>
-              {!canSubmit && <p className="request-minimum" id="request-minimum">{t(draftReady ? "Add an assortment or a little gift to your selection first." : "Complete or remove your assortment in progress before sending the request.")} <a href="#creations">{t("Choose your cookies")}</a></p>}
-              <div className="request-delivery-actions">
-                <button type="submit" value="whatsapp" className="button button-primary" disabled={!canSubmit} aria-describedby={!canSubmit ? "request-minimum" : undefined}><MessageCircle size={16} />{t("Send on WhatsApp")}</button>
-                <button type="submit" value="pdf" className="button button-outline" disabled={!canSubmit || pdfBusy}><Download size={16} />{t(pdfBusy ? "Preparing PDF…" : "Download PDF")}</button>
-              </div>
-              <span className="form-note">
-                {t("WhatsApp opens with your complete request. Confirm Send in the chat. No payment is required.")}
-              </span>
-            </form>
-          )}
-        </div>
-      </div>
-    </section>
-  );
+  return <section className="contact-section simple-checkout" id="contact">
+    <div className="section-width">
+      <form className="contact-form" onSubmit={submit}>
+        <label>{t("Your name")}<input name="name" value={fields.name} onChange={updateField} autoComplete="name" required maxLength={100} /></label>
+        <div className="checkout-total"><span>{t("Order total")}<small>{estimate.pieces} {t("cookies")}</small></span><strong>{money(estimate.total)}</strong></div>
+        <label className="requested-date-field">{t("Requested date")}<input type="date" name="date" value={fields.date} onChange={updateField} min={localToday()} required /><span>{t("We will confirm availability together.")}</span></label>
+        <label className="personalisation-field"><span className="personalisation-title">{t("Notes and personalisation")}</span><span className="personalisation-hint" id="personalisation-hint">{t("A favourite colour, a theme, a dedication or a decoration you love: tell me here.")}</span>
+          <textarea name="message" value={fields.message} onChange={updateField} aria-describedby="personalisation-hint" rows={4} maxLength={5000} />
+        </label>
+        {!canSubmit && <p className="request-minimum" id="request-minimum">{t(hasDraft ? "Confirm or remove the cookies in progress before sending your order." : "Confirm a selection or choose a timeless batch or little gift first.")} <a href="#your-assortment">{t("Your sweet selection")}</a></p>}
+        <button type="submit" className="button button-primary" disabled={!canSubmit} aria-describedby={!canSubmit ? "request-minimum" : undefined}><MessageCircle size={16} />{t("Send to Giansy")}</button>
+        <span className="form-note">{t("WhatsApp opens with your complete order. Confirm Send in the chat.")}</span>
+      </form>
+    </div>
+  </section>;
 }
 function Modal({
   title,
@@ -1194,10 +1063,20 @@ function NotFound() {
     </main>
   );
 }
-const productIds = products.filter(p => !p.bundleSize).map(p => p.id);
+const allProductIds = products.filter(p => !p.bundleSize).map(p => p.id);
+const productIds = products.filter(p => !p.bundleSize && (p.quantityStep ?? 1) === 1).map(p => p.id);
 const bundleIds = products.filter(p => p.bundleSize).map(p => p.id);
+const timelessIds = products.filter(p => (p.quantityStep ?? 1) > 1).map(p => p.id);
 function readCart(): CartItem[] {
-  try { return restoreCart(JSON.parse(localStorage.getItem("giansy-cart") || "[]"), bundleIds, (selection, packagingId) => Object.keys(selection).every(id => productIds.includes(id)) && isSelectionReady({ selection, packagingId }, packagingOptions, quantitySteps, largeProductIds)); } catch { return []; }
+  try {
+    let cart = restoreCart(JSON.parse(localStorage.getItem("giansy-cart") || "[]"), bundleIds, (selection, packagingId) => Object.keys(selection).every(id => allProductIds.includes(id)) && isSelectionReady({ selection, packagingId }, packagingOptions, quantitySteps, largeProductIds), timelessIds);
+    const oldSelection = JSON.parse(localStorage.getItem("giansy-assortment") || "{}").selection ?? {};
+    for (const id of timelessIds) {
+      const count = oldSelection[id];
+      if (Number.isSafeInteger(count) && count > 0) cart = addTimelessToCart(cart, id, Math.ceil(count / quantitySteps[id]));
+    }
+    return cart;
+  } catch { return []; }
 }
 function builderReducer(state: BuilderState, action: BuilderAction) {
   return updateBuilder(state, action, packagingOptions, productIds, quantitySteps, largeProductIds);
@@ -1219,7 +1098,7 @@ export default function App() {
         : "Le Creazioni di Giansy — Handmade happiness";
   }, [language]);
   const [cart, setCart] = useState<CartItem[]>(readCart);
-  const bundleDraft = Object.fromEntries(cart.filter(item => item.kind === "bundle").map(item => [item.productId, item.quantity]));
+  const confirmedQuantities = Object.fromEntries(cart.filter(item => item.kind !== "custom").map(item => [item.productId, item.quantity * (item.kind === "timeless" ? quantitySteps[item.productId] : 1)]));
   useEffect(() => { try { localStorage.setItem("giansy-cart", JSON.stringify(cart)); } catch { /* Cart remains usable without storage. */ } }, [cart]);
   const [builder, dispatch] = useReducer(builderReducer, undefined, readSaved);
   const { selection, packagingId } = builder;
@@ -1241,9 +1120,13 @@ export default function App() {
   }
   const estimate = calculateEstimate(selection, packagingId);
   const cartSummary = describeCart(cart);
-  const requestCart = estimate.count ? addCustomToCart(cart, selection, packagingId) : cart;
-  const draftReady = !estimate.count || isSelectionReady(builder, packagingOptions, quantitySteps, largeProductIds);
-  function changeBundle(id: string, delta: number) { setCart(previous => delta > 0 ? addBundleToCart(previous, id, delta) : changeCartQuantity(previous, `bundle:${id}`, delta)); }
+  function changeConfirmed(id: string, delta: number) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+    const timeless = (product.quantityStep ?? 1) > 1;
+    const change = timeless ? delta / product.quantityStep! : delta;
+    setCart(previous => change > 0 ? (timeless ? addTimelessToCart(previous, id, change) : addBundleToCart(previous, id, change)) : changeCartQuantity(previous, `${timeless ? "timeless" : "bundle"}:${id}`, change));
+  }
   function addAssortment() {
     if (!isSelectionReady(builder, packagingOptions, quantitySteps, largeProductIds)) return;
     setCart(previous => addCustomToCart(previous, selection, packagingId));
@@ -1260,13 +1143,13 @@ export default function App() {
     return "";
   }
   return (
-    <SelectionContext.Provider value={{ count: estimate.packagedCount, usedSpace: estimate.usedSpace, capacity: estimate.packaging.capacity, minimum: estimate.packaging.minimum, largeWeight: estimate.packaging.largeWeight }}>
+    <SelectionContext.Provider value={{ count: estimate.packagedCount, usedSpace: estimate.usedSpace, capacity: estimate.packaging.capacity, minimum: estimate.packaging.minimum, minimumCount: estimate.minimumCount, minimumLabel: estimate.packaging.id === "box" ? t("Minimum: 6 small/medium or 2 large") : estimate.packaging.id === "tray" ? t("Minimum: 20 equivalents") : `${t("Minimum for this packaging:")} ${estimate.packaging.minimum}`, largeWeight: estimate.packaging.largeWeight }}>
       <ScrollManager />
       <a href="#main-content" className="skip-link">
         {t("Skip to content")}{" "}
       </a>
       <div id="top" />
-      <Header count={cartSummary.packages + (estimate.count ? 1 : 0)} />
+      <Header count={cartSummary.packages} />
       <div id="main-content" tabIndex={-1}>
         <Routes>
           <Route
@@ -1282,7 +1165,7 @@ export default function App() {
                   category={category}
                   setCategory={setCategory}
                   onDetails={setDetail}
-                  bundleQuantities={bundleDraft} onBundleChange={changeBundle}
+                  confirmedQuantities={confirmedQuantities} onConfirmedChange={changeConfirmed}
                 />
                 <Assortment
                   selection={selection}
@@ -1293,7 +1176,7 @@ export default function App() {
                   onAdd={addAssortment}
                   cart={cart} onCartChange={(id, delta) => setCart(previous => changeCartQuantity(previous, id, delta))}
                 />
-                <Contact cart={requestCart} draftReady={draftReady} />
+                <Contact cart={cart} hasDraft={estimate.count > 0} />
                 {features.seasonalCollection && <Seasonal onExplore={() => setCategory(seasonal.category)} />}
                 <Story />
                 {features.journal && <JournalPreview />}
@@ -1326,8 +1209,8 @@ export default function App() {
           <div className="dialog-actions">
             <Quantity
               product={detail}
-              quantity={detail.bundleSize ? (bundleDraft[detail.id] ?? 0) : (selection[detail.id] || 0)}
-              onChange={detail.bundleSize ? changeBundle : change}
+              quantity={detail.bundleSize || (detail.quantityStep ?? 1) > 1 ? (confirmedQuantities[detail.id] ?? 0) : (selection[detail.id] || 0)}
+              onChange={detail.bundleSize || (detail.quantityStep ?? 1) > 1 ? changeConfirmed : change}
             />
             <button
               className="button button-primary"

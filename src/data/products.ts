@@ -1,6 +1,6 @@
 import catalog from "./catalog.json";
 import type { CartItem } from "../cart";
-import { selectionSpace } from "../selection";
+import { selectionSpace, selectionMinimumCount } from "../selection";
 import { getLanguage } from "../i18n";
 export const categories = [
   "Christmas",
@@ -55,6 +55,7 @@ export function calculateEstimate(selection: Selection, packagingId: string) {
     packaging,
     packagedCount,
     usedSpace: selectionSpace(selection, packaging, quantitySteps, largeProductIds),
+    minimumCount: selectionMinimumCount(selection, packaging, quantitySteps, largeProductIds),
     bulkCount,
     packagingCost,
     packagingLabel,
@@ -69,9 +70,10 @@ export function calculateEstimate(selection: Selection, packagingId: string) {
 export type CartLine = { item: CartItem; title: string; detail: string; unitPrice: number; pieceCount: number; bulkPackaging: boolean; images: string[]; contents: { name: string; quantity: number }[] };
 export function describeCart(cart: CartItem[]) {
   const lines = cart.flatMap<CartLine>(item => {
-    if (item.kind === "bundle") {
-      const product = products.find(p => p.id === item.productId && p.bundleSize);
-      return product ? [{ item, title: product.name, detail: product.description, unitPrice: product.price, pieceCount: product.bundleSize!, bulkPackaging: false, images: [product.image], contents: [] as { name: string; quantity: number }[] }] : [];
+    if (item.kind !== "custom") {
+      const product = products.find(p => p.id === item.productId && (item.kind === "bundle" ? p.bundleSize : (p.quantityStep ?? 1) > 1));
+      const pieces = item.kind === "timeless" ? (product?.quantityStep ?? 15) : product?.bundleSize;
+      return product ? [{ item, title: product.name, detail: product.description, unitPrice: product.price * (item.kind === "timeless" ? pieces! : 1), pieceCount: pieces!, bulkPackaging: item.kind === "timeless", images: [product.image], contents: [] as { name: string; quantity: number }[] }] : [];
     }
     const estimate = calculateEstimate(item.selection, item.packagingId);
     return [{ item, title: "Your personalised assortment", detail: estimate.packagingLabel, unitPrice: estimate.total, pieceCount: estimate.count, bulkPackaging: estimate.bulkCount > 0, images: estimate.selected.slice(0, 4).map(p => p.image), contents: estimate.selected.map(p => ({ name: p.name, quantity: item.selection[p.id] })) }];

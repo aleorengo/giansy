@@ -2,7 +2,7 @@ export type BuilderState = {
   selection: Record<string, number>;
   packagingId: string;
 };
-type PackagingRule = { id: string; minimum: number; capacity: number; largeWeight?: number };
+type PackagingRule = { id: string; minimum: number; capacity: number; largeWeight?: number; minimumLargeWeight?: number };
 export type QuantitySteps = Readonly<Record<string, number>>;
 export const packagedCount = (selection: Record<string, number>, steps: QuantitySteps = {}) =>
   Object.entries(selection).reduce((sum, [id, n]) => sum + ((steps[id] ?? 1) > 1 ? 0 : n), 0);
@@ -10,6 +10,8 @@ export const productSpace = (id: string, option: PackagingRule, largeIds: readon
   largeIds.includes(id) ? (option.largeWeight ?? 3) : 1;
 export const selectionSpace = (selection: Record<string, number>, option: PackagingRule, steps: QuantitySteps = {}, largeIds: readonly string[] = []) =>
   Object.entries(selection).reduce((sum, [id, n]) => sum + ((steps[id] ?? 1) > 1 ? 0 : n * productSpace(id, option, largeIds)), 0);
+export const selectionMinimumCount = (selection: Record<string, number>, option: PackagingRule, steps: QuantitySteps = {}, largeIds: readonly string[] = []) =>
+  Object.entries(selection).reduce((sum, [id, n]) => sum + ((steps[id] ?? 1) > 1 ? 0 : n * (largeIds.includes(id) ? (option.minimumLargeWeight ?? 1) : 1)), 0);
 export type BuilderAction =
   | { type: "change"; id: string; delta: number }
   | { type: "configure"; packagingId: string }
@@ -46,7 +48,7 @@ export function isSelectionReady(state: BuilderState, packaging: readonly Packag
   const option = packaging.find(p => p.id === state.packagingId);
   const count = packagedCount(state.selection, steps);
   const valid = Object.entries(state.selection).every(([id, n]) => Number.isSafeInteger(n) && n > 0 && n % (steps[id] ?? 1) === 0);
-  return !!option && valid && selectedCount(state.selection) > 0 && (count === 0 || count >= option.minimum) && selectionSpace(state.selection, option, steps, largeIds) <= option.capacity;
+  return !!option && valid && selectedCount(state.selection) > 0 && (count === 0 || selectionMinimumCount(state.selection, option, steps, largeIds) >= option.minimum) && selectionSpace(state.selection, option, steps, largeIds) <= option.capacity;
 }
 
 export function updateBuilder(state: BuilderState, action: BuilderAction, packaging: readonly PackagingRule[], productIds: readonly string[], steps: QuantitySteps = {}, largeIds: readonly string[] = []): BuilderState {

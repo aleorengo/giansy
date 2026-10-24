@@ -28,7 +28,7 @@ const christmasPrices = {
 };
 assert.deepEqual(Object.fromEntries(catalog.products.filter(p => p.categories.includes("Christmas")).map(p => [p.id, p.price])), christmasPrices);
 assert.equal(catalog.products.find(p => p.id === "christmas-star").image, "/images/christmas/snowflake.webp");
-assert.equal(catalog.products.find(p => p.id === "snowflake").image, "/images/christmas/snowflake-small.webp");
+assert.equal(catalog.products.find(p => p.id === "snowflake").image, "/images/christmas/variants/snowflake-blue-simple.webp");
 assert.deepEqual(catalog.products.filter(p => p.categories.includes("Special Occasions")).map(p => p.id), ["occasion-daisy", "occasion-tulip"]);
 assert.equal(catalog.products.filter(p => p.categories.includes("Halloween")).length, 8);
 const apply = (state, action) => updateBuilder(state, action, packaging, allIds, steps, largeIds);
@@ -66,7 +66,7 @@ assert.equal(isSelectionReady(flexible, packaging), true);
 let belowMinimum = apply(emptyBuilder, { type: "configure", packagingId: "box" });
 belowMinimum = apply(belowMinimum, { type: "change", id: ids[0], delta: 4 });
 assert.equal(isSelectionReady(belowMinimum, packaging), false);
-belowMinimum = apply(belowMinimum, { type: "change", id: ids[0], delta: 1 });
+belowMinimum = apply(belowMinimum, { type: "change", id: ids[0], delta: 2 });
 assert.equal(isSelectionReady(belowMinimum, packaging), true);
 belowMinimum = apply(belowMinimum, { type: "configure", packagingId: "tray" });
 assert.equal(isSelectionReady(belowMinimum, packaging), false);
@@ -74,7 +74,7 @@ assert.equal(restoreBuilder({ selection: { [ids[0]]: 21 }, packagingId: "dish" }
 assert.equal(selectedCount(restoreBuilder({ selection: { [ids[0]]: 99, [ids[1]]: 99, unknown: 2 } }, packaging, ids).selection), 35);
 assert.deepEqual(restoreBuilder(null, packaging, ids), emptyBuilder);
 assert.deepEqual(Object.fromEntries(packaging.map(p => [p.id, [p.price, p.minimum, p.capacity]])), {
-  paper: [0, 1, 25], tray: [0, 6, 35], dish: [3, 6, 20], box: [0.5, 5, 15],
+  paper: [0, 1, 25], tray: [0, 20, 35], dish: [3, 6, 20], box: [0.5, 6, 15],
 });
 
 const timeless = catalog.products.filter(p => p.categories.includes("Timeless Biscuits"));
@@ -107,13 +107,24 @@ mixed=apply(emptyBuilder,{type:"configure",packagingId:"box"});
 mixed=apply(mixed,{type:"change",id:"vin-santo",delta:15});
 mixed=apply(mixed,{type:"change",id:ids[0],delta:4});
 assert.equal(isSelectionReady(mixed,packaging,steps),false,"Batch cannot satisfy decorated minimum");
-mixed=apply(mixed,{type:"change",id:ids[0],delta:1});
+mixed=apply(mixed,{type:"change",id:ids[0],delta:2});
 assert.equal(isSelectionReady(mixed,packaging,steps),true);
 assert.equal(isSelectionReady({selection:{"vin-santo":16},packagingId:"paper"},packaging,steps),false);
 assert.equal(restoreBuilder({selection:{"candied-orange":2},packagingId:"paper"},packaging,allIds,steps).selection["candied-orange"],15);
 
 
 const big = "christmas-snowflake-large";
+assert.equal(isSelectionReady({selection:{[ids[0]]:5},packagingId:'box'},packaging,steps,largeIds),false);
+assert.equal(isSelectionReady({selection:{[ids[0]]:6},packagingId:'box'},packaging,steps,largeIds),true);
+assert.equal(isSelectionReady({selection:{[big]:1},packagingId:'box'},packaging,steps,largeIds),false);
+assert.equal(isSelectionReady({selection:{[big]:2},packagingId:'box'},packaging,steps,largeIds),true);
+assert.equal(isSelectionReady({selection:{[big]:1,[ids[0]]:2},packagingId:'box'},packaging,steps,largeIds),false);
+assert.equal(isSelectionReady({selection:{[big]:1,[ids[0]]:3},packagingId:'box'},packaging,steps,largeIds),true);
+assert.equal(isSelectionReady({selection:{[ids[0]]:19},packagingId:'tray'},packaging,steps,largeIds),false);
+assert.equal(isSelectionReady({selection:{[ids[0]]:20},packagingId:'tray'},packaging,steps,largeIds),true);
+assert.equal(isSelectionReady({selection:{[big]:6},packagingId:'tray'},packaging,steps,largeIds),false);
+assert.equal(isSelectionReady({selection:{[big]:7},packagingId:'tray'},packaging,steps,largeIds),true);
+assert.equal(isSelectionReady({selection:{[big]:6,[ids[0]]:2},packagingId:'tray'},packaging,steps,largeIds),true);
 for(const [packagingId,maxLarge,remainder] of [["paper",8,1],["box",10,0],["tray",11,2],["dish",6,2]]) {
   let state=apply(emptyBuilder,{type:"configure",packagingId});
   state=apply(state,{type:"change",id:big,delta:50});

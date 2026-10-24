@@ -6,13 +6,13 @@ import { t } from "../i18n";
 import { useSelectionLimit } from "../selection-context";
 
 export function SelectionProgress() {
-  const { count, usedSpace, capacity, minimum } = useSelectionLimit();
+  const { count, usedSpace, capacity, minimum, minimumCount, minimumLabel } = useSelectionLimit();
   return (
     <div className="selection-progress">
       <div role="status" aria-live="polite" aria-atomic="true">
         <strong>{usedSpace.toLocaleString(document.documentElement.lang)} / {capacity} {t("spaces")}</strong>
-        <span>{count} {t("selected cookies")} · {count < minimum
-          ? `${t("Minimum for this packaging:")} ${minimum}`
+        <span>{count} {t("selected cookies")} · {minimumCount < minimum
+          ? minimumLabel
           : capacity - usedSpace < 1 ? t("This packaging is full.")
             : `${t("Spaces still available:")} ${(capacity - usedSpace).toLocaleString(document.documentElement.lang)}`}</span>
       </div>
@@ -56,7 +56,7 @@ export default function PackagingBuilder({ packagingId, onChange }: {
                 <img src={assetUrl(item.image)} alt="" className="packaging-illustration" />
                 <span className="packaging-choice-heading"><span className="choice-radio" aria-hidden="true">{selected && <Check size={12} />}</span><span className="packaging-name">{t(title)}</span></span>
                 <span className="packaging-price">{kind === "plate" ? t("Cardboard: free · Brass: €3") : item.price ? money(item.price) : t("Free")}</span>
-                <span className="packaging-capacity">{t(kind === "bag" ? "Up to 25 small/medium" : kind === "box" ? "5–15 small/medium or up to 10 large" : "Cardboard: 6–35 · Brass: 6–20")}</span>
+                <span className="packaging-capacity">{t(kind === "bag" ? "Up to 25 small/medium" : kind === "box" ? "6–15 small/medium or 2–10 large" : "Cardboard: 20–35 · Brass: 6–20")}</span>
               </label>
             );
           })}
