@@ -13,6 +13,7 @@ import "./product-gallery.css";
 import "./timeless.css";
 import "./cart.css";
 import "./readability.css";
+import "./brand-identity.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

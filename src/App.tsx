@@ -59,10 +59,10 @@ function Logo({ footer = false }: { footer?: boolean }) {
       aria-label={t("Le Creazioni di Giansy home")}
     >
       <img
-        src={assetUrl("/brand/giansy-logo-ivory.svg?v=engraved-01")}
-        alt={t("Le creazioni di Giansy — engraved vintage frame")}
-        width="620"
-        height="390"
+        src={assetUrl("/brand/giansy-logo-ivory.svg?v=floral-01")}
+        alt="Le creazioni di Giansy"
+        width="960"
+        height="260"
       />
     </Link>
   );

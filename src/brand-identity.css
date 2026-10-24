@@ -1,0 +1,70 @@
+/* The one-line floral signature needs a wide, shallow space. */
+html .brand {
+  width: 330px;
+  max-width: 100%;
+}
+
+html .brand img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+html .header-inner { min-height: 112px; }
+html .brand-footer { width: 280px; }
+
+@media (max-width: 1100px) {
+  html .brand { width: 290px; }
+}
+
+@media (max-width: 1000px) {
+  html .header-inner { min-height: 100px; gap: 12px; }
+  html .site-header .brand { width: 330px; }
+  html .selection-link { margin-left: auto; }
+  html .mobile-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    padding: 8px;
+    margin: 0;
+  }
+  html .site-header .main-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--wine);
+    border-bottom: 1px solid #cbb49d;
+    padding: 20px;
+    box-shadow: 0 12px 20px #38221410;
+  }
+  html .site-header .main-nav.is-open {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  html .main-nav a { padding: 8px 20px; }
+  html .site-header .language-toggle-desktop { display: none; }
+  html .main-nav .language-toggle-mobile {
+    display: block;
+    margin: 10px 0 0;
+    padding: 12px 22px 4px;
+    min-height: 44px;
+    border-top: 1px solid var(--line);
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 620px) {
+  html .header-inner { min-height: 92px; gap: 8px; }
+  html .site-header .brand { width: calc(100% - 108px); }
+  html .selection-link { min-width: 48px; flex: 0 0 48px; gap: 6px; }
+  html .footer-main { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  html .footer-main > * { min-width: 0; }
+  html .brand-footer { width: 300px; grid-column: 1 / -1; }
+}
