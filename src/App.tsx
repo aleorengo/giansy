@@ -443,14 +443,14 @@ function Gallery({
               />
             ))}
           </div>
+          <div className="gallery-note">
+            <Heart size={13} />{" "}
+            {t(
+              "Each creation is handmade. A little variation is part of its charm.",
+            )}{" "}
+          </div>
+          {visible.some(p => p.provisionalPrice) && <p className="provisional-price-note">{t("Provisional prices for Halloween and flower biscuits; to be confirmed with Giansy.")}</p>}
         </div>
-        <div className="gallery-note">
-          <Heart size={13} />{" "}
-          {t(
-            "Each creation is handmade. A little variation is part of its charm.",
-          )}{" "}
-        </div>
-        {visible.some(p => p.provisionalPrice) && <p className="provisional-price-note">{t("Provisional prices for Halloween and flower biscuits; to be confirmed with Giansy.")}</p>}
       </div>
       <div className="collection-tartan" aria-hidden="true" />
     </section>

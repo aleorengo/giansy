@@ -8,8 +8,8 @@ palette={
  'christmas':('#260002','#58121b'),
  'halloween':('#7c351c','#9b4f2b'),
  'occasions':('#bd8589','#9d6469'),
- 'timeless':('#080f22','#1b2943'),
- 'mixed':('#172d18','#345337'),
+ 'timeless':('#030611','#111c32'),
+ 'mixed':('#071208','#172c19'),
  'jams':('#d6b89a','#a27e5e')}
 
 def recolor(root, colors):
@@ -76,13 +76,17 @@ for name,motifs in patterns.items():
 product_out=Path('public/images/cookie-patterns')
 product_out.mkdir(parents=True,exist_ok=True)
 original=E.parse('public/images/cookie-logo-pattern.svg').getroot()
-for name,(base,_) in palette.items():
+for name,(base,motif_color) in palette.items():
  if name=='christmas':
   continue
  def tone(hex_color):
   source=tuple(int(hex_color[i:i+2],16) for i in (1,3,5))
   old_base=(38,0,2)
   new_base=tuple(int(base[i:i+2],16) for i in (1,3,5))
+  if name in ('timeless','mixed'):
+   accent=tuple(int(motif_color[i:i+2],16) for i in (1,3,5))
+   amount={'#260002':0,'#240003':-.06,'#34070b':.45,'#2b0306':.17,'#300508':.32,'#39090e':.6,'#87594c':1.2}[hex_color]
+   return '#'+''.join(f'{max(0,min(255,round(n+(a-n)*amount))):02x}' for n,a in zip(new_base,accent))
   if name in ('occasions','jams'):
    # Shade the warm palette uniformly; channel offsets introduce olive/purple.
    shade={'#260002':1,'#240003':.93,'#34070b':.94,'#2b0306':.98,'#300508':.96,'#39090e':.91,'#87594c':.55}[hex_color]

@@ -1,5 +1,6 @@
-/* Start the repeat below the counter, behind the product cards only. */
+/* Start the repeat below the counter and include the collection's notes. */
 .creations-section { overflow-x: clip; }
+.creations-section .creations { padding-bottom: 0; }
 
 .creations-section[data-category="Halloween"] {
   --category-bg: #7c351c;
@@ -14,13 +15,13 @@
   --cookie-pattern: url("/images/cookie-patterns/occasions.svg");
 }
 .creations-section[data-category="Timeless Biscuits"] {
-  --category-bg: #080f22;
-  --cookie-bg: #080f22;
+  --category-bg: #030611;
+  --cookie-bg: #030611;
   --cookie-pattern: url("/images/cookie-patterns/timeless.svg");
 }
 .creations-section[data-category="Gift Bundles"] {
-  --category-bg: #172d18;
-  --cookie-bg: #172d18;
+  --category-bg: #071208;
+  --cookie-bg: #071208;
   --cookie-pattern: url("/images/cookie-patterns/mixed.svg");
 }
 .creations-section[data-category="Jams & Preserves"] {
@@ -56,12 +57,14 @@
   display: flow-root;
   position: relative;
   isolation: isolate;
+  padding-bottom: 48px;
+  color: var(--cookie-label-ink, var(--ivory));
 }
 
 .creations .cookie-products::before {
   content: "";
   position: absolute;
-  inset: 0 calc((100% - 100vw) / 2) -24px;
+  inset: 0 calc((100% - 100vw) / 2) 0;
   z-index: -1;
   pointer-events: none;
   background-color: var(--cookie-bg, var(--wine));
@@ -74,6 +77,16 @@
 
 /* The intro belongs on the same continuous pattern as its products. */
 .cookie-products .timeless-intro { margin-top: 0; }
+
+.creations .cookie-products .gallery-note,
+.creations .cookie-products .gallery-note svg {
+  color: inherit;
+}
+
+@media (max-width: 620px) {
+  .creations-section .creations { padding-bottom: 0; }
+  .creations .cookie-products { padding-bottom: 34px; }
+}
 
 /* Keep the product names, prices and quantity controls on a quiet surface. */
 .creations-section .antique-label-frame .label-paper {
