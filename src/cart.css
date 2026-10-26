@@ -22,7 +22,7 @@
 img.dialog-product[src$="/bundles/little-pouch.webp"] { transform: translateX(-10%); }
 .draft-assortment-label { font-size: 12px; margin: 18px 0 4px; }
 .confirm-assortment { width: 100%; justify-content: center; margin-top: 18px; }
-.confirmed-selection { border-top: 1px solid var(--line); margin-top: 28px; padding-top: 24px; }
+.confirmed-selection { border-top: 1px solid var(--line); margin-top: 28px; padding-top: 24px; scroll-margin-top: 16px; }
 .confirmed-selection h4 { font-family: var(--serif); font-size: 26px; font-weight: 400; margin-bottom: 8px; }
 .confirmed-empty { font-size: 12px; line-height: 1.6; margin: 12px 0; }
 .confirmed-item-copy { min-width: 0; }

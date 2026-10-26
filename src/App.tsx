@@ -19,7 +19,7 @@ import {
   Minus,
   Plus,
   RotateCcw,
-  ShoppingBag,
+  ShoppingCart,
   Sparkles,
   X,
 } from "lucide-react";
@@ -133,8 +133,8 @@ function Header({ count }: { count: number }) {
             <Link to="/#contact">{t("Contact")} </Link>
             {languageSwitch(true)}
           </nav>
-          <Link className="selection-link" to="/#your-assortment" aria-label={`${t("Your selection")}: ${count}`}>
-            <ShoppingBag size={20} strokeWidth={1.4} aria-hidden="true" />
+          <Link className="selection-link" to="/#confirmed-selections" aria-label={`${t("Your selection")}: ${count}`}>
+            <ShoppingCart size={20} strokeWidth={1.4} aria-hidden="true" />
             <span className="selection-count">{count}</span>
           </Link>
           {languageSwitch()}
@@ -594,7 +594,7 @@ function Assortment({
           <div className="order-card">
             <div className="order-heading">
               <h3>{t("Your sweet selection")} </h3>
-              <ShoppingBag size={19} strokeWidth={1.2} />
+              <ShoppingCart size={19} strokeWidth={1.2} aria-hidden="true" />
             </div>
             <p className="draft-assortment-label">{t("Your assortment in progress")}</p>
             <div className="order-items" aria-live="polite" aria-atomic="true">
@@ -659,8 +659,8 @@ function Assortment({
               <div className="estimated-total draft-total"><span>{t("Selection subtotal")}</span><strong>{money(estimate.total)}</strong></div>
               <button onClick={onAdd} disabled={!isSelectionReady({ selection, packagingId }, packagingOptions, quantitySteps, largeProductIds)} className="button button-primary confirm-assortment">{t("Confirm selection")} <Check size={15} /></button>
             </>}
-            <div className="confirmed-selection">
-              <h4>{t("Confirmed selections")}</h4>
+            <div className="confirmed-selection" id="confirmed-selections" role="region" aria-labelledby="confirmed-selections-title" tabIndex={-1}>
+              <h4 id="confirmed-selections-title">{t("Confirmed selections")}</h4>
               {saved.lines.length ? <SavedSelections cart={cart} onChange={onCartChange} /> : <p className="confirmed-empty">{t("Confirm your assortment here. Timeless biscuits and little gifts are added directly.")}</p>}
               <div className="estimated-total" aria-live="polite"><span>{t("Order total")}<small>{saved.pieces} {t("cookies")}</small></span><strong>{money(saved.total)}</strong></div>
               {saved.lines.some(line => line.bulkPackaging) && <p className="pricing-note">{t("Packaging for timeless biscuits will be agreed separately.")}</p>}
@@ -1158,7 +1158,14 @@ export default function App() {
     if (!isSelectionReady(builder, packagingOptions, quantitySteps, largeProductIds)) return;
     setCart(previous => addCustomToCart(previous, selection, packagingId));
     dispatch({ type: "reset" });
-    window.setTimeout(() => document.getElementById("your-assortment")?.scrollIntoView({ behavior: "smooth" }), 50);
+    window.requestAnimationFrame(() => {
+      const confirmed = document.getElementById("confirmed-selections");
+      confirmed?.focus({ preventScroll: true });
+      confirmed?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+        block: "start",
+      });
+    });
   }
   function changePackaging(id: string) {
     const option = packagingOptions.find(p => p.id === id);
