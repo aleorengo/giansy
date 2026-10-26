@@ -1,9 +1,22 @@
-"""Small, seamless vector motifs for collection buttons only."""
+"""Themed button motifs and colour variants of the approved cookie repeat."""
 from pathlib import Path
 from copy import deepcopy
 import xml.etree.ElementTree as E
 NS='http://www.w3.org/2000/svg';E.register_namespace('',NS)
 out=Path('public/images/category-patterns');out.mkdir(parents=True,exist_ok=True)
+palette={
+ 'christmas':('#260002','#58121b'),
+ 'halloween':('#7c351c','#9b4f2b'),
+ 'occasions':('#ab7187','#8d536b'),
+ 'timeless':('#080f22','#1b2943'),
+ 'mixed':('#0b251b','#204334'),
+ 'jams':('#d9c7a8','#b59a77')}
+
+def recolor(root, colors):
+ for element in root.iter():
+  for attr in ('fill','stroke','color'):
+   if element.get(attr) in colors:
+    element.set(attr,colors[element.get(attr)])
 shapes={
  'tree':'<path d="M12 1 6 8h3L3 15h4l-6 7h9v3h4v-3h9l-6-7h4l-6-7h3Z" fill="currentColor"/>',
  'snow':'<g fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M12 1v22M2.5 6.5l19 11M2.5 17.5l19-11M9 3l3 3 3-3M9 21l3-3 3 3M3 10l4-1-1-4M21 14l-4 1 1 4M6 19l1-4-4-1M18 5l-1 4 4 1"/></g>',
@@ -23,6 +36,7 @@ patterns={
  'mixed':['gift','gift','gift','gift'],
  'jams':['jar','jar','jar','jar']}
 for name,motifs in patterns.items():
+ base,motif_color=palette[name]
  root=E.Element(f'{{{NS}}}svg',{'width':'160','height':'144','viewBox':'0 0 160 144'})
  E.SubElement(root,f'{{{NS}}}rect',{'width':'160','height':'144','fill':'#260002'})
  defs=E.SubElement(root,f'{{{NS}}}defs')
@@ -37,15 +51,40 @@ for name,motifs in patterns.items():
    E.SubElement(root,f'{{{NS}}}use',{'href':'#'+motif,'x':str(x),'y':str(y),'width':'34','height':'40','color':'#58121b','opacity':'.8'})
    E.SubElement(root,f'{{{NS}}}use',{'href':'#spark','x':str(x+48),'y':str(y+35),'width':'9','height':'10','color':'#58121b','opacity':'.65'})
    E.SubElement(root,f'{{{NS}}}circle',{'cx':str(x+9),'cy':str(y+57),'r':'1.3','fill':'#58121b','opacity':'.6'})
+ # Every button follows the active collection's palette, keeping its own motif.
+ for theme,(theme_base,theme_motif) in palette.items():
+  if theme==name:
+   continue
+  themed=deepcopy(root)
+  recolor(themed,{'#260002':theme_base,'#58121b':theme_motif})
+  E.ElementTree(themed).write(out/(name+'-on-'+theme+'.svg'),encoding='unicode')
+ recolor(root,{'#260002':base,'#58121b':motif_color})
  E.ElementTree(root).write(out/(name+'.svg'),encoding='unicode')
  # Keep the same seamless motif on the ivory selected button.
  selected=deepcopy(root)
  for element in selected.iter():
   for attr in ('fill','color'):
-   if element.get(attr)=='#260002':
+   if element.get(attr)==base:
     element.set(attr,'#f3e6cc')
-   elif element.get(attr)=='#58121b':
+   elif element.get(attr)==motif_color:
     element.set(attr,'#260002')
   if element.get('opacity'):
    element.set('opacity',str(round(float(element.get('opacity'))*.2,2)))
  E.ElementTree(selected).write(out/(name+'-selected.svg'),encoding='unicode')
+
+# Reuse the approved logo repeat exactly, changing only its tonal palette.
+product_out=Path('public/images/cookie-patterns')
+product_out.mkdir(parents=True,exist_ok=True)
+original=E.parse('public/images/cookie-logo-pattern.svg').getroot()
+for name,(base,_) in palette.items():
+ if name=='christmas':
+  continue
+ def tone(hex_color):
+  source=tuple(int(hex_color[i:i+2],16) for i in (1,3,5))
+  old_base=(38,0,2)
+  new_base=tuple(int(base[i:i+2],16) for i in (1,3,5))
+  direction=-1 if name in ('occasions','jams') else 1
+  return '#'+''.join(f'{max(0,min(255,n+direction*(s-o))):02x}' for n,s,o in zip(new_base,source,old_base))
+ product=deepcopy(original)
+ recolor(product,{color:tone(color) for color in ('#260002','#240003','#34070b','#2b0306','#300508','#39090e','#87594c')})
+ E.ElementTree(product).write(product_out/(name+'.svg'),encoding='unicode')

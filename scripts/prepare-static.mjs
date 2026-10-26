@@ -29,6 +29,6 @@ await writeFile(
 const admin = await readFile("dist/admin/config.yml", "utf8");
 await writeFile(
   "dist/admin/config.yml",
-  admin.replace(/^logo_url: \/.*$/m, `logo_url: ${base}brand/giansy-logo-burgundy.svg`),
+  admin.replace(/^logo_url: \/.*$/m, `logo_url: ${base}brand/giansy-round-logo.svg`),
 );
 console.log(`Prepared static routes and downloads for ${base}`);

@@ -1,6 +1,34 @@
 /* Start the repeat below the counter, behind the product cards only. */
 .creations-section { overflow-x: clip; }
 
+.creations-section[data-category="Halloween"] {
+  --category-bg: #7c351c;
+  --cookie-bg: #7c351c;
+  --cookie-pattern: url("/images/cookie-patterns/halloween.svg");
+}
+.creations-section[data-category="Special Occasions"] {
+  --category-bg: #ab7187;
+  --category-ink: var(--wine);
+  --cookie-bg: #ab7187;
+  --cookie-pattern: url("/images/cookie-patterns/occasions.svg");
+}
+.creations-section[data-category="Timeless Biscuits"] {
+  --category-bg: #080f22;
+  --cookie-bg: #080f22;
+  --cookie-pattern: url("/images/cookie-patterns/timeless.svg");
+}
+.creations-section[data-category="Gift Bundles"] {
+  --category-bg: #0b251b;
+  --cookie-bg: #0b251b;
+  --cookie-pattern: url("/images/cookie-patterns/mixed.svg");
+}
+.creations-section[data-category="Jams & Preserves"] {
+  --category-bg: #d9c7a8;
+  --category-ink: var(--wine);
+  --cookie-bg: #d9c7a8;
+  --cookie-pattern: url("/images/cookie-patterns/jams.svg");
+}
+
 /* A solid, inverted summary strip covers the pattern to both screen edges. */
 .creations .selection-progress {
   isolation: isolate;
@@ -34,8 +62,8 @@
   inset: 0 calc((100% - 100vw) / 2) -24px;
   z-index: -1;
   pointer-events: none;
-  background-color: var(--wine);
-  background-image: url("/images/cookie-logo-pattern.svg");
+  background-color: var(--cookie-bg, var(--wine));
+  background-image: var(--cookie-pattern, url("/images/cookie-logo-pattern.svg"));
   background-repeat: repeat;
   background-size: 384px 324px;
 }

@@ -4,7 +4,7 @@ backend:
 local_backend: true
 media_folder: public/images/uploads
 public_folder: /images/uploads
-logo_url: /brand/giansy-logo-burgundy.svg
+logo_url: /brand/giansy-round-logo.svg
 site_url: /
 display_url: /
 collections:

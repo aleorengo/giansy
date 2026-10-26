@@ -33,7 +33,11 @@ html .site-header .brand-wordmark {
 }
 
 html .header-inner { min-height: 112px; }
-html .brand-footer { width: 280px; }
+html .brand-footer { width: 180px; }
+
+html .footer-contact > a { display: flex; align-items: center; gap: 6px; }
+html .footer-contact > a svg { flex-shrink: 0; }
+html .footer-contact > a span { min-width: 0; overflow-wrap: anywhere; }
 
 /* Keep the full seal above the portrait, clear of Giansy's face. */
 html .hero { overflow: visible; }
@@ -128,7 +132,7 @@ html .hero-actions .text-link { border-color: var(--ivory); }
   html .selection-link { min-width: 48px; flex: 0 0 48px; gap: 6px; }
   html .footer-main { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   html .footer-main > * { min-width: 0; }
-  html .brand-footer { width: 300px; grid-column: 1 / -1; }
+  html .brand-footer { width: 180px; grid-column: 1 / -1; }
 }
 
 @media (max-width: 360px) {

@@ -17,6 +17,7 @@ import {
   Menu,
   MessageCircle,
   Minus,
+  Phone,
   Plus,
   RotateCcw,
   ShoppingCart,
@@ -59,10 +60,10 @@ function Logo({ footer = false }: { footer?: boolean }) {
       aria-label={t("Le Creazioni di Giansy home")}
     >
       {footer ? <img
-        src={assetUrl("/brand/giansy-logo-ivory.svg?v=floral-01")}
+        src={assetUrl("/brand/giansy-round-logo.svg")}
         alt="Le creazioni di Giansy"
-        width="960"
-        height="260"
+        width="180"
+        height="180"
       /> : <>
         <img className="brand-emblem" src={assetUrl("/brand/giansy-seal.svg")} alt="" aria-hidden="true" width="40" height="40" />
         <img className="brand-wordmark" src={assetUrl("/brand/giansy-script-wordmark.svg")} alt="Le creazioni di Giansy" width="1545" height="350" />
@@ -363,6 +364,14 @@ function ProductCard({
     </article>
   );
 }
+const categoryMotifs: Record<string, string> = {
+  Christmas: "christmas",
+  Halloween: "halloween",
+  "Special Occasions": "occasions",
+  "Timeless Biscuits": "timeless",
+  "Gift Bundles": "mixed",
+  "Jams & Preserves": "jams",
+};
 function Gallery({
   selection,
   onChange,
@@ -381,7 +390,7 @@ function Gallery({
 }) {
   const visible = products.filter(p => p.categories.includes(category));
   return (
-    <section className={`creations-section ${category === "Gift Bundles" ? "gift-section" : ""}`} id="cookies">
+    <section className={`creations-section ${category === "Gift Bundles" ? "gift-section" : ""}`} id="cookies" data-category={category}>
       <div className="collection-tartan" aria-hidden="true" />
       <div className="creations section-width section-space">
         <div className="section-heading">
@@ -411,6 +420,7 @@ function Gallery({
                 aria-pressed={category === c}
                 className={category === c ? "selected" : ""}
                 data-category={c}
+                style={{ "--category-pattern": `url("${assetUrl(`/images/category-patterns/${categoryMotifs[c]}${c === category ? "" : `-on-${categoryMotifs[category]}`}.svg`)}")` } as CSSProperties}
                 key={c}
                 onClick={() => setCategory(c)}
               >
@@ -1052,12 +1062,11 @@ function Footer({ onLegal }: { onLegal: (value: string) => void }) {
         </div>
         <div className="footer-contact">
           <span>{t("A LITTLE HELLO GOES A LONG WAY.")} </span>
-          <a href="mailto:hello@giansy.example">{t("hello@giansy.example")} </a>
-          <a href="https://www.instagram.com/" target="_blank" rel="noreferrer">
-            <Instagram size={16} /> {t("Follow the little joys")}{" "}
+          <a href="tel:+393338240489"><Phone size={16} aria-hidden="true" /> +39 333 824 0489</a>
+          <a href="https://www.instagram.com/lecreazionidigiansy/" target="_blank" rel="noreferrer">
+            <Instagram size={16} aria-hidden="true" /> <span>@lecreazionidigiansy</span>{" "}
             <ArrowUpRight size={13} />
           </a>
-          <small>{t("Contact details are placeholders.")} </small>
         </div>
       </div>
       <div className="section-width footer-bottom">
