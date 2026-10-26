@@ -79,7 +79,8 @@
 .cookie-products .timeless-intro { margin-top: 0; }
 
 .creations .cookie-products .gallery-note,
-.creations .cookie-products .gallery-note svg {
+.creations .cookie-products .gallery-note svg,
+.creations .cookie-products .provisional-price-note {
   color: inherit;
 }
 
