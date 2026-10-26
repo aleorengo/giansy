@@ -4,8 +4,8 @@
   background: var(--wine);
   font-synthesis: none;
   font-weight: 400;
-  --wine: #400102;
-  --wine-dark: #2d0001;
+  --wine: #260002;
+  --wine-dark: #180001;
   --ivory: #f3e6cc;
   --cream: #faf7f0;
   --muted: #f3e6cc;
@@ -4011,11 +4011,11 @@ html[lang="it"] .hero-photo span {
   }
 }
 
-/* Reference colour sampled from the supplied oxblood fabric photograph. */
+/* Almost-black burgundy with a quiet red glow in the hero. */
 .hero-section {
   background:
-    radial-gradient(ellipse at 70% 35%, #590c0855, transparent 64%),
-    linear-gradient(110deg, #400102, #470405 58%, #370102);
+    radial-gradient(ellipse at 70% 35%, #47080b44, transparent 64%),
+    linear-gradient(110deg, var(--wine), #300204 58%, #1d0002);
 }
 .hero-section::before {
   opacity: 0.32;

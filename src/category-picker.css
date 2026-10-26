@@ -1,0 +1,77 @@
+/* Keep every collection visible and give each label a clear button shape. */
+html .creations .category-picker {
+  margin: 28px 0 26px;
+  color: var(--ivory);
+}
+
+html .creations .category-picker h3 {
+  margin: 0 0 16px;
+  text-align: center;
+  font: 600 25px / 1.15 "Cormorant Garamond", serif;
+  color: inherit;
+}
+
+html .creations .category-picker .category-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+html .creations .category-picker .category-tabs button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+  min-height: 64px;
+  padding: 10px 11px;
+  border: 1px solid #f3e6cc99;
+  border-radius: 5px;
+  background: #f3e6cc06;
+  color: var(--ivory);
+  font: 600 16px / 1.3 "DM Sans", sans-serif;
+  white-space: normal;
+  text-align: center;
+}
+
+html .creations .category-picker .category-tabs button::after { display: none; }
+
+html .creations .category-picker .category-tabs button.selected {
+  background: var(--ivory);
+  color: var(--wine);
+  border-color: var(--ivory);
+  box-shadow: 0 3px 8px #1c000024;
+}
+
+html .creations .category-picker .category-tabs button svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+html .creations .category-picker .category-tabs button:focus-visible {
+  outline: 2px solid var(--ivory);
+  outline-offset: 4px;
+}
+
+@media (hover: hover) {
+  html .creations .category-picker .category-tabs button:hover:not(.selected) {
+    background: #f3e6cc14;
+    border-color: var(--ivory);
+  }
+}
+
+@media (min-width: 701px) {
+  html .creations .category-picker .category-tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1101px) {
+  html .creations .category-picker .category-tabs {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}

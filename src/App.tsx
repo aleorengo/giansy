@@ -399,21 +399,25 @@ function Gallery({
             )}{" "}
           </p>
         </div>
-        <div
-          className="category-tabs"
-          role="group"
-          aria-label={t("Filter creations")}
-        >
-          {categories.map((c) => (
-            <button
-              aria-pressed={category === c}
-              className={category === c ? "selected" : ""}
-              key={t(c)}
-              onClick={() => setCategory(c)}
-            >
-              {c === "Christmas" && <Sparkles size={12} />} {t(c)}
-            </button>
-          ))}
+        <div className="category-picker">
+          <h3 id="category-picker-title">{t("Choose your collection")}</h3>
+          <div
+            className="category-tabs"
+            role="group"
+            aria-labelledby="category-picker-title"
+          >
+            {categories.map((c) => (
+              <button
+                type="button"
+                aria-pressed={category === c}
+                className={category === c ? "selected" : ""}
+                key={c}
+                onClick={() => setCategory(c)}
+              >
+                {c === "Christmas" && <Sparkles size={16} aria-hidden="true" />} {t(c)}
+              </button>
+            ))}
+          </div>
         </div>
         {category === "Timeless Biscuits" ? <div className="timeless-intro" role="status"><strong>{t("15 at a time, for each flavour")}</strong><p>{t("Choose 15, 30, 45 pieces or more of each flavour. Packaging will be agreed with Giansy; these pieces are separate from your decorated-cookie packaging.")}</p><span>{visible.reduce((sum, p) => sum + (confirmedQuantities[p.id] || 0), 0)} {t("selected")}</span></div> : category === "Gift Bundles" ? <p className="gift-included">{t("Mixed assortments, already wrapped with care. Choose how many packages you would like.")} {t("Packaging is included. Tell us any preferences in the order notes.")}</p> : <SelectionProgress />}
         <div className="product-grid">
