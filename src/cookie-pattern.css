@@ -86,12 +86,12 @@ html .creations .cookie-products .antique-label-frame,
 html .creations .cookie-products .antique-label-content,
 html .creations .cookie-products .product-card .product-name h3,
 html .creations .cookie-products .product-bottom > span,
-html .creations .cookie-products .quantity button,
-html .creations .cookie-products .quantity button::before {
+html .creations .cookie-products .quantity button {
   color: var(--cookie-label-ink, var(--ivory));
 }
 
-html .creations .cookie-products .quantity button {
+html .creations .cookie-products .quantity button,
+html .creations .cookie-products .quantity button::before {
   border-color: currentColor;
 }
 
