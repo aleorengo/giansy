@@ -1,5 +1,6 @@
 """Small, seamless vector motifs for collection buttons only."""
 from pathlib import Path
+from copy import deepcopy
 import xml.etree.ElementTree as E
 NS='http://www.w3.org/2000/svg';E.register_namespace('',NS)
 out=Path('public/images/category-patterns');out.mkdir(parents=True,exist_ok=True)
@@ -25,7 +26,7 @@ for name,motifs in patterns.items():
  root=E.Element(f'{{{NS}}}svg',{'width':'160','height':'144','viewBox':'0 0 160 144'})
  E.SubElement(root,f'{{{NS}}}rect',{'width':'160','height':'144','fill':'#260002'})
  defs=E.SubElement(root,f'{{{NS}}}defs')
- for key in set(motifs)|{'spark'}:
+ for key in sorted(set(motifs)|{'spark'}):
   symbol=E.SubElement(defs,f'{{{NS}}}symbol',{'id':key,'viewBox':'0 0 24 26'})
   fragment=E.fromstring(f'<svg xmlns="{NS}">{shapes[key]}</svg>')
   symbol.extend(list(fragment))
@@ -37,3 +38,14 @@ for name,motifs in patterns.items():
    E.SubElement(root,f'{{{NS}}}use',{'href':'#spark','x':str(x+48),'y':str(y+35),'width':'9','height':'10','color':'#58121b','opacity':'.65'})
    E.SubElement(root,f'{{{NS}}}circle',{'cx':str(x+9),'cy':str(y+57),'r':'1.3','fill':'#58121b','opacity':'.6'})
  E.ElementTree(root).write(out/(name+'.svg'),encoding='unicode')
+ # Keep the same seamless motif on the ivory selected button.
+ selected=deepcopy(root)
+ for element in selected.iter():
+  for attr in ('fill','color'):
+   if element.get(attr)=='#260002':
+    element.set(attr,'#f3e6cc')
+   elif element.get(attr)=='#58121b':
+    element.set(attr,'#260002')
+  if element.get('opacity'):
+   element.set('opacity',str(round(float(element.get('opacity'))*.2,2)))
+ E.ElementTree(selected).write(out/(name+'-selected.svg'),encoding='unicode')

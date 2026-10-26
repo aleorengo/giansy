@@ -414,7 +414,7 @@ function Gallery({
                 key={c}
                 onClick={() => setCategory(c)}
               >
-                <span className="category-label">{category === c && <Check size={14} aria-hidden="true" />} {t(c)}</span>
+                <span className="category-label">{c === "Christmas" ? <Sparkles size={16} aria-hidden="true" /> : category === c && <Check size={14} aria-hidden="true" />} {t(c)}</span>
               </button>
             ))}
           </div>

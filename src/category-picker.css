@@ -30,19 +30,37 @@ html .creations .category-picker .category-tabs button {
   padding: 12px 10px;
   border: 1px solid #f3e6cc99;
   border-radius: 5px;
-  background: var(--wine) var(--category-pattern) center / 160px 144px repeat;
+  background: var(--wine) var(--category-pattern) center / 120px 108px repeat;
   color: var(--ivory);
-  font: 600 16px / 1.3 "DM Sans", sans-serif;
+  font: 600 14px / 1.3 "DM Sans", sans-serif;
   white-space: normal;
   text-align: center;
 }
 
-html .category-tabs button[data-category="Christmas"] { --category-pattern: url("/images/category-patterns/christmas.svg"); }
-html .category-tabs button[data-category="Halloween"] { --category-pattern: url("/images/category-patterns/halloween.svg"); }
-html .category-tabs button[data-category="Special Occasions"] { --category-pattern: url("/images/category-patterns/occasions.svg"); }
-html .category-tabs button[data-category="Timeless Biscuits"] { --category-pattern: url("/images/category-patterns/timeless.svg"); }
-html .category-tabs button[data-category="Gift Bundles"] { --category-pattern: url("/images/category-patterns/mixed.svg"); }
-html .category-tabs button[data-category="Jams & Preserves"] { --category-pattern: url("/images/category-patterns/jams.svg"); }
+html .category-tabs button[data-category="Christmas"] {
+  --category-pattern: url("/images/category-patterns/christmas.svg");
+  --category-pattern-selected: url("/images/category-patterns/christmas-selected.svg");
+}
+html .category-tabs button[data-category="Halloween"] {
+  --category-pattern: url("/images/category-patterns/halloween.svg");
+  --category-pattern-selected: url("/images/category-patterns/halloween-selected.svg");
+}
+html .category-tabs button[data-category="Special Occasions"] {
+  --category-pattern: url("/images/category-patterns/occasions.svg");
+  --category-pattern-selected: url("/images/category-patterns/occasions-selected.svg");
+}
+html .category-tabs button[data-category="Timeless Biscuits"] {
+  --category-pattern: url("/images/category-patterns/timeless.svg");
+  --category-pattern-selected: url("/images/category-patterns/timeless-selected.svg");
+}
+html .category-tabs button[data-category="Gift Bundles"] {
+  --category-pattern: url("/images/category-patterns/mixed.svg");
+  --category-pattern-selected: url("/images/category-patterns/mixed-selected.svg");
+}
+html .category-tabs button[data-category="Jams & Preserves"] {
+  --category-pattern: url("/images/category-patterns/jams.svg");
+  --category-pattern-selected: url("/images/category-patterns/jams-selected.svg");
+}
 
 html .creations .category-tabs .category-label {
   display: flex;
@@ -51,7 +69,7 @@ html .creations .category-tabs .category-label {
   gap: 5px;
   width: 100%;
   padding: 0;
-  color: var(--ivory);
+  color: inherit;
   text-shadow: 0 1px 3px var(--wine), 0 0 8px var(--wine);
   line-height: 1.2;
 }
@@ -59,12 +77,17 @@ html .creations .category-tabs .category-label {
 html .creations .category-picker .category-tabs button::after { display: none; }
 
 html .creations .category-picker .category-tabs button.selected {
-  background-color: var(--wine);
+  background-color: var(--ivory);
+  background-image: var(--category-pattern-selected);
+  color: var(--wine);
   border-color: var(--ivory);
   box-shadow: inset 0 0 0 1px var(--ivory), 0 3px 8px #1c000024;
 }
 
-html .creations .category-tabs button.selected .category-label { font-weight: 700; }
+html .creations .category-tabs button.selected .category-label {
+  font-weight: 700;
+  text-shadow: none;
+}
 
 html .creations .category-picker .category-tabs button svg {
   width: 16px;
