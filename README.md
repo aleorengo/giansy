@@ -21,7 +21,7 @@ GitHub Pages hosts the static site. Requests open WhatsApp with a complete prefi
 
 ## Working features
 
-- “Piccoli pensieri” sits beside the timeless biscuits: 3-cookie pouch (€4.50), 12-cookie bag (€15), and 15-cookie brass tray (€20), packaging included. Plus/minus chooses whole packages and updates “La tua dolce selezione” immediately. Bundles are listed there but never placed on the silver plate; there is no second cart section. Image masters, prompts and limitations are in `assets/GIFT_BUNDLES.md`.
+- “Confezioni assortite” sits beside the timeless biscuits: 3-cookie pouch (€4.50), 12-cookie bag (€15), and 15-cookie brass tray (€20), packaging included. Plus/minus chooses whole packages and updates “La tua dolce selezione” immediately. Bundles are listed there but never placed on the silver plate; there is no second cart section. Image masters, prompts and limitations are in `assets/GIFT_BUNDLES.md`.
 - “La tua dolce selezione” contains the live custom assortment first, then a horizontal divider and the confirmed selections. Decorated cookies stay editable until “Conferma la selezione” snapshots the complete contents and packaging; the draft then clears for another assortment. Timeless 15-piece batches and Piccoli pensieri enter the confirmed list directly. All rows use the same compact name, quantity and price style. Confirmed lines can be repeated or removed; gallery controls remain synchronised for batches and bundles. Only confirmed selections are sent. An unfinished draft must be confirmed or removed before sending.
 
 - “Biscotti senza tempo” groups oranges, almond/coffee biscuits, hazelnut/apricot/chocolate biscuits, Vin Santo/raisin/pine nut biscuits, pumpkin biscuits and marzipan dates. Each flavour is ordered in steps of 15. Bulk quantities are independent of decorated-cookie packaging and persist beyond 25 pieces; bulk packaging is agreed separately. Prices, image prompts and sources are in `assets/TIMELESS_BISCUITS.md`. Mixed requests still respect decorated packaging minimums/capacities.
@@ -58,7 +58,7 @@ Journal articles use plain text with blank lines between paragraphs. HTML is not
 
 ## Identity and imagery
 
-The navigation uses `giansy-seal.svg` (outline and dots, without lettering) beside `giansy-script-wordmark.svg`; the seal scales to the capital L. The hero uses `giansy-round-logo.svg` and the supplied kitchen portrait, with the seal clear of the face. The seamless burgundy logo pattern is confined to the product grid, starting below the selection counter. See `assets/BRAND_OCT26.md` for asset provenance.
+The navigation uses `giansy-seal.svg` (outline and dots, without lettering) beside `giansy-script-wordmark.svg`; the seal scales with the script and is optically centred. The hero uses `giansy-round-logo.svg` and the supplied kitchen portrait, with the seal clear of the face. The seamless burgundy logo pattern begins below the decorated-cookie counter and includes the timeless/mixed-assortment introductions for a continuous background. See `assets/BRAND_OCT26.md` for asset provenance.
 
 View `/brand/` for the logo presentation and downloads. The approved “L’incisione d’epoca” frame has engraved acanthus scrolls, a dotted inner border and the original outlined script lettering. Its editable frame source is `assets/brand/engraved-frame.svg`. SVG files require no installed fonts:
 

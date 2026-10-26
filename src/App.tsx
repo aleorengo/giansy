@@ -420,17 +420,20 @@ function Gallery({
             ))}
           </div>
         </div>
-        {category === "Timeless Biscuits" ? <div className="timeless-intro" role="status"><strong>{t("15 at a time, for each flavour")}</strong><p>{t("Choose 15, 30, 45 pieces or more of each flavour. Packaging will be agreed with Giansy; these pieces are separate from your decorated-cookie packaging.")}</p><span>{visible.reduce((sum, p) => sum + (confirmedQuantities[p.id] || 0), 0)} {t("selected")}</span></div> : category === "Gift Bundles" ? <p className="gift-included">{t("Mixed assortments, already wrapped with care. Choose how many packages you would like.")} {t("Packaging is included. Tell us any preferences in the order notes.")}</p> : <SelectionProgress />}
-        <div className="product-grid">
-          {visible.map((p) => (
-            <ProductCard
-              key={p.id}
-              product={p}
-              quantity={p.bundleSize || (p.quantityStep ?? 1) > 1 ? (confirmedQuantities[p.id] ?? 0) : (selection[p.id] || 0)}
-              onChange={p.bundleSize || (p.quantityStep ?? 1) > 1 ? onConfirmedChange : onChange}
-              onDetails={onDetails}
-            />
-          ))}
+        {category !== "Timeless Biscuits" && category !== "Gift Bundles" && <SelectionProgress />}
+        <div className="cookie-products">
+          {category === "Timeless Biscuits" ? <div className="timeless-intro" role="status"><strong>{t("15 at a time, for each flavour")}</strong><p>{t("Choose 15, 30, 45 pieces or more of each flavour. Packaging will be agreed with Giansy; these pieces are separate from your decorated-cookie packaging.")}</p><span>{visible.reduce((sum, p) => sum + (confirmedQuantities[p.id] || 0), 0)} {t("selected")}</span></div> : category === "Gift Bundles" ? <p className="gift-included">{t("Mixed assortments, already wrapped with care. Choose how many packages you would like.")} {t("Packaging is included. Tell us any preferences in the order notes.")}</p> : null}
+          <div className="product-grid">
+            {visible.map((p) => (
+              <ProductCard
+                key={p.id}
+                product={p}
+                quantity={p.bundleSize || (p.quantityStep ?? 1) > 1 ? (confirmedQuantities[p.id] ?? 0) : (selection[p.id] || 0)}
+                onChange={p.bundleSize || (p.quantityStep ?? 1) > 1 ? onConfirmedChange : onChange}
+                onDetails={onDetails}
+              />
+            ))}
+          </div>
         </div>
         <div className="gallery-note">
           <Heart size={13} />{" "}

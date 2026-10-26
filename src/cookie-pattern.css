@@ -1,12 +1,13 @@
 /* Start the repeat below the counter, behind the product cards only. */
 .creations-section { overflow-x: clip; }
 
-.creations .product-grid {
+.creations .cookie-products {
+  display: flow-root;
   position: relative;
   isolation: isolate;
 }
 
-.creations .product-grid::before {
+.creations .cookie-products::before {
   content: "";
   position: absolute;
   inset: 0 calc((100% - 100vw) / 2) -24px;
@@ -18,7 +19,10 @@
   background-size: 384px 324px;
 }
 
-.selection-progress + .product-grid::before { top: -22px; }
+.selection-progress + .cookie-products::before { top: -22px; }
+
+/* The intro belongs on the same continuous pattern as its products. */
+.cookie-products .timeless-intro { margin-top: 0; }
 
 /* Keep the product names, prices and quantity controls on a quiet surface. */
 .creations-section .antique-label-frame .label-paper {

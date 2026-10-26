@@ -13,15 +13,16 @@ html .brand img {
 html .site-header .brand {
   flex-direction: row;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
 }
 
 html .site-header .brand-emblem {
-  /* The seal's visible border matches the outlined capital L. */
-  width: calc(14.75% - 1.475px);
+  /* Slightly larger than the capital L, with optical vertical alignment. */
+  width: calc(15.6% - 0.936px);
   height: auto;
-  flex: 0 0 calc(14.75% - 1.475px);
+  flex: 0 0 calc(15.6% - 0.936px);
   object-fit: contain;
+  transform: translateY(-7%);
 }
 
 html .site-header .brand-wordmark {
@@ -44,12 +45,13 @@ html .hero .handmade-seal {
   outline: 0;
   background: transparent;
   box-shadow: none;
-  transform: rotate(7deg);
+  transform: translateY(20px) rotate(7deg);
   right: -18px;
   filter: drop-shadow(0 4px 4px #12000050);
 }
 html .hero .handmade-seal img { display: block; width: 100%; height: 100%; object-fit: contain; }
 html .hero .engraved-photo { object-position: 65% 50%; filter: none; }
+html .hero-actions .text-link { border-color: var(--ivory); }
 
 @media (max-width: 1100px) {
   html .brand { width: 290px; }
@@ -101,8 +103,8 @@ html .hero .engraved-photo { object-position: 65% 50%; filter: none; }
 
 @media (max-width: 620px) {
   html .header-inner { min-height: 92px; gap: 8px; }
-  html .site-header .brand { width: calc(100% - 108px); gap: 8px; }
-  html .site-header .brand-emblem { width: calc(14.75% - 1.18px); flex-basis: calc(14.75% - 1.18px); }
+  html .site-header .brand { width: calc(100% - 108px); gap: 4px; }
+  html .site-header .brand-emblem { width: calc(15.6% - 0.624px); flex-basis: calc(15.6% - 0.624px); }
   html .hero .handmade-seal { right: -6px; top: -46px; }
   html .selection-link { min-width: 48px; flex: 0 0 48px; gap: 6px; }
   html .footer-main { grid-template-columns: repeat(2, minmax(0, 1fr)); }
