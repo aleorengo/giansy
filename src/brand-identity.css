@@ -60,15 +60,7 @@ html .hero .portrait-frame { filter: none; }
   border: 1px solid #d2c1a8;
   box-shadow: 0 10px 22px #12000045;
 }
-.baker-polaroid .polaroid-caption {
-  position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: 5px;
-  color: var(--wine);
-  font: 30px / 1.1 var(--script);
-  text-align: right;
-}
+html .hero .portrait-caption { bottom: -36px; z-index: 4; }
 .baker-polaroid .polaroid-photo {
   display: block;
   width: 100%;
@@ -128,7 +120,7 @@ html .hero-actions .text-link { border-color: var(--ivory); }
 
 @media (max-width: 620px) {
   .baker-polaroid { padding: 9px 9px 34px; }
-  .baker-polaroid .polaroid-caption { left: 9px; right: 9px; bottom: 4px; font-size: 22px; }
+  html .hero .portrait-caption { bottom: -24px; }
   html .header-inner { min-height: 92px; gap: 8px; }
   html .site-header .brand { width: calc(100% - 108px); gap: 4px; }
   html .site-header .brand-emblem { width: calc(15.6% - 0.624px); flex-basis: calc(15.6% - 0.624px); }
@@ -140,7 +132,6 @@ html .hero-actions .text-link { border-color: var(--ivory); }
 }
 
 @media (max-width: 360px) {
-  .baker-polaroid .polaroid-caption { font-size: 18px; }
   html .hero .portrait-frame { left: 18%; }
   html .hero .handmade-seal { width: 96px; height: 96px; right: -3px; top: -58px; }
 }

@@ -192,7 +192,7 @@ function Hero() {
         </div>
         <div className="hero-art">
           <div className="portrait-frame">
-            <PolaroidPortrait caption={t("Ciao, sono Giansy!")} />
+            <PolaroidPortrait />
           </div>
           <div className="hero-photo">
             <img
@@ -206,6 +206,7 @@ function Hero() {
           <div className="handmade-seal">
             <img src={assetUrl("/brand/giansy-round-logo.svg")} alt="Le creazioni di Giansy" width="116" height="116" />
           </div>
+          <span className="portrait-caption script">{t("Ciao, sono Giansy!")}</span>
           <svg
             className="handdrawn-arrow"
             viewBox="0 0 90 60"
@@ -409,10 +410,11 @@ function Gallery({
                 type="button"
                 aria-pressed={category === c}
                 className={category === c ? "selected" : ""}
+                data-category={c}
                 key={c}
                 onClick={() => setCategory(c)}
               >
-                {c === "Christmas" && <Sparkles size={16} aria-hidden="true" />} {t(c)}
+                <span className="category-label">{category === c && <Check size={14} aria-hidden="true" />} {t(c)}</span>
               </button>
             ))}
           </div>

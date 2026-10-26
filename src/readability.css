@@ -118,7 +118,7 @@ html .selection-progress a { white-space: normal; text-align: right; }
 html .packaging-summary > small { display: block; font-size: var(--text-small); line-height: 1.5; margin-top: 8px; }
 html .packaging-summary select { padding-right: 34px; }
 html .packaging-builder .section-heading .packaging-size-note,
-html .packaging-builder .section-heading .packaging-timeless-note { font-size: var(--text-secondary); }
+html .packaging-builder .section-heading .packaging-timeless-note { font-size: calc(var(--text-secondary) - 2px); line-height: 1.4; opacity: 0.6; }
 
 /* A name row followed by quantity and price stays readable in narrow summaries. */
 html .order-item { display: grid; grid-template-columns: 1fr auto; gap: 12px; }

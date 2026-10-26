@@ -34,7 +34,7 @@ export function Botanical({ className = "" }: { className?: string }) {
   );
 }
 
-export function PolaroidPortrait({ caption }: { caption: string }) {
+export function PolaroidPortrait() {
   return (
     <div className="baker-polaroid">
       <img
@@ -45,7 +45,6 @@ export function PolaroidPortrait({ caption }: { caption: string }) {
         height="764"
         fetchPriority="high"
       />
-      <span className="polaroid-caption">{caption}</span>
     </div>
   );
 }
