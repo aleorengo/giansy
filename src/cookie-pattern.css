@@ -1,0 +1,26 @@
+/* Start the repeat below the counter, behind the product cards only. */
+.creations-section { overflow-x: clip; }
+
+.creations .product-grid {
+  position: relative;
+  isolation: isolate;
+}
+
+.creations .product-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc((100% - 100vw) / 2) -24px;
+  z-index: -1;
+  pointer-events: none;
+  background-color: var(--wine);
+  background-image: url("/images/cookie-logo-pattern.svg");
+  background-repeat: repeat;
+  background-size: 384px 324px;
+}
+
+.selection-progress + .product-grid::before { top: -22px; }
+
+/* Keep the product names, prices and quantity controls on a quiet surface. */
+.creations-section .antique-label-frame .label-paper {
+  fill-opacity: 0.96;
+}

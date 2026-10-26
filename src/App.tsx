@@ -58,12 +58,15 @@ function Logo({ footer = false }: { footer?: boolean }) {
       className={`brand ${footer ? "brand-footer" : ""}`}
       aria-label={t("Le Creazioni di Giansy home")}
     >
-      <img
+      {footer ? <img
         src={assetUrl("/brand/giansy-logo-ivory.svg?v=floral-01")}
         alt="Le creazioni di Giansy"
         width="960"
         height="260"
-      />
+      /> : <>
+        <img className="brand-emblem" src={assetUrl("/brand/giansy-seal.svg")} alt="" aria-hidden="true" width="40" height="40" />
+        <img className="brand-wordmark" src={assetUrl("/brand/giansy-script-wordmark.svg")} alt="Le creazioni di Giansy" width="1545" height="350" />
+      </>}
     </Link>
   );
 }
@@ -201,9 +204,7 @@ function Hero() {
             <span>{t("little things, lovely moments")} </span>
           </div>
           <div className="handmade-seal">
-            <span>{t("FATTO CON AMORE")} </span>
-            <Heart size={14} strokeWidth={1} aria-hidden="true" />
-            <span>{t("ALWAYS HANDMADE")} </span>
+            <img src={assetUrl("/brand/giansy-round-logo.svg")} alt="Le creazioni di Giansy" width="116" height="116" />
           </div>
           <span className="portrait-caption script">
             {t("Ciao, sono Giansy!")}{" "}

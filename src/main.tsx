@@ -15,6 +15,7 @@ import "./cart.css";
 import "./readability.css";
 import "./brand-identity.css";
 import "./category-picker.css";
+import "./cookie-pattern.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

@@ -39,8 +39,8 @@ export function OrnatePortrait() {
     <div className="engraved-portrait">
       <img
         className="engraved-photo"
-        src={assetUrl("/images/giansy-portrait.webp")}
-        alt="Giansy"
+        src={assetUrl("/images/giansy-kitchen-portrait.webp")}
+        alt="Giansy sorridente nella sua cucina, accanto a un dolce fatto in casa"
         fetchPriority="high"
       />
       <img
