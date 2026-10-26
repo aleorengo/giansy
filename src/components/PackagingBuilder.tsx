@@ -6,15 +6,12 @@ import { t } from "../i18n";
 import { useSelectionLimit } from "../selection-context";
 
 export function SelectionProgress() {
-  const { count, usedSpace, capacity, minimum, minimumCount, minimumLabel } = useSelectionLimit();
+  const { usedSpace, capacity } = useSelectionLimit();
   return (
     <div className="selection-progress">
       <div role="status" aria-live="polite" aria-atomic="true">
         <strong>{usedSpace.toLocaleString(document.documentElement.lang)} / {capacity} {t("spaces")}</strong>
-        <span>{count} {t("selected cookies")} · {minimumCount < minimum
-          ? minimumLabel
-          : capacity - usedSpace < 1 ? t("This packaging is full.")
-            : `${t("Spaces still available:")} ${(capacity - usedSpace).toLocaleString(document.documentElement.lang)}`}</span>
+        <span>{Math.max(0, capacity - usedSpace).toLocaleString(document.documentElement.lang)} {t("spaces remaining")}</span>
       </div>
       <a href="#creations">{t("Change packaging")} <ArrowRight size={12} /></a>
     </div>

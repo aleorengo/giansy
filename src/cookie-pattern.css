@@ -1,6 +1,27 @@
 /* Start the repeat below the counter, behind the product cards only. */
 .creations-section { overflow-x: clip; }
 
+/* A solid, inverted summary strip covers the pattern to both screen edges. */
+.creations .selection-progress {
+  isolation: isolate;
+  color: var(--wine);
+  background: var(--ivory);
+  border-bottom-color: transparent;
+}
+
+.creations .selection-progress::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc((100% - 100vw) / 2) -1px;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--ivory);
+  border-block: 1px solid #26000240;
+}
+
+.creations .selection-progress a { color: inherit; }
+.creations .selection-progress a:focus-visible { outline-color: var(--wine); }
+
 .creations .cookie-products {
   display: flow-root;
   position: relative;
