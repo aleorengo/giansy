@@ -58,7 +58,7 @@ Journal articles use plain text with blank lines between paragraphs. HTML is not
 
 ## Identity and imagery
 
-The navigation uses `giansy-seal.svg` (outline and dots, without lettering) beside `giansy-script-wordmark.svg`; the seal scales with the script and is optically centred. The hero uses `giansy-round-logo.svg` and the supplied kitchen portrait, with the seal clear of the face. The seamless burgundy logo pattern begins below the decorated-cookie counter and includes the timeless/mixed-assortment introductions for a continuous background. See `assets/BRAND_OCT26.md` for asset provenance.
+The navigation uses `giansy-seal.svg` (outline and dots, without lettering) beside `giansy-script-wordmark.svg`; the seal scales with the script and is optically centred. The hero uses `giansy-round-logo.svg` and the supplied kitchen portrait in an ivory Polaroid, with the seal clear of the face. The packaging section has the same solid burgundy as the collection heading. The seamless burgundy logo pattern begins below the decorated-cookie counter and includes the timeless/mixed-assortment introductions for a continuous background. See `assets/BRAND_OCT26.md` for asset provenance.
 
 View `/brand/` for the logo presentation and downloads. The approved “L’incisione d’epoca” frame has engraved acanthus scrolls, a dotted inner border and the original outlined script lettering. Its editable frame source is `assets/brand/engraved-frame.svg`. SVG files require no installed fonts:
 

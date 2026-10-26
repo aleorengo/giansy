@@ -23,7 +23,7 @@ import {
   Sparkles,
   X,
 } from "lucide-react";
-import { Flourish, OrnatePortrait } from "./components/Ornaments";
+import { Flourish, PolaroidPortrait } from "./components/Ornaments";
 import AntiqueLabel from "./components/AntiqueLabel";
 import ProductGallery from "./components/ProductGallery";
 import { addCustomToCart, addBundleToCart, addTimelessToCart, changeCartQuantity, restoreCart, localToday, validRequestedDate } from "./cart";
@@ -192,7 +192,7 @@ function Hero() {
         </div>
         <div className="hero-art">
           <div className="portrait-frame">
-            <OrnatePortrait />
+            <PolaroidPortrait caption={t("Ciao, sono Giansy!")} />
           </div>
           <div className="hero-photo">
             <img
@@ -206,9 +206,6 @@ function Hero() {
           <div className="handmade-seal">
             <img src={assetUrl("/brand/giansy-round-logo.svg")} alt="Le creazioni di Giansy" width="116" height="116" />
           </div>
-          <span className="portrait-caption script">
-            {t("Ciao, sono Giansy!")}{" "}
-          </span>
           <svg
             className="handdrawn-arrow"
             viewBox="0 0 90 60"

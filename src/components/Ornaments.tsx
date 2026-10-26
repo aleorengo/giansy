@@ -34,21 +34,18 @@ export function Botanical({ className = "" }: { className?: string }) {
   );
 }
 
-export function OrnatePortrait() {
+export function PolaroidPortrait({ caption }: { caption: string }) {
   return (
-    <div className="engraved-portrait">
+    <div className="baker-polaroid">
       <img
-        className="engraved-photo"
+        className="polaroid-photo"
         src={assetUrl("/images/giansy-kitchen-portrait.webp")}
         alt="Giansy sorridente nella sua cucina, accanto a un dolce fatto in casa"
+        width="568"
+        height="764"
         fetchPriority="high"
       />
-      <img
-        className="engraved-frame"
-        src={assetUrl("/images/ivory-scroll-frame.webp")}
-        alt=""
-        aria-hidden="true"
-      />
+      <span className="polaroid-caption">{caption}</span>
     </div>
   );
 }
