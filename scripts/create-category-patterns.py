@@ -7,10 +7,10 @@ out=Path('public/images/category-patterns');out.mkdir(parents=True,exist_ok=True
 palette={
  'christmas':('#260002','#58121b'),
  'halloween':('#7c351c','#9b4f2b'),
- 'occasions':('#ab7187','#8d536b'),
+ 'occasions':('#bd8589','#9d6469'),
  'timeless':('#080f22','#1b2943'),
- 'mixed':('#0b251b','#204334'),
- 'jams':('#d9c7a8','#b59a77')}
+ 'mixed':('#172d18','#345337'),
+ 'jams':('#d6b89a','#a27e5e')}
 
 def recolor(root, colors):
  for element in root.iter():
@@ -83,8 +83,11 @@ for name,(base,_) in palette.items():
   source=tuple(int(hex_color[i:i+2],16) for i in (1,3,5))
   old_base=(38,0,2)
   new_base=tuple(int(base[i:i+2],16) for i in (1,3,5))
-  direction=-1 if name in ('occasions','jams') else 1
-  return '#'+''.join(f'{max(0,min(255,n+direction*(s-o))):02x}' for n,s,o in zip(new_base,source,old_base))
+  if name in ('occasions','jams'):
+   # Shade the warm palette uniformly; channel offsets introduce olive/purple.
+   shade={'#260002':1,'#240003':.93,'#34070b':.94,'#2b0306':.98,'#300508':.96,'#39090e':.91,'#87594c':.55}[hex_color]
+   return '#'+''.join(f'{round(n*shade):02x}' for n in new_base)
+  return '#'+''.join(f'{max(0,min(255,n+s-o)):02x}' for n,s,o in zip(new_base,source,old_base))
  product=deepcopy(original)
  recolor(product,{color:tone(color) for color in ('#260002','#240003','#34070b','#2b0306','#300508','#39090e','#87594c')})
  E.ElementTree(product).write(product_out/(name+'.svg'),encoding='unicode')

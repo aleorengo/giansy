@@ -7,9 +7,10 @@
   --cookie-pattern: url("/images/cookie-patterns/halloween.svg");
 }
 .creations-section[data-category="Special Occasions"] {
-  --category-bg: #ab7187;
+  --category-bg: #bd8589;
   --category-ink: var(--wine);
-  --cookie-bg: #ab7187;
+  --cookie-bg: #bd8589;
+  --cookie-label-ink: #3c1720;
   --cookie-pattern: url("/images/cookie-patterns/occasions.svg");
 }
 .creations-section[data-category="Timeless Biscuits"] {
@@ -18,14 +19,15 @@
   --cookie-pattern: url("/images/cookie-patterns/timeless.svg");
 }
 .creations-section[data-category="Gift Bundles"] {
-  --category-bg: #0b251b;
-  --cookie-bg: #0b251b;
+  --category-bg: #172d18;
+  --cookie-bg: #172d18;
   --cookie-pattern: url("/images/cookie-patterns/mixed.svg");
 }
 .creations-section[data-category="Jams & Preserves"] {
-  --category-bg: #d9c7a8;
+  --category-bg: #d6b89a;
   --category-ink: var(--wine);
-  --cookie-bg: #d9c7a8;
+  --cookie-bg: #d6b89a;
+  --cookie-label-ink: #4e3022;
   --cookie-pattern: url("/images/cookie-patterns/jams.svg");
 }
 
@@ -75,5 +77,25 @@
 
 /* Keep the product names, prices and quantity controls on a quiet surface. */
 .creations-section .antique-label-frame .label-paper {
-  fill-opacity: 0.96;
+  fill: var(--cookie-bg, var(--wine));
+  fill-opacity: 1;
+}
+
+/* The label's frame, lettering and controls share the collection's contrast. */
+html .creations .cookie-products .antique-label-frame,
+html .creations .cookie-products .antique-label-content,
+html .creations .cookie-products .product-card .product-name h3,
+html .creations .cookie-products .product-bottom > span,
+html .creations .cookie-products .quantity button {
+  color: var(--cookie-label-ink, var(--ivory));
+}
+
+html .creations .cookie-products .quantity button {
+  border-color: currentColor;
+}
+
+html .creations .cookie-products .quantity button:hover:not(:disabled) {
+  background: var(--cookie-label-ink, var(--ivory));
+  color: var(--cookie-bg, var(--wine));
+  border-color: var(--cookie-label-ink, var(--ivory));
 }
