@@ -47,8 +47,9 @@ html .hero-values .values-inner > span:not(.value-star) {
   height: 72px;
   padding: 0;
   border: 0;
-  background: url("/images/patisserie-tartan.webp") center center / 420px 420px repeat;
-  box-shadow: inset 0 3px 8px #16000030;
+  background: var(--ivory-tartan);
+  background-position: 14px 6px;
+  box-shadow: inset 0 3px 8px #a17c5914;
 }
 
 .values-strip .tartan-fringe {
@@ -57,7 +58,9 @@ html .hero-values .values-inner > span:not(.value-star) {
   inset: auto 0 -46px;
   height: 58px;
   pointer-events: none;
-  background: url("/images/tartan-fringe.webp?v=1") center top / 420px 100% repeat-x;
+  background: var(--ivory-tartan);
+  background-position: 14px 6px;
+  mask: url("/images/tartan-fringe.webp?v=1") center top / 420px 100% repeat-x;
   filter: drop-shadow(0 2px 1px #2a180c18);
 }
 
@@ -66,10 +69,10 @@ html .hero-values .values-inner > span:not(.value-star) {
   html .hero-values .values-inner { gap: 6px; }
   html .hero-values .values-inner > span:not(.value-star) { font-size: var(--text-secondary); }
   .hero-values .values-inner svg { width: 15px; height: 15px; }
-  .values-strip { height: 52px; background-size: 350px 350px; }
+  .values-strip { height: 52px; }
   .values-strip .tartan-fringe {
     bottom: -34px;
     height: 44px;
-    background-size: 350px 100%;
+    mask-size: 350px 100%;
   }
 }

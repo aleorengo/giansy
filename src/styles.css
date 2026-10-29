@@ -10,6 +10,10 @@
   --cream: #faf7f0;
   --muted: #f3e6cc;
   --line: #f3e6cc59;
+  --ivory-tartan:
+    repeating-linear-gradient(0deg, transparent 0 35px, #b7987321 35px 53px, transparent 53px 83px, #a17c5929 83px 84px, transparent 84px 90px, #a17c5919 90px 91px, transparent 91px 112px),
+    repeating-linear-gradient(90deg, transparent 0 35px, #b7987321 35px 53px, transparent 53px 83px, #a17c5929 83px 84px, transparent 84px 90px, #a17c5919 90px 91px, transparent 91px 112px),
+    #efe4d1;
   color-scheme: dark;
   --serif: "Cormorant Garamond", Georgia, serif;
   --script: "Pinyon Script", cursive;
@@ -1106,7 +1110,8 @@ select {
 }
 .story-divider {
   height: 32px;
-  background: url("/images/heritage-tartan.webp") center 47% / 410px auto;
+  background: var(--ivory-tartan);
+  background-position: 14px 6px;
   border-block: 1px solid #f3e6cc35;
   box-shadow: inset 0 2px 5px #20000020;
 }
@@ -4032,7 +4037,8 @@ html[lang="it"] .hero-photo span {
   left: 0;
   right: 0;
   height: 23px;
-  background: url("/images/heritage-tartan.webp") center 42%/380px auto;
+  background: var(--ivory-tartan);
+  background-position: 14px 6px;
   border-top: 1px solid #a98e6266;
   border-bottom: 1px solid #a98e6255;
   box-shadow: inset 0 2px 4px #1e070960;

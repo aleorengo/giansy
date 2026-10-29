@@ -15,7 +15,8 @@
   position: absolute;
   inset: var(--tartan-start, 350px) 0 0;
   border-top: 1px solid #e7dac161;
-  background: url("/images/patisserie-tartan.webp") center top / 420px 420px repeat;
+  background: var(--ivory-tartan);
+  background-position: 14px 6px;
   pointer-events: none;
   z-index: 0;
 }
@@ -75,9 +76,6 @@
   .assortment-section {
     padding-top: 44px;
     padding-bottom: 40px;
-  }
-  .assortment-fabric {
-    background-size: 350px 350px;
   }
   .assortment-section .assortment-layout {
     gap: 30px;
