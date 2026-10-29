@@ -39,10 +39,10 @@ export function PolaroidPortrait() {
     <div className="baker-polaroid">
       <img
         className="polaroid-photo"
-        src={assetUrl("/images/giansy-kitchen-october.webp")}
-        alt="Giansy nella sua cucina, accanto a un dolce fatto in casa e a un vaso di tulipani"
-        width="768"
-        height="1024"
+        src={assetUrl("/images/giansy-kitchen-portrait.webp")}
+        alt="Giansy sorridente nella sua cucina, accanto a un dolce fatto in casa"
+        width="568"
+        height="764"
         fetchPriority="high"
       />
     </div>

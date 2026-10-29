@@ -106,10 +106,6 @@ function Header({ count }: { count: number }) {
   );
   return (
     <>
-      <div className="announcement">
-        <span>✧</span> {t("HANDMADE WITH LOVE. SHARED WITH JOY.")}{" "}
-        <span>✧</span>
-      </div>
       <header className="site-header">
         <div className="header-inner">
           <Logo />
@@ -759,7 +755,7 @@ function Story() {
         <div className="story-image">
           <div>
             <img
-              src={assetUrl("/images/giansy-kitchen-october.webp")}
+              src={assetUrl("/images/giansy-kitchen-portrait.webp")}
               alt={t("Meet Giansy, the heart behind Le Creazioni di Giansy")}
               loading="lazy"
             />
