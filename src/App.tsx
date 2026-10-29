@@ -745,7 +745,7 @@ function Story() {
         <div className="story-image">
           <div>
             <img
-              src={assetUrl("/images/giansy-kitchen-portrait.webp")}
+              src={assetUrl("/images/giansy-kitchen-october.webp")}
               alt={t("Meet Giansy, the heart behind Le Creazioni di Giansy")}
               loading="lazy"
             />
