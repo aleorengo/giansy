@@ -503,7 +503,8 @@
       "categories": [
         "Timeless Biscuits"
       ],
-      "allergens": "Contains almonds and pistachios; other ingredients and allergens to confirm."
+      "allergens": "Contains almonds, eggs and pistachios.",
+      "recipeId": "marzipan-dates"
     },
     {
       "id": "gift-little-pouch",
@@ -614,6 +615,14 @@
         {
           "label": "",
           "text": "Organic apricots, sugar, organic lemon, vanilla, honey, pectin."
+        }
+      ]
+    },
+    "marzipan-dates": {
+      "sections": [
+        {
+          "label": "",
+          "text": "Dates, sugar, almonds, egg white, vanilla, dark chocolate, chopped pistachios."
         }
       ]
     }
