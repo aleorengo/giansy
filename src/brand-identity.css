@@ -72,6 +72,12 @@ html .hero .portrait-caption { bottom: -36px; z-index: 4; }
   object-fit: cover;
   object-position: 65% 50%;
 }
+
+.story-image img {
+  object-position: 60% 50%;
+  transform: none;
+  filter: none;
+}
 html .hero-actions .text-link { border-color: var(--ivory); }
 
 @media (max-width: 1100px) {

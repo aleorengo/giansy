@@ -10,7 +10,7 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "allergens": "Contains gluten, milk and eggs.",
       "gallery": [
         {
           "image": "/images/christmas/variants/snowflake-white-lace.webp",
@@ -29,7 +29,8 @@
           "label": "Blue icing and a golden pearl"
         }
       ],
-      "size": "large"
+      "size": "large",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "christmas-tree",
@@ -41,7 +42,7 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "allergens": "Contains gluten, milk and eggs.",
       "gallery": [
         {
           "image": "/images/christmas/variants/tree-blue-curls.webp",
@@ -55,7 +56,8 @@
           "image": "/images/christmas/variants/tree-blue-gold.webp",
           "label": "Blue branches and gold sprinkles"
         }
-      ]
+      ],
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "gingerbread",
@@ -67,13 +69,14 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "allergens": "Contains gluten, milk and eggs.",
       "gallery": [
         {
           "image": "/images/christmas/variants/person-teal-cuffs.webp",
           "label": "Teal cuffs and a white smile"
         }
-      ]
+      ],
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "christmas-gift",
@@ -85,13 +88,14 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "allergens": "Contains gluten, milk and eggs.",
       "gallery": [
         {
           "image": "/images/christmas/variants/gift-red-bow.webp",
           "label": "Red bow and holly"
         }
-      ]
+      ],
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "christmas-star",
@@ -103,7 +107,8 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "christmas-santa",
@@ -115,7 +120,8 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "gingerbread-heart",
@@ -127,13 +133,14 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "allergens": "Contains gluten, milk and eggs.",
       "gallery": [
         {
           "image": "/images/christmas/variants/heart-red.webp",
           "label": "Red icing"
         }
-      ]
+      ],
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "snowflake",
@@ -145,7 +152,7 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "allergens": "Contains gluten, milk and eggs.",
       "gallery": [
         {
           "image": "/images/christmas/variants/snowflake-white-simple.webp",
@@ -159,7 +166,8 @@
           "image": "/images/christmas/variants/snowflake-blue-branched.webp",
           "label": "Blue branches and a silver pearl"
         }
-      ]
+      ],
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "christmas-reindeer",
@@ -171,13 +179,14 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "allergens": "Contains gluten, milk and eggs.",
       "gallery": [
         {
           "image": "/images/christmas/variants/reindeer-heart.webp",
           "label": "A little red heart"
         }
-      ]
+      ],
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "christmas-candle",
@@ -189,7 +198,8 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "christmas-mushroom",
@@ -201,7 +211,8 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "christmas-house",
@@ -213,13 +224,14 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "allergens": "Contains gluten, milk and eggs.",
       "gallery": [
         {
           "image": "/images/christmas/house-v2.webp",
           "label": "Original snowy house"
         }
-      ]
+      ],
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "christmas-tree-decorated",
@@ -231,13 +243,14 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy.",
+      "allergens": "Contains gluten, milk and eggs.",
       "gallery": [
         {
           "image": "/images/christmas/variants/tree-blue-garlands.webp",
           "label": "White garlands on blue"
         }
-      ]
+      ],
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "christmas-wreath",
@@ -249,7 +262,8 @@
       "categories": [
         "Christmas"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "candied-orange",
@@ -288,7 +302,8 @@
       "categories": [
         "Halloween"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "halloween-cat",
@@ -301,7 +316,8 @@
       "categories": [
         "Halloween"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "halloween-candy",
@@ -314,7 +330,8 @@
       "categories": [
         "Halloween"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "pumpkin",
@@ -327,7 +344,8 @@
       "categories": [
         "Halloween"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "halloween-mummy",
@@ -340,7 +358,8 @@
       "categories": [
         "Halloween"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "halloween-skeleton",
@@ -353,7 +372,8 @@
       "categories": [
         "Halloween"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "halloween-scream",
@@ -366,7 +386,8 @@
       "categories": [
         "Halloween"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "halloween-ghost",
@@ -379,7 +400,8 @@
       "categories": [
         "Halloween"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "occasion-daisy",
@@ -392,7 +414,8 @@
       "categories": [
         "Special Occasions"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "occasion-tulip",
@@ -405,18 +428,30 @@
       "categories": [
         "Special Occasions"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "preserve",
-      "name": "Strawberry Preserve",
-      "description": "A little jar of sunshine, slowly made.",
+      "name": "Apricot Preserve",
+      "description": "Homemade apricot preserve with vanilla and honey.",
       "price": 6,
-      "image": "/images/preserve.webp",
+      "image": "/images/preserves/apricot-jar.webp",
       "categories": [
         "Jams & Preserves"
       ],
-      "allergens": "No listed allergens; made in a shared kitchen"
+      "allergens": "",
+      "recipeId": "apricot-preserve",
+      "gallery": [
+        {
+          "image": "/images/preserves/apricot-jar-original.webp",
+          "label": "The apricot preserve jar"
+        },
+        {
+          "image": "/images/preserves/apricot-jars-original.webp",
+          "label": "Apricot preserves, ready to share"
+        }
+      ]
     },
     {
       "id": "hazelnut-apricot",
@@ -481,7 +516,8 @@
       "categories": [
         "Gift Bundles"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "gift-sweet-bag",
@@ -494,7 +530,8 @@
       "categories": [
         "Gift Bundles"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     },
     {
       "id": "gift-brass-tray",
@@ -507,7 +544,8 @@
       "categories": [
         "Gift Bundles"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "decorated-cookies"
     }
   ],
   "packagingOptions": [
@@ -557,5 +595,27 @@
       "largeWeight": 1.5,
       "minimumLargeWeight": 3
     }
-  ]
+  ],
+  "recipes": {
+    "decorated-cookies": {
+      "sections": [
+        {
+          "label": "Biscuit base:",
+          "text": "Type 00 flour, butter, wildflower honey, brown sugar, water, sodium bicarbonate, ginger, cinnamon, cloves, cardamom."
+        },
+        {
+          "label": "Decorations:",
+          "text": "Sugar, egg white, lemon juice, powdered coconut, food colourings E422."
+        }
+      ]
+    },
+    "apricot-preserve": {
+      "sections": [
+        {
+          "label": "",
+          "text": "Organic apricots, sugar, organic lemon, vanilla, honey, pectin."
+        }
+      ]
+    }
+  }
 }

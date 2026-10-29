@@ -25,7 +25,10 @@ export type Product = {
   categories: string[];
   label?: string;
   allergens: string;
+  recipeId?: string;
 };
+export type Recipe = { sections: { label: string; text: string }[] };
+export const recipes: Record<string, Recipe> = catalog.recipes;
 export const products: Product[] = catalog.products;
 export const largeProductIds = products.filter(p => p.size === "large").map(p => p.id);
 export const quantitySteps = Object.fromEntries(products.map(p => [p.id, p.quantityStep ?? 1]));

@@ -43,6 +43,7 @@ import {
   money,
   packagingOptions,
   products,
+  recipes,
   quantitySteps,
   largeProductIds,
 } from "./data/products";
@@ -758,7 +759,7 @@ function Story() {
         <div className="story-image">
           <div>
             <img
-              src={assetUrl("/images/giansy-portrait.webp")}
+              src={assetUrl("/images/giansy-kitchen-october.webp")}
               alt={t("Meet Giansy, the heart behind Le Creazioni di Giansy")}
               loading="lazy"
             />
@@ -1244,12 +1245,20 @@ export default function App() {
           </p>
           {detail.size === "large" && <p className="detail-note">{t("Large cookie · takes 3 spaces in bags and trays, or 1.5 in the box.")}</p>}
           {(detail.quantityStep ?? 1) > 1 && <p className="timeless-order-note"><span>{t("Timeless biscuits are ordered in multiples of 15 per flavour, with packaging to agree.")}</span></p>}
-          <p>
+          {detail.recipeId && recipes[detail.recipeId] && <section className="detail-ingredients" aria-labelledby="detail-ingredients-title">
+            <h3 id="detail-ingredients-title">{t("Ingredients")}</h3>
+            {recipes[detail.recipeId].sections.map(section => <p key={section.label}>
+              {section.label && <strong>{t(section.label)} </strong>}{t(section.text)}
+            </p>)}
+          </section>}
+          {detail.allergens && <p>
             <strong>{t("Allergen guide:")} </strong> {t(detail.allergens)}
-          </p>
+          </p>}
           <p className="detail-note">
             {t(
-              "Sample product information. All creations are prepared in a shared kitchen. Please discuss allergies, availability and custom requests with Giansy before confirming an order.",
+              detail.recipeId
+                ? "All creations are prepared in a shared kitchen. Please discuss allergies and specific needs with Giansy before confirming an order."
+                : "Sample product information. All creations are prepared in a shared kitchen. Please discuss allergies, availability and custom requests with Giansy before confirming an order.",
             )}{" "}
           </p>
           <div className="dialog-actions">
