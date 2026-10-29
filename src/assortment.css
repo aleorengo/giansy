@@ -51,14 +51,12 @@
 }
 
 .assortment-section .plate-note {
-  color: var(--ivory);
+  color: var(--wine);
   font-style: normal;
   font-size: var(--text-small);
   margin-top: 24px;
-  padding: 7px 14px;
-  background: var(--wine);
-  border-radius: 2px;
-  text-shadow: 0 1px 2px #21000060;
+  padding: 0;
+  background: transparent;
 }
 
 .assortment-section .order-card {
