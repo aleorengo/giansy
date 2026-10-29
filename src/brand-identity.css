@@ -80,6 +80,38 @@ html .hero .portrait-caption { bottom: -36px; z-index: 4; }
 }
 html .hero-actions .text-link { border-color: var(--ivory); }
 
+.hero-intro-ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  width: min(100%, 300px);
+  min-height: 64px;
+  margin-bottom: 14px;
+  pointer-events: none;
+}
+.hero-intro-ornament .flourish { width: 128px; height: 25px; flex: 0 0 128px; }
+.hero-floating-cookie {
+  --cookie-tilt: -16deg;
+  width: 48px;
+  height: 58px;
+  object-fit: contain;
+  filter: drop-shadow(1px 4px 3px #10000055);
+  animation: hero-cookie-drift 7s ease-in-out infinite;
+}
+.hero-floating-tree { --cookie-tilt: 12deg; animation-delay: -3.5s; }
+@keyframes hero-cookie-drift {
+  0%, 100% { transform: translateY(5px) rotate(var(--cookie-tilt)); }
+  50% { transform: translateY(-5px) rotate(calc(var(--cookie-tilt) + 3deg)); }
+}
+@media (max-width: 620px) {
+  .hero-intro-ornament { margin-inline: auto; gap: 18px; }
+  .hero-floating-cookie { width: 42px; height: 52px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-floating-cookie { animation: none; transform: rotate(var(--cookie-tilt)); }
+}
+
 @media (max-width: 1100px) {
   html .brand { width: 290px; }
   html .hero .handmade-seal { right: -6px; }

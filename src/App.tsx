@@ -157,9 +157,10 @@ function Hero() {
     <section className="hero-section">
       <div className="hero section-width">
         <div className="hero-copy">
-          <div className="eyebrow">
-            <span className="tiny-line" />{" "}
-            {t("FROM MY KITCHEN, WITH LOVE")}{" "}
+          <div className="hero-intro-ornament" aria-hidden="true">
+            <img className="hero-floating-cookie" src={assetUrl("/images/decorations/packaging-snowflake.png")} alt="" width="54" height="64" />
+            <Flourish />
+            <img className="hero-floating-cookie hero-floating-tree" src={assetUrl("/images/decorations/packaging-tree-two.png")} alt="" width="54" height="64" />
           </div>
           <h1>
             {t("Small batch baking,")} <br />
@@ -194,9 +195,9 @@ function Hero() {
           </div>
           <div className="hero-photo">
             <img
-              src={assetUrl("/images/giansy-christmas-table.webp")}
+              src={assetUrl("/images/hero-decorated-cookies.webp")}
               alt={t(
-                "A Christmas table with a handmade gingerbread tree, decorated biscuits and cake",
+                "Hand-decorated gingerbread cookies in festive shapes",
               )}
             />
             <span>{t("little things, lovely moments")} </span>
