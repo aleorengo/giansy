@@ -3,14 +3,6 @@
   position: relative;
 }
 
-.collection-tartan {
-  height: 52px;
-  background: var(--ivory-tartan);
-  background-position: 14px 6px;
-  border-top: 1px solid #2600024a;
-  border-bottom: 1px solid #2600024a;
-  box-shadow: inset 0 2px 5px #20000020;
-}
 
 .creations-section .creations {
   padding-top: 62px;
@@ -303,14 +295,6 @@
   background: var(--wine);
 }
 
-.site-footer::before {
-  content: "";
-  display: block;
-  height: 24px;
-  background: var(--ivory-tartan);
-  background-position: 14px 6px;
-  border-block: 1px solid #26000232;
-}
 
 @media (max-width: 1100px) {
   .creations .product-grid {
@@ -359,15 +343,9 @@
     grid-template-columns: repeat(4, max-content);
     gap: 5px 20px;
   }
-  .collection-tartan {
-    height: 44px;
-  }
 }
 
 @media (max-width: 620px) {
-  .collection-tartan {
-    height: 39px;
-  }
   .creations-section .creations {
     width: calc(100% - 28px);
     padding-top: 40px;
@@ -467,10 +445,6 @@
   }
   .creations .view-all {
     font-size: var(--text-small);
-  }
-  .site-footer::before {
-    height: 20px;
-    background-size: 350px auto;
   }
 }
 

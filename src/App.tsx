@@ -238,13 +238,6 @@ function Values() {
     </div>
   );
 }
-function TartanDivider() {
-  return (
-    <div className="values-strip" aria-hidden="true">
-      <div className="tartan-fringe" />
-    </div>
-  );
-}
 function Quantity({
   product,
   quantity,
@@ -389,7 +382,6 @@ function Gallery({
   const visible = products.filter(p => p.categories.includes(category));
   return (
     <section className={`creations-section ${category === "Gift Bundles" ? "gift-section" : ""}`} id="cookies" data-category={category}>
-      <div className="collection-tartan" aria-hidden="true" />
       <div className="creations section-width section-space">
         <div className="section-heading">
           <Flourish />
@@ -450,7 +442,6 @@ function Gallery({
           {visible.some(p => p.provisionalPrice) && <p className="provisional-price-note">{t("Provisional prices for Halloween and flower biscuits; to be confirmed with Giansy.")}</p>}
         </div>
       </div>
-      <div className="collection-tartan" aria-hidden="true" />
     </section>
   );
 }
@@ -721,8 +712,6 @@ function Seasonal({ onExplore }: { onExplore: () => void }) {
 }
 function Story() {
   return (
-    <>
-    <div className="story-divider" aria-hidden="true" />
     <section className="story-section" id="our-story">
       <div className="section-width story-layout">
         <div className="story-copy">
@@ -766,7 +755,6 @@ function Story() {
         </div>
       </div>
     </section>
-    </>
   );
 }
 function ArticleCard({
@@ -1201,7 +1189,6 @@ export default function App() {
             element={
               <main>
                 <Hero />
-                <TartanDivider />
                 <PackagingBuilder packagingId={packagingId} onChange={changePackaging} />
                 <Gallery
                   selection={selection}

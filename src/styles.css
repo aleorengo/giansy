@@ -502,10 +502,6 @@ p {
   transform: rotate(-20deg);
   opacity: 0.8;
 }
-.values-strip {
-  border-block: 1px solid var(--line);
-  background: var(--wine);
-}
 .values-inner {
   display: flex;
   align-items: center;
@@ -1107,13 +1103,6 @@ select {
   transform: rotate(17deg);
   opacity: 0.55;
   z-index: -1;
-}
-.story-divider {
-  height: 32px;
-  background: var(--ivory-tartan);
-  background-position: 14px 6px;
-  border-block: 1px solid #f3e6cc35;
-  box-shadow: inset 0 2px 5px #20000020;
 }
 .story-section {
   background: var(--wine);
@@ -4031,18 +4020,6 @@ html[lang="it"] .hero-photo span {
 .hero-section {
   padding-bottom: 22px;
 }
-.hero-section > .heritage-ribbon {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 23px;
-  background: var(--ivory-tartan);
-  background-position: 14px 6px;
-  border-top: 1px solid #a98e6266;
-  border-bottom: 1px solid #a98e6255;
-  box-shadow: inset 0 2px 4px #1e070960;
-}
 .hero .portrait-frame {
   width: 333px;
   height: 500px;
@@ -4113,10 +4090,6 @@ html[lang="it"] .hero-photo span {
   }
   .hero-photo {
     bottom: 30px;
-  }
-  .hero-section > .heritage-ribbon {
-    height: 21px;
-    background-size: 340px auto;
   }
   .hero {
     padding-bottom: 33px;
