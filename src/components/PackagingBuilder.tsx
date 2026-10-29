@@ -34,9 +34,9 @@ export default function PackagingBuilder({ packagingId, onChange }: {
           <span className="eyebrow">{t("FIRST, A LITTLE THOUGHT FOR THE OUTSIDE")}</span>
           <h2 id="packaging-title">{t("A little sweetness,")} <em>{t("just as you like it.")}</em></h2>
           <p className="packaging-intro">
-            <img className="packaging-intro-cookie packaging-intro-snowflake" src={assetUrl("/images/decorations/packaging-snowflake.png")} alt="" aria-hidden="true" loading="lazy" width="64" height="80" />
+            <img className="packaging-intro-cookie packaging-intro-start" src={assetUrl("/images/christmas/heart.webp")} alt="" aria-hidden="true" loading="lazy" width="64" height="64" />
             {t("Choose your packaging, then pick your favourite cookies below. You can keep adding up to its capacity.")}
-            <img className="packaging-intro-cookie packaging-intro-tree" src={assetUrl("/images/decorations/packaging-tree-two.png")} alt="" aria-hidden="true" loading="lazy" width="64" height="80" />
+            <img className="packaging-intro-cookie packaging-intro-end" src={assetUrl("/images/christmas/gift.webp")} alt="" aria-hidden="true" loading="lazy" width="64" height="64" />
           </p>
           <p className="packaging-size-note">{t("One large cookie takes 3 spaces in bags and trays. The box holds up to 10 large or 15 small/medium; mixed assortments use proportional space.")}</p>
           <p className="packaging-timeless-note">{t("Timeless biscuits are ordered in multiples of 15 per flavour, with packaging to agree.")}</p>

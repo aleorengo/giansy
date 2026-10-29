@@ -33,8 +33,8 @@
   object-fit: contain;
   filter: drop-shadow(0 4px 4px #18000155);
 }
-.packaging-intro-snowflake { margin-right: 5px; transform: translateY(-5px) rotate(-20deg); }
-.packaging-intro-tree { margin-left: 5px; transform: translateY(7px) rotate(14deg); }
+.packaging-intro-start { margin-right: 5px; transform: translateY(-5px) rotate(-20deg); }
+.packaging-intro-end { margin-left: 5px; transform: translateY(7px) rotate(14deg); }
 .packaging-builder .packaging-choices { max-width: 970px; margin: 35px auto 0; }
 .packaging-builder fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 .packaging-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
