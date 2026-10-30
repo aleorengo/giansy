@@ -17,7 +17,7 @@ Sostituire gli eventuali record di parcheggio per `@` e `www`. Conservare MX, TX
 
 Dopo la propagazione DNS verificare il controllo del dominio in GitHub → repository → Settings → Pages. Quando il certificato è pronto, attivare **Enforce HTTPS**. GitHub può richiedere fino a 24 ore prima di rendere disponibile l'opzione. Non occorre acquistare hosting o certificati separati per GitHub Pages.
 
-Il sito include metadati Open Graph e Twitter con URL assoluti del dominio e `images/whatsapp-tray-preview-large.jpg` (1200 × 630). Il mockup sorgente della composizione è in `assets/social-preview/whatsapp-card.html`; il JPG deriva da uno screenshot del mockup con gli asset originali del sito. Le anteprime già memorizzate dalle app possono richiedere tempo per aggiornarsi.
+Il sito include metadati Open Graph e Twitter con URL assoluti del dominio e `images/whatsapp-snowflake-preview.jpg` (1200 × 630). Il mockup sorgente della composizione è in `assets/social-preview/whatsapp-card.html`; il JPG deriva da uno screenshot del mockup con gli asset originali del sito. Le anteprime già memorizzate dalle app possono richiedere tempo per aggiornarsi.
 
 Fonti:
 - https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
