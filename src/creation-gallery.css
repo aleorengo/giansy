@@ -109,6 +109,11 @@
   transform: translateY(-5px) rotate(calc(var(--cookie-turn) + 2deg));
 }
 
+.creations [data-product-id="halloween-candy"] .product-image-button img {
+  --cookie-turn: -18deg;
+  scale: 1.16;
+}
+
 .creations .product-label {
   top: 0;
   left: 0;
