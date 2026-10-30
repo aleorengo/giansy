@@ -275,8 +275,9 @@
       "categories": [
         "Timeless Biscuits"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy.",
-      "quantityStep": 15
+      "allergens": "Contains almonds.",
+      "quantityStep": 15,
+      "recipeId": "candied-orange"
     },
     {
       "id": "almond-coffee",
@@ -288,8 +289,9 @@
       "categories": [
         "Timeless Biscuits"
       ],
-      "allergens": "Contains almonds; other ingredients and allergens to confirm.",
-      "quantityStep": 15
+      "allergens": "Contains gluten, almonds, eggs and milk.",
+      "quantityStep": 15,
+      "recipeId": "almond-coffee"
     },
     {
       "id": "halloween-skull",
@@ -303,7 +305,7 @@
         "Halloween"
       ],
       "allergens": "Contains gluten, milk and eggs.",
-      "recipeId": "decorated-cookies"
+      "recipeId": "halloween-cookies"
     },
     {
       "id": "halloween-cat",
@@ -317,21 +319,27 @@
         "Halloween"
       ],
       "allergens": "Contains gluten, milk and eggs.",
-      "recipeId": "decorated-cookies"
+      "recipeId": "halloween-cookies"
     },
     {
       "id": "halloween-candy",
       "name": "Halloween Sweet",
-      "description": "A purple centre and a cheeky smile.",
+      "description": "A heart-shaped centre in purple or orange icing, with black wrapper ends and a white smile.",
       "price": 2,
       "fixedPrice": true,
       "provisionalPrice": true,
-      "image": "/images/halloween/candy.webp",
+      "image": "/images/halloween/candy-heart-purple.webp",
       "categories": [
         "Halloween"
       ],
       "allergens": "Contains gluten, milk and eggs.",
-      "recipeId": "decorated-cookies"
+      "recipeId": "halloween-cookies",
+      "gallery": [
+        {
+          "image": "/images/halloween/variants/candy-heart-orange.webp",
+          "label": "Orange heart with black wrappers"
+        }
+      ]
     },
     {
       "id": "pumpkin",
@@ -345,7 +353,7 @@
         "Halloween"
       ],
       "allergens": "Contains gluten, milk and eggs.",
-      "recipeId": "decorated-cookies"
+      "recipeId": "halloween-cookies"
     },
     {
       "id": "halloween-mummy",
@@ -359,7 +367,7 @@
         "Halloween"
       ],
       "allergens": "Contains gluten, milk and eggs.",
-      "recipeId": "decorated-cookies"
+      "recipeId": "halloween-cookies"
     },
     {
       "id": "halloween-skeleton",
@@ -373,7 +381,7 @@
         "Halloween"
       ],
       "allergens": "Contains gluten, milk and eggs.",
-      "recipeId": "decorated-cookies"
+      "recipeId": "halloween-cookies"
     },
     {
       "id": "halloween-scream",
@@ -387,7 +395,7 @@
         "Halloween"
       ],
       "allergens": "Contains gluten, milk and eggs.",
-      "recipeId": "decorated-cookies"
+      "recipeId": "halloween-cookies"
     },
     {
       "id": "halloween-ghost",
@@ -401,7 +409,7 @@
         "Halloween"
       ],
       "allergens": "Contains gluten, milk and eggs.",
-      "recipeId": "decorated-cookies"
+      "recipeId": "halloween-cookies"
     },
     {
       "id": "occasion-daisy",
@@ -415,7 +423,7 @@
         "Special Occasions"
       ],
       "allergens": "Contains gluten, milk and eggs.",
-      "recipeId": "decorated-cookies"
+      "recipeId": "occasion-cookies"
     },
     {
       "id": "occasion-tulip",
@@ -429,7 +437,7 @@
         "Special Occasions"
       ],
       "allergens": "Contains gluten, milk and eggs.",
-      "recipeId": "decorated-cookies"
+      "recipeId": "occasion-cookies"
     },
     {
       "id": "preserve",
@@ -456,7 +464,7 @@
     {
       "id": "hazelnut-apricot",
       "name": "Hazelnut & Apricot Biscuit",
-      "description": "Hazelnut biscuit with apricot jam filling and chocolate topping.",
+      "description": "Hazelnut biscuit with Giansy’s apricot preserve filling and chocolate topping.",
       "price": 1.2,
       "fixedPrice": true,
       "quantityStep": 15,
@@ -464,7 +472,8 @@
       "categories": [
         "Timeless Biscuits"
       ],
-      "allergens": "Contains hazelnuts; other ingredients and allergens to confirm."
+      "allergens": "Contains gluten, hazelnuts, milk and eggs.",
+      "recipeId": "hazelnut-apricot"
     },
     {
       "id": "vin-santo",
@@ -477,7 +486,8 @@
       "categories": [
         "Timeless Biscuits"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, peanut oil and pine nuts.",
+      "recipeId": "vin-santo"
     },
     {
       "id": "pumpkin-biscuit",
@@ -490,7 +500,8 @@
       "categories": [
         "Timeless Biscuits"
       ],
-      "allergens": "Ingredients and allergens to confirm with Giansy."
+      "allergens": "Contains gluten, milk and eggs.",
+      "recipeId": "pumpkin-biscuit"
     },
     {
       "id": "marzipan-date",
@@ -623,6 +634,86 @@
         {
           "label": "",
           "text": "Dates, sugar, almonds, egg white, vanilla, dark chocolate, chopped pistachios."
+        }
+      ]
+    },
+    "vin-santo": {
+      "sections": [
+        {
+          "label": "",
+          "text": "Vin Santo, flour, baking powder, peanut oil, sugar, raisins, pine nuts, vanilla."
+        }
+      ]
+    },
+    "hazelnut-apricot": {
+      "sections": [
+        {
+          "label": "Biscuit:",
+          "text": "Flour, hazelnut flour, sugar, baking powder, butter, egg white, spices."
+        },
+        {
+          "label": "Filling:",
+          "text": "Giansy’s apricot preserve."
+        },
+        {
+          "label": "Topping:",
+          "text": "Dark chocolate, butter, sugar sprinkles."
+        }
+      ]
+    },
+    "almond-coffee": {
+      "sections": [
+        {
+          "label": "Biscuit:",
+          "text": "Flour, almond flour, sugar, eggs, butter, vanilla."
+        },
+        {
+          "label": "Icing:",
+          "text": "Coffee, sugar."
+        }
+      ]
+    },
+    "candied-orange": {
+      "sections": [
+        {
+          "label": "",
+          "text": "Organic orange with edible peel, cane sugar, cinnamon stick, star anise, cloves, dark chocolate, flaked almonds."
+        }
+      ]
+    },
+    "pumpkin-biscuit": {
+      "sections": [
+        {
+          "label": "Biscuit:",
+          "text": "Pumpkin, flour, butter, baking powder, sugar, eggs, cinnamon, turmeric."
+        },
+        {
+          "label": "Icing:",
+          "text": "Egg white, sugar, lemon, coloured sugar sprinkles."
+        }
+      ]
+    },
+    "halloween-cookies": {
+      "sections": [
+        {
+          "label": "Biscuit:",
+          "text": "Flour, butter, eggs, sugar, cocoa, tonka bean."
+        },
+        {
+          "label": "Icing:",
+          "text": "Sugar, egg white, lemon, food colourings, coloured sugar sprinkles."
+        }
+      ]
+    },
+    "occasion-cookies": {
+      "sections": [
+        {
+          "label": "Biscuit:",
+          "text": "Flour, sugar, eggs, butter, vanilla."
+        },
+        {
+          "label": "Icing:",
+          "text": "Sugar, egg white, lemon, food colourings."
         }
       ]
     }
