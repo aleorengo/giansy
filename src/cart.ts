@@ -1,6 +1,6 @@
 export type CartItem =
   | { id: string; kind: "custom"; selection: Record<string, number>; packagingId: string; quantity: number }
-  | { id: string; kind: "bundle" | "timeless"; productId: string; quantity: number };
+  | { id: string; kind: "bundle" | "timeless" | "preserve"; productId: string; quantity: number };
 export const customCartId = (selection: Record<string, number>, packagingId: string) =>
   `custom:${packagingId}:${Object.entries(selection).filter(([, n]) => n > 0).sort(([a], [b]) => a.localeCompare(b)).map(([id, n]) => `${id}=${n}`).join(";")}`;
 export function addCustomToCart(cart: CartItem[], selection: Record<string, number>, packagingId: string): CartItem[] {
@@ -18,6 +18,11 @@ export function addTimelessToCart(cart: CartItem[], productId: string, quantity:
   const id = `timeless:${productId}`;
   return cart.some(item => item.id === id) ? changeCartQuantity(cart, id, quantity) : [...cart, { id, kind: "timeless", productId, quantity }];
 }
+export function addPreserveToCart(cart: CartItem[], productId: string, quantity: number): CartItem[] {
+  if (!Number.isSafeInteger(quantity) || quantity <= 0) return cart;
+  const id = `preserve:${productId}`;
+  return cart.some(item => item.id === id) ? changeCartQuantity(cart, id, quantity) : [...cart, { id, kind: "preserve", productId, quantity }];
+}
 export function changeCartQuantity(cart: CartItem[], id: string, delta: number): CartItem[] {
   if (!Number.isSafeInteger(delta)) return cart;
   return cart.flatMap(item => {
@@ -26,20 +31,29 @@ export function changeCartQuantity(cart: CartItem[], id: string, delta: number):
     return !Number.isSafeInteger(next) ? [item] : next > 0 ? [{ ...item, quantity: next }] : [];
   });
 }
-export function restoreCart(saved: unknown, bundleIds: readonly string[], validCustom: (selection: Record<string, number>, packagingId: string) => boolean, timelessIds: readonly string[] = [], fallbackPackagingIds: readonly string[] = []): CartItem[] {
+export function restoreCart(saved: unknown, bundleIds: readonly string[], validCustom: (selection: Record<string, number>, packagingId: string) => boolean, timelessIds: readonly string[] = [], fallbackPackagingIds: readonly string[] = [], preserveIds: readonly string[] = []): CartItem[] {
   if (!Array.isArray(saved)) return [];
   let cart: CartItem[] = [];
   for (const row of saved) {
     if (!row || !Number.isSafeInteger(row.quantity) || row.quantity <= 0) continue;
     if (row.kind === "bundle" && bundleIds.includes(row.productId)) cart = addBundleToCart(cart, row.productId, row.quantity);
     else if (row.kind === "timeless" && timelessIds.includes(row.productId)) cart = addTimelessToCart(cart, row.productId, row.quantity);
+    else if (row.kind === "preserve" && preserveIds.includes(row.productId)) cart = addPreserveToCart(cart, row.productId, row.quantity);
     else if (row.kind === "custom" && row.selection && typeof row.selection === "object" && !Array.isArray(row.selection) && typeof row.packagingId === "string") {
-      const packagingId = [row.packagingId, ...fallbackPackagingIds].find(id => validCustom(row.selection, id));
+      const selection = { ...row.selection };
+      for (const productId of preserveIds) {
+        const count = selection[productId];
+        if (!Number.isSafeInteger(count) || count <= 0 || !Number.isSafeInteger(count * row.quantity)) continue;
+        cart = addPreserveToCart(cart, productId, count * row.quantity);
+        delete selection[productId];
+      }
+      if (!Object.keys(selection).length) continue;
+      const packagingId = [row.packagingId, ...fallbackPackagingIds].find(id => validCustom(selection, id));
       if (!packagingId) continue;
-      const id = customCartId(row.selection, packagingId);
+      const id = customCartId(selection, packagingId);
       const existing = cart.find(item => item.id === id);
       if (existing) cart = changeCartQuantity(cart, id, row.quantity);
-      else cart.push({ id, kind: "custom", selection: { ...row.selection }, packagingId, quantity: row.quantity });
+      else cart.push({ id, kind: "custom", selection, packagingId, quantity: row.quantity });
     }
   }
   return cart;

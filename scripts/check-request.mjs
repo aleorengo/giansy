@@ -37,4 +37,12 @@ for (const batches of [1, 2, 3]) {
   const batch = requestText({ ...order, lines: [{ ...order.lines[2], quantity: batches }] });
   assert.ok(batch.includes(`${15 * batches} × Arancia e cioccolato`));
 }
+const preserve={kind:'preserve',title:'Confettura di albicocche',detail:'250 ml',quantity:2,pieceCount:0,unitPrice:6,contents:[],bulkPackaging:false};
+const preserveOnly=requestText({...order,lines:[preserve],pieces:0,packages:2,total:12});
+assert.ok(preserveOnly.includes('Confetture\n• 2 × Confettura di albicocche (250 ml) — 12,00'));
+assert.ok(!preserveOnly.includes('biscotti'),'Jar-only requests do not call jars cookies');
+assert.ok(!preserveOnly.includes('Assortimento personalizzato'));
+const withJars=requestText({...order,lines:[...order.lines,preserve],total:84});
+assert.ok(withJars.includes('Confetture\n• 2 × Confettura di albicocche (250 ml) — 12,00'));
+assert.ok(withJars.includes('Totale ordine: 84,00'));
 console.log('Request checks passed: name/date/notes first, concise category-specific order lines, repeated quantities, one price per item and correct WhatsApp recipient.');

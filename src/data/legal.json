@@ -1,0 +1,94 @@
+{
+  "updated": "2026-10-30",
+  "privacy": [
+    {
+      "title": "Your enquiries and personal data",
+      "paragraphs": [
+        "The name, requested date, notes and selected products are used to reply to your enquiry, check availability and arrange your order. The processing is necessary to take the steps you request before an order and to manage any order you confirm. Name and date are required to prepare the request; notes are optional."
+      ]
+    },
+    {
+      "title": "Sending through WhatsApp",
+      "paragraphs": [
+        "When you choose “Send to Giansy”, your name, date, notes and order are passed to WhatsApp to prepare the message. You then confirm Send in the chat. Giansy receives the message and the contact information shared through your WhatsApp account when you send it."
+      ],
+      "links": [
+        {
+          "label": "WhatsApp privacy policy",
+          "url": "https://www.whatsapp.com/legal/privacy-policy-eea"
+        }
+      ]
+    },
+    {
+      "title": "Your device and cookies",
+      "paragraphs": [
+        "The cart, assortment in progress and language are saved locally in your browser so you can find them again. “Start afresh” empties the selection and cart. Clearing this website’s browser data also removes the saved language. The order form stays in the open page and is not saved with the cart. The website does not use its own advertising, profiling or analytics cookies."
+      ]
+    },
+    {
+      "title": "External services",
+      "paragraphs": [
+        "GitHub Pages hosts the website and records visitors’ IP addresses for security. Google Fonts supplies the fonts through external requests that can include technical connection data. Instagram and WhatsApp are external services opened when you choose their links; their own privacy policies apply, including their information about international data transfers."
+      ],
+      "links": [
+        {
+          "label": "GitHub privacy statement",
+          "url": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
+        },
+        {
+          "label": "Google privacy policy",
+          "url": "https://policies.google.com/privacy?hl=it"
+        },
+        {
+          "label": "Instagram privacy policy",
+          "url": "https://privacycenter.instagram.com/policy/"
+        }
+      ]
+    },
+    {
+      "title": "Retention and your rights",
+      "paragraphs": [
+        "Messages sent to Giansy are kept for the time needed to handle the enquiry, fulfil the agreed order and meet applicable record-keeping duties. The website does not sign you up to a newsletter or make automated decisions about you.",
+        "Contact Giansy at the number above to request access, correction, deletion, restriction, objection or portability of your data, where applicable. You may also lodge a complaint with the Italian data protection authority."
+      ],
+      "links": [
+        {
+          "label": "Italian data protection authority",
+          "url": "https://www.garanteprivacy.it/"
+        }
+      ]
+    }
+  ],
+  "terms": [
+    {
+      "title": "Prices and confirmation",
+      "paragraphs": [
+        "The published prices are the product prices, expressed in euros. The price unit and any packaging costs are shown with each selection. Availability, the requested date, personalisation and any additional costs are agreed with Giansy before the order is confirmed."
+      ]
+    },
+    {
+      "title": "How to order",
+      "paragraphs": [
+        "Choose your products and confirm your personalised cookie assortment. Timeless biscuits, Christmas mixed packages and preserves go directly into the cart. “Send to Giansy” opens the order in WhatsApp: confirm Send in the chat, then agree the final details with Giansy. Orders are confirmed directly with Giansy; the website does not take online payments."
+      ]
+    },
+    {
+      "title": "Packaging and quantities",
+      "paragraphs": [
+        "Each packaging option has the minimum and maximum quantities shown on the website. The box holds 6–18 small or medium cookies and does not fit large cookies. Timeless biscuits are ordered in multiples of 15 per flavour, with packaging to agree. Mixed packages contain Christmas cookies and include the packaging described. Apricot preserve is sold in 250 ml jars at €6 per jar, separately from the cookie assortment."
+      ]
+    },
+    {
+      "title": "Collection, delivery and payment",
+      "paragraphs": [
+        "Collection or delivery, service area, lead time and payment are agreed directly with Giansy."
+      ]
+    },
+    {
+      "title": "Handmade creations and allergens",
+      "paragraphs": [
+        "Each creation is handmade, so small variations in shape, colour and decoration are part of its character. For allergens and specific dietary needs, contact Giansy before confirming your order."
+      ]
+    }
+  ]
+}

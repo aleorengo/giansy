@@ -10,6 +10,7 @@ export function SelectionProgress() {
   return (
     <div className="selection-progress">
       <div role="status" aria-live="polite" aria-atomic="true">
+        <strong>{usedSpace.toLocaleString(document.documentElement.lang)}/{capacity} {t("selected")}</strong>
         <span>{Math.max(0, capacity - usedSpace).toLocaleString(document.documentElement.lang)} {t("spaces remaining")}</span>
       </div>
       <a href="#creations">{t("Change packaging")} <ArrowRight size={12} /></a>

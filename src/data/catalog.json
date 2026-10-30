@@ -297,9 +297,8 @@
       "id": "halloween-skull",
       "name": "Grinning Skull",
       "description": "A spooky grin in black and white.",
-      "price": 2.5,
+      "price": 1.5,
       "fixedPrice": true,
-      "provisionalPrice": true,
       "image": "/images/halloween/skull.webp",
       "categories": [
         "Halloween"
@@ -311,9 +310,8 @@
       "id": "halloween-cat",
       "name": "Black Cat",
       "description": "Black icing with a little purple bow.",
-      "price": 2,
+      "price": 1.5,
       "fixedPrice": true,
-      "provisionalPrice": true,
       "image": "/images/halloween/cat.webp",
       "categories": [
         "Halloween"
@@ -325,9 +323,8 @@
       "id": "halloween-candy",
       "name": "Halloween Sweet",
       "description": "A heart-shaped centre in purple or orange icing, with black wrapper ends and a white smile.",
-      "price": 2,
+      "price": 1.5,
       "fixedPrice": true,
-      "provisionalPrice": true,
       "image": "/images/halloween/candy-heart-purple.webp",
       "categories": [
         "Halloween"
@@ -345,9 +342,8 @@
       "id": "pumpkin",
       "name": "Halloween Pumpkin",
       "description": "Orange icing, green curls and a grin.",
-      "price": 2,
+      "price": 1.5,
       "fixedPrice": true,
-      "provisionalPrice": true,
       "image": "/images/halloween/pumpkin.webp",
       "categories": [
         "Halloween"
@@ -359,9 +355,8 @@
       "id": "halloween-mummy",
       "name": "Little Mummy",
       "description": "White icing bandages and purple details.",
-      "price": 2.5,
+      "price": 1.5,
       "fixedPrice": true,
-      "provisionalPrice": true,
       "image": "/images/halloween/mummy.webp",
       "categories": [
         "Halloween"
@@ -373,9 +368,8 @@
       "id": "halloween-skeleton",
       "name": "Little Skeleton",
       "description": "A little skeleton, piped by hand.",
-      "price": 2,
+      "price": 1.5,
       "fixedPrice": true,
-      "provisionalPrice": true,
       "image": "/images/halloween/skeleton.webp",
       "categories": [
         "Halloween"
@@ -387,9 +381,8 @@
       "id": "halloween-scream",
       "name": "Spooky Scream",
       "description": "A little fright, ready for a bite.",
-      "price": 2.5,
+      "price": 1.5,
       "fixedPrice": true,
-      "provisionalPrice": true,
       "image": "/images/halloween/scream.webp",
       "categories": [
         "Halloween"
@@ -401,9 +394,8 @@
       "id": "halloween-ghost",
       "name": "Little Ghost",
       "description": "A white little ghost for a sweet trick.",
-      "price": 2,
+      "price": 1.5,
       "fixedPrice": true,
-      "provisionalPrice": true,
       "image": "/images/halloween/ghost.webp",
       "categories": [
         "Halloween"
@@ -415,9 +407,8 @@
       "id": "occasion-daisy",
       "name": "Iced Daisy",
       "description": "Pink and white petals with a yellow centre.",
-      "price": 2,
+      "price": 1.5,
       "fixedPrice": true,
-      "provisionalPrice": true,
       "image": "/images/occasions/daisy.webp",
       "categories": [
         "Special Occasions"
@@ -429,9 +420,8 @@
       "id": "occasion-tulip",
       "name": "Pink Tulip",
       "description": "A little pink flower, decorated by hand.",
-      "price": 2.5,
+      "price": 1.5,
       "fixedPrice": true,
-      "provisionalPrice": true,
       "image": "/images/occasions/tulip.webp",
       "categories": [
         "Special Occasions"
@@ -459,7 +449,9 @@
           "image": "/images/preserves/apricot-jars-original.webp",
           "label": "Apricot preserves, ready to share"
         }
-      ]
+      ],
+      "fixedPrice": true,
+      "unitSize": "250 ml"
     },
     {
       "id": "hazelnut-apricot",
@@ -520,7 +512,7 @@
     {
       "id": "gift-little-pouch",
       "name": "A Little Sweet Thought",
-      "description": "A little pouch with 3 small mixed cookies.",
+      "description": "A little pouch with 3 mixed small Christmas cookies.",
       "price": 4.5,
       "fixedPrice": true,
       "bundleSize": 3,
@@ -534,7 +526,7 @@
     {
       "id": "gift-sweet-bag",
       "name": "A Bag of Smiles",
-      "description": "A gift bag with 12 mixed small and medium cookies.",
+      "description": "A gift bag with 12 mixed small and medium Christmas cookies.",
       "price": 15,
       "fixedPrice": true,
       "bundleSize": 12,
@@ -548,7 +540,7 @@
     {
       "id": "gift-brass-tray",
       "name": "Sweet Moments to Share",
-      "description": "A brass tray with 15 mixed small and medium cookies.",
+      "description": "A brass tray with 15 mixed small and medium Christmas cookies.",
       "price": 20,
       "fixedPrice": true,
       "bundleSize": 15,

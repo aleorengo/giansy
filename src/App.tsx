@@ -27,7 +27,8 @@ import {
 import { Flourish, PolaroidPortrait } from "./components/Ornaments";
 import AntiqueLabel from "./components/AntiqueLabel";
 import ProductGallery from "./components/ProductGallery";
-import { addCustomToCart, addBundleToCart, addTimelessToCart, changeCartQuantity, restoreCart, localToday, validRequestedDate } from "./cart";
+import LegalInformation from "./components/LegalInformation";
+import { addCustomToCart, addBundleToCart, addTimelessToCart, addPreserveToCart, changeCartQuantity, restoreCart, localToday, validRequestedDate } from "./cart";
 import type { CartItem } from "./cart";
 import { requestText, whatsappUrl } from "./order-request";
 import type { OrderRequest } from "./order-request";
@@ -46,6 +47,8 @@ import {
   recipes,
   quantitySteps,
   largeProductIds,
+  isDirectCartProduct,
+  isPreserveProduct,
 } from "./data/products";
 import type { Product, Selection } from "./data/products";
 import journal from "./data/journal.json";
@@ -252,8 +255,8 @@ function Quantity({
   const { usedSpace, capacity, largeWeight, allowsLarge } = useSelectionLimit();
   const step = product.quantityStep ?? 1;
   const weight = product.size === "large" ? largeWeight : 1;
-  const sizeRestricted = product.size === "large" && !allowsLarge;
-  const atLimit = sizeRestricted || (!product.bundleSize && step === 1 && usedSpace + weight > capacity);
+  const sizeRestricted = !isDirectCartProduct(product) && product.size === "large" && !allowsLarge;
+  const atLimit = !isDirectCartProduct(product) && (sizeRestricted || (step === 1 && usedSpace + weight > capacity));
   return (
     <div className={`quantity ${compact ? "quantity-compact" : ""}`}>
       <button
@@ -294,7 +297,7 @@ function ProductCard({
     const added = quantity > previousQuantity.current;
     previousQuantity.current = quantity;
     const cookie = cookieRef.current;
-    if (product.bundleSize || !added || !cookie || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (isDirectCartProduct(product) || !added || !cookie || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const turn = parseFloat(getComputedStyle(cookie).getPropertyValue("--cookie-turn")) || 0;
     const animation = cookie.animate(
       [
@@ -420,16 +423,16 @@ function Gallery({
             ))}
           </div>
         </div>
-        {category !== "Timeless Biscuits" && category !== "Gift Bundles" && <SelectionProgress />}
+        {!["Timeless Biscuits", "Gift Bundles", "Jams & Preserves"].includes(category) && <SelectionProgress />}
         <div className="cookie-products">
-          {category === "Timeless Biscuits" ? <div className="timeless-intro" role="status"><strong>{t("15 at a time, for each flavour")}</strong><p>{t("Choose 15, 30, 45 pieces or more of each flavour. Packaging will be agreed with Giansy; these pieces are separate from your decorated-cookie packaging.")}</p><span>{visible.reduce((sum, p) => sum + (confirmedQuantities[p.id] || 0), 0)} {t("selected")}</span></div> : category === "Gift Bundles" ? <p className="gift-included">{t("Mixed assortments, already wrapped with care. Choose how many packages you would like.")} {t("Packaging is included. Tell us any preferences in the order notes.")}</p> : null}
+          {category === "Timeless Biscuits" ? <div className="timeless-intro" role="status"><strong>{t("15 at a time, for each flavour")}</strong><p>{t("Choose 15, 30, 45 pieces or more of each flavour. Packaging will be agreed with Giansy; these pieces are separate from your decorated-cookie packaging.")}</p><span>{visible.reduce((sum, p) => sum + (confirmedQuantities[p.id] || 0), 0)} {t("selected")}</span></div> : category === "Gift Bundles" ? <p className="gift-included">{t("Mixed Christmas cookie assortments, already wrapped with care. Choose how many packages you would like.")} {t("Packaging is included. Tell us any preferences in the order notes.")}</p> : category === "Jams & Preserves" ? <p className="gift-included">{t("Preserves are added directly to your cart, separately from your cookie assortment.")}</p> : null}
           <div className="product-grid">
             {visible.map((p) => (
               <ProductCard
                 key={p.id}
                 product={p}
-                quantity={p.bundleSize || (p.quantityStep ?? 1) > 1 ? (confirmedQuantities[p.id] ?? 0) : (selection[p.id] || 0)}
-                onChange={p.bundleSize || (p.quantityStep ?? 1) > 1 ? onConfirmedChange : onChange}
+                quantity={isDirectCartProduct(p) ? (confirmedQuantities[p.id] ?? 0) : (selection[p.id] || 0)}
+                onChange={isDirectCartProduct(p) ? onConfirmedChange : onChange}
                 onDetails={onDetails}
               />
             ))}
@@ -440,7 +443,6 @@ function Gallery({
               "Each creation is handmade. A little variation is part of its charm.",
             )}{" "}
           </div>
-          {visible.some(p => p.provisionalPrice) && <p className="provisional-price-note">{t("Provisional prices for Halloween and flower biscuits; to be confirmed with Giansy.")}</p>}
         </div>
       </div>
     </section>
@@ -450,11 +452,12 @@ function SavedSelections({ cart, onChange }: { cart: CartItem[]; onChange: (id: 
   const summary = describeCart(cart);
   return <div className="confirmed-items" aria-live="polite">{summary.lines.map(line => {
     const timeless = line.item.kind === "timeless";
+    const preserve = line.item.kind === "preserve";
     const shownQuantity = line.item.quantity * (timeless ? line.pieceCount : 1);
     return <div className="order-item confirmed-item" data-cart-kind={line.item.kind} key={line.item.id}>
       <div className="confirmed-item-copy">
         <span>{t(line.title)}</span>
-        <small>{timeless ? `${money(line.unitPrice)} ${t("per 15 pieces")}` : `${line.pieceCount} ${t("cookies")} · ${money(line.unitPrice)} ${t("per package")}`}</small>
+        <small>{preserve ? `${line.detail} · ${money(line.unitPrice)} ${t("per jar")}` : timeless ? `${money(line.unitPrice)} ${t("per 15 pieces")}` : `${line.pieceCount} ${t("cookies")} · ${money(line.unitPrice)} ${t("per package")}`}</small>
         {line.item.kind === "custom" && <small>{t(line.detail)}</small>}
         {line.contents.length > 0 && <details><summary>{t("See the assortment")}</summary><ul>{line.contents.map(p => <li key={p.name}>{p.quantity} × {t(p.name)}</li>)}</ul></details>}
         <button className="confirmed-remove" onClick={() => onChange(line.item.id, -line.item.quantity)}>{t("Remove")}</button>
@@ -467,6 +470,10 @@ function SavedSelections({ cart, onChange }: { cart: CartItem[]; onChange: (id: 
       <strong>{money(line.unitPrice * line.item.quantity)}</strong>
     </div>;
   })}</div>;
+}
+
+function cartCountLabel(summary: { pieces: number; jars: number }) {
+  return [summary.pieces ? `${summary.pieces} ${t("cookies")}` : "", summary.jars ? `${summary.jars} ${t(summary.jars === 1 ? "jar" : "jars")}` : ""].filter(Boolean).join(" · ") || `0 ${t("cookies")}`;
 }
 
 function Assortment({
@@ -492,7 +499,7 @@ function Assortment({
   useEffect(() => setPackagingError(""), [selection, packagingId]);
   const estimate = calculateEstimate(selection, packagingId);
   const saved = describeCart(cart);
-  const plateProducts = products.filter(p => !p.bundleSize && (p.quantityStep ?? 1) === 1 && (selection[p.id] || 0) > 0);
+  const plateProducts = products.filter(p => !isDirectCartProduct(p) && (selection[p.id] || 0) > 0);
   const trayLayout = getTrayLayout(plateProducts.length);
   const assortmentRef = useRef<HTMLElement>(null);
   const trayRef = useRef<HTMLDivElement>(null);
@@ -664,8 +671,8 @@ function Assortment({
             </>}
             <div className="confirmed-selection" id="confirmed-selections" role="region" aria-labelledby="confirmed-selections-title" tabIndex={-1}>
               <h4 id="confirmed-selections-title">{t("Confirmed selections")}</h4>
-              {saved.lines.length ? <SavedSelections cart={cart} onChange={onCartChange} /> : <p className="confirmed-empty">{t("Confirm your assortment here. Timeless biscuits and little gifts are added directly.")}</p>}
-              <div className="estimated-total" aria-live="polite"><span>{t("Order total")}<small>{saved.pieces} {t("cookies")}</small></span><strong>{money(saved.total)}</strong></div>
+              {saved.lines.length ? <SavedSelections cart={cart} onChange={onCartChange} /> : <p className="confirmed-empty">{t("Confirm your assortment here. Timeless biscuits, mixed packages and preserves are added directly.")}</p>}
+              <div className="estimated-total" aria-live="polite"><span>{t("Order total")}<small>{cartCountLabel(saved)}</small></span><strong>{money(saved.total)}</strong></div>
               {saved.lines.some(line => line.bulkPackaging) && <p className="pricing-note">{t("Packaging for timeless biscuits will be agreed separately.")}</p>}
               {saved.lines.length > 0 && <a href="#contact" className="button button-outline order-cta">{t("Complete your order")} <ArrowRight size={15} /></a>}
             </div>
@@ -976,7 +983,7 @@ function Contact({ cart, hasDraft }: { cart: CartItem[]; hasDraft: boolean }) {
     <div className="section-width">
       <form className="contact-form" onSubmit={submit}>
         <label>{t("Your name")}<input name="name" value={fields.name} onChange={updateField} autoComplete="name" required maxLength={100} /></label>
-        <div className="checkout-total"><span>{t("Order total")}<small>{estimate.pieces} {t("cookies")}</small></span><strong>{money(estimate.total)}</strong></div>
+        <div className="checkout-total"><span>{t("Order total")}<small>{cartCountLabel(estimate)}</small></span><strong>{money(estimate.total)}</strong></div>
         <label className="requested-date-field">{t("Requested date")}
           <span className="date-input-wrap"><input type="date" name="date" value={fields.date} onChange={updateField} onBlur={validateDate} onFocus={event => { event.currentTarget.min = localToday(); }} min={localToday()} step="1" required aria-invalid={!!dateError} aria-describedby={`requested-date-hint${dateError ? " requested-date-error" : ""}`} /><CalendarDays size={20} aria-hidden="true" /></span>
           <span id="requested-date-hint">{t("We will confirm availability together.")}</span>
@@ -985,9 +992,10 @@ function Contact({ cart, hasDraft }: { cart: CartItem[]; hasDraft: boolean }) {
         <label className="personalisation-field"><span className="personalisation-title">{t("Notes and personalisation")}</span><span className="personalisation-hint" id="personalisation-hint">{t("A favourite colour, a theme, a dedication or a decoration you love: tell me here.")}</span>
           <textarea name="message" value={fields.message} onChange={updateField} aria-describedby="personalisation-hint" rows={4} maxLength={5000} />
         </label>
-        {!canSubmit && <p className="request-minimum" id="request-minimum">{t(hasDraft ? "Confirm or remove the cookies in progress before sending your order." : "Confirm a selection or choose a timeless batch or little gift first.")} <a href="#your-assortment">{t("Your sweet selection")}</a></p>}
+        {!canSubmit && <p className="request-minimum" id="request-minimum">{t(hasDraft ? "Confirm or remove the cookies in progress before sending your order." : "Confirm an assortment or add timeless biscuits, mixed packages or preserves first.")} <a href="#your-assortment">{t("Your sweet selection")}</a></p>}
         <button type="submit" className="button button-primary" disabled={!canSubmit} aria-describedby={!canSubmit ? "request-minimum" : undefined}><MessageCircle size={16} />{t("Send to Giansy")}</button>
         <span className="form-note">{t("WhatsApp opens with your complete order. Confirm Send in the chat.")}</span>
+        <span className="form-note">{t("Collection or delivery, service area, lead time and payment are agreed directly with Giansy.")}</span>
       </form>
     </div>
   </section>;
@@ -1066,7 +1074,7 @@ function Footer({ onLegal }: { onLegal: (value: string) => void }) {
             {t("Privacy & cookies")}{" "}
           </button>
           <span>·</span>
-          <button onClick={() => onLegal("A note on your selection")}>
+          <button onClick={() => onLegal("Terms & information")}>
             {t("Terms & information")}{" "}
           </button>
         </div>
@@ -1089,17 +1097,22 @@ function NotFound() {
     </main>
   );
 }
-const allProductIds = products.filter(p => !p.bundleSize).map(p => p.id);
-const productIds = products.filter(p => !p.bundleSize && (p.quantityStep ?? 1) === 1).map(p => p.id);
+const allProductIds = products.filter(p => !p.bundleSize && !isPreserveProduct(p)).map(p => p.id);
+const productIds = products.filter(p => !isDirectCartProduct(p)).map(p => p.id);
 const bundleIds = products.filter(p => p.bundleSize).map(p => p.id);
 const timelessIds = products.filter(p => (p.quantityStep ?? 1) > 1).map(p => p.id);
+const preserveIds = products.filter(isPreserveProduct).map(p => p.id);
 function readCart(): CartItem[] {
   try {
-    let cart = restoreCart(JSON.parse(localStorage.getItem("giansy-cart") || "[]"), bundleIds, (selection, packagingId) => Object.keys(selection).every(id => allProductIds.includes(id)) && isSelectionReady({ selection, packagingId }, packagingOptions, quantitySteps, largeProductIds), timelessIds, packagingOptions.map(option => option.id));
+    let cart = restoreCart(JSON.parse(localStorage.getItem("giansy-cart") || "[]"), bundleIds, (selection, packagingId) => Object.keys(selection).every(id => allProductIds.includes(id)) && isSelectionReady({ selection, packagingId }, packagingOptions, quantitySteps, largeProductIds), timelessIds, packagingOptions.map(option => option.id), preserveIds);
     const oldSelection = JSON.parse(localStorage.getItem("giansy-assortment") || "{}").selection ?? {};
     for (const id of timelessIds) {
       const count = oldSelection[id];
       if (Number.isSafeInteger(count) && count > 0) cart = addTimelessToCart(cart, id, Math.ceil(count / quantitySteps[id]));
+    }
+    for (const id of preserveIds) {
+      const count = oldSelection[id];
+      if (Number.isSafeInteger(count) && count > 0) cart = addPreserveToCart(cart, id, count);
     }
     return cart;
   } catch { return []; }
@@ -1148,10 +1161,12 @@ export default function App() {
   const cartSummary = describeCart(cart);
   function changeConfirmed(id: string, delta: number) {
     const product = products.find(p => p.id === id);
-    if (!product) return;
+    if (!product || !isDirectCartProduct(product)) return;
     const timeless = (product.quantityStep ?? 1) > 1;
+    const preserve = isPreserveProduct(product);
+    const kind = timeless ? "timeless" : preserve ? "preserve" : "bundle";
     const change = timeless ? delta / product.quantityStep! : delta;
-    setCart(previous => change > 0 ? (timeless ? addTimelessToCart(previous, id, change) : addBundleToCart(previous, id, change)) : changeCartQuantity(previous, `${timeless ? "timeless" : "bundle"}:${id}`, change));
+    setCart(previous => change > 0 ? (timeless ? addTimelessToCart(previous, id, change) : preserve ? addPreserveToCart(previous, id, change) : addBundleToCart(previous, id, change)) : changeCartQuantity(previous, `${kind}:${id}`, change));
   }
   function addAssortment() {
     if (!isSelectionReady(builder, packagingOptions, quantitySteps, largeProductIds)) return;
@@ -1229,7 +1244,7 @@ export default function App() {
           <ProductGallery key={detail.id} product={detail} />
           <p>{t(detail.description)}</p>
           <p className="detail-price">
-            {!detail.fixedPrice && `${t("From")} `}{money(detail.price * ((detail.quantityStep ?? 1) > 1 ? detail.quantityStep! : 1))} {t(detail.bundleSize ? "per package" : (detail.quantityStep ?? 1) > 1 ? "per 15 pieces" : "per item")}{" "}
+            {!detail.fixedPrice && `${t("From")} `}{money(detail.price * ((detail.quantityStep ?? 1) > 1 ? detail.quantityStep! : 1))} {t(isPreserveProduct(detail) ? "per jar" : detail.bundleSize ? "per package" : (detail.quantityStep ?? 1) > 1 ? "per 15 pieces" : "per item")}{" "}
           </p>
           {detail.size === "large" && <p className="detail-note">{t("Large cookie · takes 3 spaces in bags and trays. Does not fit in the box.")}</p>}
           {(detail.quantityStep ?? 1) > 1 && <p className="timeless-order-note"><span>{t("Timeless biscuits are ordered in multiples of 15 per flavour, with packaging to agree.")}</span></p>}
@@ -1242,18 +1257,12 @@ export default function App() {
           {detail.allergens && <p>
             <strong>{t("Allergen guide:")} </strong> {t(detail.allergens)}
           </p>}
-          <p className="detail-note">
-            {t(
-              detail.recipeId
-                ? "All creations are prepared in a shared kitchen. Please discuss allergies and specific needs with Giansy before confirming an order."
-                : "Sample product information. All creations are prepared in a shared kitchen. Please discuss allergies, availability and custom requests with Giansy before confirming an order.",
-            )}{" "}
-          </p>
+          <p className="detail-note">{t("For allergens and specific dietary needs, contact Giansy before confirming your order.")}</p>
           <div className="dialog-actions">
             <Quantity
               product={detail}
-              quantity={detail.bundleSize || (detail.quantityStep ?? 1) > 1 ? (confirmedQuantities[detail.id] ?? 0) : (selection[detail.id] || 0)}
-              onChange={detail.bundleSize || (detail.quantityStep ?? 1) > 1 ? changeConfirmed : change}
+              quantity={isDirectCartProduct(detail) ? (confirmedQuantities[detail.id] ?? 0) : (selection[detail.id] || 0)}
+              onChange={isDirectCartProduct(detail) ? changeConfirmed : change}
             />
             <button
               className="button button-primary"
@@ -1266,43 +1275,7 @@ export default function App() {
       )}
       {legal && (
         <Modal title={t(legal)} onClose={() => setLegal(null)}>
-          {legal.startsWith("Privacy") ? (
-            <>
-              <p>
-                {t(
-                  "This prototype stores your selected products and packaging in your browser so you can return to your assortment. Use “Start afresh” to clear it.",
-                )}{" "}
-              </p>
-              <p>
-                {t(
-                  "Contact form details stay in your browser. This preview does not send requests, process payments or use analytics.",
-                )}{" "}
-              </p>
-              <p>
-                {t(
-                  "Google Fonts is used for typography. Instagram opens an external website. A final privacy policy and business details will be added before launch.",
-                )}{" "}
-              </p>
-            </>
-          ) : (
-            <>
-              <p>
-                {t(
-                  "This is a showcase prototype. Product prices, packaging costs, contact details, availability and allergen information are samples and must be confirmed with the baker.",
-                )}{" "}
-              </p>
-              <p>
-                {t(
-                  "The plate shows one image of each selected product type. Quantities and packaging are counted separately in your estimate. No payment, delivery or binding order is taken through this site.",
-                )}{" "}
-              </p>
-              <p>
-                {t(
-                  "Product photography is illustrative. The final assortment will be handmade especially for you.",
-                )}{" "}
-              </p>
-            </>
-          )}
+          <LegalInformation kind={legal.startsWith("Privacy") ? "privacy" : "terms"} />
         </Modal>
       )}
     </SelectionContext.Provider>

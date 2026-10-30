@@ -4,8 +4,8 @@ import { emptyBuilder, restoreBuilder, selectedCount, selectionSpace, isSelectio
 
 const catalog = JSON.parse(readFileSync(new URL("../src/data/catalog.json", import.meta.url)));
 const packaging = catalog.packagingOptions;
-const allIds = catalog.products.filter(p => !p.bundleSize).map(p => p.id);
-const ids = catalog.products.filter(p => (!p.quantityStep || p.quantityStep === 1) && p.size !== "large" && !p.bundleSize).map(p => p.id);
+const allIds = catalog.products.filter(p => !p.bundleSize && !p.categories.includes("Jams & Preserves")).map(p => p.id);
+const ids = catalog.products.filter(p => (!p.quantityStep || p.quantityStep === 1) && p.size !== "large" && !p.bundleSize && !p.categories.includes("Jams & Preserves")).map(p => p.id);
 const largeIds = catalog.products.filter(p => p.size === "large").map(p => p.id);
 const steps = Object.fromEntries(catalog.products.map(p => [p.id, p.quantityStep ?? 1]));
 assert.equal(new Set(catalog.products.map(p => p.id)).size, catalog.products.length, "Product IDs must remain unique");
@@ -32,6 +32,9 @@ assert.equal(catalog.products.find(p => p.id === "snowflake").image, "/images/ch
 assert.deepEqual(catalog.products.filter(p => p.categories.includes("Special Occasions")).map(p => p.id), ["occasion-daisy", "occasion-tulip"]);
 assert.equal(catalog.products.filter(p => p.categories.includes("Halloween")).length, 8);
 const apply = (state, action) => updateBuilder(state, action, packaging, allIds, steps, largeIds);
+assert.deepEqual(apply(emptyBuilder,{type:"change",id:"preserve",delta:1}),emptyBuilder,"Jars cannot consume cookie packaging capacity");
+for(const p of catalog.products.filter(p=>p.categories.some(c=>["Halloween","Special Occasions"].includes(c)))) assert.equal(p.price,1.5);
+assert.equal(catalog.products.find(p=>p.id==="preserve").price,6);
 
 assert.equal(selectedCount(apply(emptyBuilder, { type: "change", id: ids[0], delta: 1 }).selection), 1);
 assert.equal(isSelectionReady(emptyBuilder, packaging), false);

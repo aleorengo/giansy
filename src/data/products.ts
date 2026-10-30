@@ -26,10 +26,13 @@ export type Product = {
   label?: string;
   allergens: string;
   recipeId?: string;
+  unitSize?: string;
 };
 export type Recipe = { sections: { label: string; text: string }[] };
 export const recipes: Record<string, Recipe> = catalog.recipes;
 export const products: Product[] = catalog.products;
+export const isPreserveProduct = (product: Product) => product.categories.includes("Jams & Preserves");
+export const isDirectCartProduct = (product: Product) => !!product.bundleSize || (product.quantityStep ?? 1) > 1 || isPreserveProduct(product);
 export const largeProductIds = products.filter(p => p.size === "large").map(p => p.id);
 export const quantitySteps = Object.fromEntries(products.map(p => [p.id, p.quantityStep ?? 1]));
 export const packagingOptions = catalog.packagingOptions;
@@ -40,7 +43,8 @@ export const money = (price: number) =>
     currency: "EUR",
   }).format(price);
 export function calculateEstimate(selection: Selection, packagingId: string) {
-  const selected = products.filter((p) => selection[p.id] > 0);
+  const selected = products.filter((p) => selection[p.id] > 0 && !isPreserveProduct(p));
+  const cookieSelection = Object.fromEntries(selected.map(p => [p.id, selection[p.id]]));
   const subtotal =
     selected.reduce(
       (sum, p) => sum + Math.round(p.price * 100) * selection[p.id],
@@ -57,8 +61,8 @@ export function calculateEstimate(selection: Selection, packagingId: string) {
     subtotal,
     packaging,
     packagedCount,
-    usedSpace: selectionSpace(selection, packaging, quantitySteps, largeProductIds),
-    minimumCount: selectionMinimumCount(selection, packaging, quantitySteps, largeProductIds),
+    usedSpace: selectionSpace(cookieSelection, packaging, quantitySteps, largeProductIds),
+    minimumCount: selectionMinimumCount(cookieSelection, packaging, quantitySteps, largeProductIds),
     bulkCount,
     packagingCost,
     packagingLabel,
@@ -73,6 +77,10 @@ export function calculateEstimate(selection: Selection, packagingId: string) {
 export type CartLine = { item: CartItem; title: string; detail: string; unitPrice: number; pieceCount: number; bulkPackaging: boolean; images: string[]; contents: { name: string; quantity: number }[] };
 export function describeCart(cart: CartItem[]) {
   const lines = cart.flatMap<CartLine>(item => {
+    if (item.kind === "preserve") {
+      const product = products.find(p => p.id === item.productId && isPreserveProduct(p));
+      return product ? [{ item, title: product.name, detail: product.unitSize ?? "", unitPrice: product.price, pieceCount: 0, bulkPackaging: false, images: [product.image], contents: [] }] : [];
+    }
     if (item.kind !== "custom") {
       const product = products.find(p => p.id === item.productId && (item.kind === "bundle" ? p.bundleSize : (p.quantityStep ?? 1) > 1));
       const pieces = item.kind === "timeless" ? (product?.quantityStep ?? 15) : product?.bundleSize;
@@ -81,5 +89,5 @@ export function describeCart(cart: CartItem[]) {
     const estimate = calculateEstimate(item.selection, item.packagingId);
     return [{ item, title: "Your personalised assortment", detail: estimate.packagingLabel, unitPrice: estimate.total, pieceCount: estimate.count, bulkPackaging: estimate.bulkCount > 0, images: estimate.selected.slice(0, 4).map(p => p.image), contents: estimate.selected.map(p => ({ name: p.name, quantity: item.selection[p.id] })) }];
   });
-  return { lines, total: lines.reduce((sum, line) => sum + Math.round(line.unitPrice * 100) * line.item.quantity, 0) / 100, pieces: lines.reduce((sum, line) => sum + line.pieceCount * line.item.quantity, 0), packages: lines.reduce((sum, line) => sum + line.item.quantity, 0) };
+  return { lines, total: lines.reduce((sum, line) => sum + Math.round(line.unitPrice * 100) * line.item.quantity, 0) / 100, pieces: lines.reduce((sum, line) => sum + line.pieceCount * line.item.quantity, 0), jars: lines.filter(line => line.item.kind === "preserve").reduce((sum, line) => sum + line.item.quantity, 0), packages: lines.reduce((sum, line) => sum + line.item.quantity, 0) };
 }

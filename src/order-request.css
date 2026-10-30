@@ -22,6 +22,10 @@
 .checkout-total strong { font-family: var(--serif); font-size: 32px; font-weight: 500; }
 .request-minimum { padding: 12px 14px; border: 1px solid var(--line); font-size: 12px; line-height: 1.6; }
 .request-minimum a { display: block; width: fit-content; margin-top: 5px; text-decoration: underline; text-underline-offset: 3px; }
+.legal-information section { margin-top: 24px; }
+.legal-information h3 { font-family: var(--serif); font-size: 26px; line-height: 1.2; margin-bottom: 12px; }
+.legal-information p { margin-block: 12px; }
+.legal-information a { text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
 @media (max-width: 620px) {
   .simple-checkout { padding-block: 25px 45px; }
   .simple-checkout .contact-form { padding: 21px 16px; }

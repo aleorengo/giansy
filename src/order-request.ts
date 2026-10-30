@@ -1,5 +1,5 @@
 export type RequestLine = {
-  kind: "custom" | "timeless" | "bundle";
+  kind: "custom" | "timeless" | "bundle" | "preserve";
   title: string;
   detail: string;
   quantity: number;
@@ -22,11 +22,11 @@ export type OrderRequest = {
 export function requestLabels(language: OrderRequest["language"]) {
   return language === "it" ? {
     date: "Data desiderata", customer: "Nome", notes: "Messaggio", none: "Nessuna nota.",
-    selection: "Ordine", custom: "Assortimento personalizzato", timeless: "Biscotti senza tempo", mixed: "Confezioni miste",
+    selection: "Ordine", custom: "Assortimento personalizzato", timeless: "Biscotti senza tempo", mixed: "Confezioni miste", preserves: "Confetture",
     cookies: "biscotti totali", identical: "confezioni uguali", each: "biscotti ciascuna", total: "Totale ordine",
   } : {
     date: "Requested date", customer: "Name", notes: "Message", none: "No notes.",
-    selection: "Order", custom: "Personalised assortment", timeless: "Timeless biscuits", mixed: "Mixed gift packages",
+    selection: "Order", custom: "Personalised assortment", timeless: "Timeless biscuits", mixed: "Mixed gift packages", preserves: "Preserves",
     cookies: "cookies in total", identical: "identical packages", each: "cookies each", total: "Order total",
   };
 }
@@ -40,6 +40,7 @@ export function requestText(order: OrderRequest) {
   const custom = order.lines.filter(line => line.kind === "custom");
   const timeless = order.lines.filter(line => line.kind === "timeless");
   const bundles = order.lines.filter(line => line.kind === "bundle");
+  const preserves = order.lines.filter(line => line.kind === "preserve");
   return [
     `${l.customer}: ${order.name.trim()}`,
     `${l.date}: ${requestDate(order)}`,
@@ -53,6 +54,7 @@ export function requestText(order: OrderRequest) {
     ]),
     ...(timeless.length ? ["", l.timeless, ...timeless.map(line => `• ${line.pieceCount * line.quantity} × ${line.title} — ${price(line)}`)] : []),
     ...(bundles.length ? ["", l.mixed, ...bundles.map(line => `• ${line.quantity} × ${(line.detail || line.title).replace(/[.!?]+$/, "")} — ${price(line)}`)] : []),
+    ...(preserves.length ? ["", l.preserves, ...preserves.map(line => `• ${line.quantity} × ${line.title}${line.detail ? ` (${line.detail})` : ""} — ${price(line)}`)] : []),
     "",
     `${l.total}: ${requestMoney(order.total, order.language)}`,
   ].join("\n");
