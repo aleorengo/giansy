@@ -74,7 +74,7 @@ assert.equal(restoreBuilder({ selection: { [ids[0]]: 21 }, packagingId: "dish" }
 assert.equal(selectedCount(restoreBuilder({ selection: { [ids[0]]: 99, [ids[1]]: 99, unknown: 2 } }, packaging, ids).selection), 35);
 assert.deepEqual(restoreBuilder(null, packaging, ids), emptyBuilder);
 assert.deepEqual(Object.fromEntries(packaging.map(p => [p.id, [p.price, p.minimum, p.capacity]])), {
-  paper: [0, 1, 25], tray: [0, 20, 35], dish: [3, 6, 20], box: [0.5, 6, 15],
+  paper: [0, 1, 25], tray: [0, 20, 35], dish: [3, 6, 20], box: [0.5, 6, 18],
 });
 
 const timeless = catalog.products.filter(p => p.categories.includes("Timeless Biscuits"));
@@ -117,15 +117,15 @@ const big = "christmas-snowflake-large";
 assert.equal(isSelectionReady({selection:{[ids[0]]:5},packagingId:'box'},packaging,steps,largeIds),false);
 assert.equal(isSelectionReady({selection:{[ids[0]]:6},packagingId:'box'},packaging,steps,largeIds),true);
 assert.equal(isSelectionReady({selection:{[big]:1},packagingId:'box'},packaging,steps,largeIds),false);
-assert.equal(isSelectionReady({selection:{[big]:2},packagingId:'box'},packaging,steps,largeIds),true);
+assert.equal(isSelectionReady({selection:{[big]:2},packagingId:'box'},packaging,steps,largeIds),false);
 assert.equal(isSelectionReady({selection:{[big]:1,[ids[0]]:2},packagingId:'box'},packaging,steps,largeIds),false);
-assert.equal(isSelectionReady({selection:{[big]:1,[ids[0]]:3},packagingId:'box'},packaging,steps,largeIds),true);
+assert.equal(isSelectionReady({selection:{[big]:1,[ids[0]]:6},packagingId:'box'},packaging,steps,largeIds),false);
 assert.equal(isSelectionReady({selection:{[ids[0]]:19},packagingId:'tray'},packaging,steps,largeIds),false);
 assert.equal(isSelectionReady({selection:{[ids[0]]:20},packagingId:'tray'},packaging,steps,largeIds),true);
 assert.equal(isSelectionReady({selection:{[big]:6},packagingId:'tray'},packaging,steps,largeIds),false);
 assert.equal(isSelectionReady({selection:{[big]:7},packagingId:'tray'},packaging,steps,largeIds),true);
 assert.equal(isSelectionReady({selection:{[big]:6,[ids[0]]:2},packagingId:'tray'},packaging,steps,largeIds),true);
-for(const [packagingId,maxLarge,remainder] of [["paper",8,1],["box",10,0],["tray",11,2],["dish",6,2]]) {
+for(const [packagingId,maxLarge,remainder] of [["paper",8,1],["tray",11,2],["dish",6,2]]) {
   let state=apply(emptyBuilder,{type:"configure",packagingId});
   state=apply(state,{type:"change",id:big,delta:50});
   assert.equal(state.selection[big],maxLarge,packagingId+": large-cookie capacity");
@@ -137,14 +137,23 @@ for(const [packagingId,maxLarge,remainder] of [["paper",8,1],["box",10,0],["tray
 }
 let weighted=apply(emptyBuilder,{type:"change",id:big,delta:8});
 assert.equal(selectionSpace(weighted.selection,packaging.find(p=>p.id==='paper'),steps,largeIds),24);
-assert.equal(apply(weighted,{type:"configure",packagingId:"box"}).packagingId,"box","Eight large cookies fit a box despite using 24 bag spaces");
-weighted=apply(emptyBuilder,{type:"configure",packagingId:"box"});
-weighted=apply(weighted,{type:"change",id:big,delta:5});
-weighted=apply(weighted,{type:"change",id:ids[0],delta:7});
-assert.equal(selectedCount(weighted.selection),12);
-assert.equal(selectionSpace(weighted.selection,packaging.find(p=>p.id==='box'),steps,largeIds),14.5);
-assert.deepEqual(apply(weighted,{type:"change",id:ids[0],delta:1}),weighted,"Half a box space cannot fit another small cookie");
+assert.deepEqual(apply(weighted,{type:"configure",packagingId:"box"}),weighted,"Large cookies cannot be moved into the box");
 assert.deepEqual(apply(weighted,{type:"configure",packagingId:"dish"}),weighted,"Recheck large-cookie weight when changing packaging");
 assert.equal(apply(weighted,{type:"configure",packagingId:"tray"}).packagingId,"tray");
+let box=apply(emptyBuilder,{type:"configure",packagingId:"box"});
+assert.deepEqual(apply(box,{type:"change",id:big,delta:1}),box,"A large cookie cannot be added even to an empty box");
+box=apply(box,{type:"change",id:ids[0],delta:12});
+box=apply(box,{type:"change",id:ids[1],delta:7});
+assert.equal(selectedCount(box.selection),18,"Mixed small/medium cookies fill the box up to 18");
+assert.equal(isSelectionReady(box,packaging,steps,largeIds),true);
+assert.deepEqual(apply(box,{type:"change",id:ids[0],delta:1}),box,"The 19th cookie is blocked");
+assert.equal(isSelectionReady({selection:{[ids[0]]:19},packagingId:"box"},packaging,steps,largeIds),false);
+const oneLarge=apply(emptyBuilder,{type:"change",id:big,delta:1});
+assert.deepEqual(apply(oneLarge,{type:"configure",packagingId:"box"}),oneLarge,"Size restriction applies even when space is available");
+const oldBox={selection:{[big]:2,[ids[0]]:3},packagingId:"box"};
+const restored=restoreBuilder(oldBox,packaging,allIds,steps,largeIds);
+assert.deepEqual(restored.selection,oldBox.selection,"Old box selections keep all their cookies");
+assert.notEqual(restored.packagingId,"box","An old large-cookie box is restored in compatible packaging");
+assert.deepEqual(restoreBuilder(box,packaging,allIds,steps,largeIds),box,"The new 18-cookie box survives reload");
 
 console.log("Selection rules passed: weighted packaging, 15-piece batches, mixed orders, flexible counts, capacities, submission minimums, rapid adds, reset, migration and catalogue prices.");

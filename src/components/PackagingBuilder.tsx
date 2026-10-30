@@ -38,7 +38,7 @@ export default function PackagingBuilder({ packagingId, onChange }: {
             {t("Choose your packaging, then pick your favourite cookies below. You can keep adding up to its capacity.")}
             <img className="packaging-intro-cookie packaging-intro-end" src={assetUrl("/images/christmas/gift.webp")} alt="" aria-hidden="true" loading="lazy" width="64" height="64" />
           </p>
-          <p className="packaging-size-note">{t("One large cookie takes 3 spaces in bags and trays. The box holds up to 10 large or 15 small/medium; mixed assortments use proportional space.")}</p>
+          <p className="packaging-size-note">{t("One large cookie takes 3 spaces in bags and trays. The box holds 6–18 small/medium cookies only; large cookies do not fit.")}</p>
           <p className="packaging-timeless-note">{t("Timeless biscuits are ordered in multiples of 15 per flavour, with packaging to agree.")}</p>
         </div>
         <div className="packaging-choices">
@@ -58,7 +58,7 @@ export default function PackagingBuilder({ packagingId, onChange }: {
                   <img src={assetUrl(item.image)} alt="" className="packaging-illustration" />
                   <span className="packaging-choice-heading"><span className="choice-radio" aria-hidden="true">{selected && <Check size={12} />}</span><span className="packaging-name">{t(title)}</span></span>
                   <span className="packaging-price">{kind === "plate" ? t("Cardboard: free · Brass: €3") : item.price ? money(item.price) : t("Free")}</span>
-                  <span className="packaging-capacity">{t(kind === "bag" ? "Up to 25 small/medium" : kind === "box" ? "6–15 small/medium or 2–10 large" : "Cardboard: 20–35 · Brass: 6–20")}</span>
+                  <span className="packaging-capacity">{t(kind === "bag" ? "Up to 25 small/medium" : kind === "box" ? "6–18 small/medium only" : "Cardboard: 20–35 · Brass: 6–20")}</span>
                 </label>
               );
             })}

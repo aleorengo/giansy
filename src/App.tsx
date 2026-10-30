@@ -249,10 +249,11 @@ function Quantity({
   onChange: (id: string, delta: number) => void;
   compact?: boolean;
 }) {
-  const { usedSpace, capacity, largeWeight } = useSelectionLimit();
+  const { usedSpace, capacity, largeWeight, allowsLarge } = useSelectionLimit();
   const step = product.quantityStep ?? 1;
   const weight = product.size === "large" ? largeWeight : 1;
-  const atLimit = !product.bundleSize && step === 1 && usedSpace + weight > capacity;
+  const sizeRestricted = product.size === "large" && !allowsLarge;
+  const atLimit = sizeRestricted || (!product.bundleSize && step === 1 && usedSpace + weight > capacity);
   return (
     <div className={`quantity ${compact ? "quantity-compact" : ""}`}>
       <button
@@ -267,7 +268,7 @@ function Quantity({
       </span>
       <button
         disabled={atLimit}
-        title={atLimit ? t("Not enough space for this cookie.") : undefined}
+        title={sizeRestricted ? t("Large cookies do not fit in the box.") : atLimit ? t("Not enough space for this cookie.") : undefined}
         onClick={() => onChange(product.id, step)}
         aria-label={`${t(step > 1 ? "Add 15 pieces of" : "Add one")} ${t(product.name)}`}
       >
@@ -1094,7 +1095,7 @@ const bundleIds = products.filter(p => p.bundleSize).map(p => p.id);
 const timelessIds = products.filter(p => (p.quantityStep ?? 1) > 1).map(p => p.id);
 function readCart(): CartItem[] {
   try {
-    let cart = restoreCart(JSON.parse(localStorage.getItem("giansy-cart") || "[]"), bundleIds, (selection, packagingId) => Object.keys(selection).every(id => allProductIds.includes(id)) && isSelectionReady({ selection, packagingId }, packagingOptions, quantitySteps, largeProductIds), timelessIds);
+    let cart = restoreCart(JSON.parse(localStorage.getItem("giansy-cart") || "[]"), bundleIds, (selection, packagingId) => Object.keys(selection).every(id => allProductIds.includes(id)) && isSelectionReady({ selection, packagingId }, packagingOptions, quantitySteps, largeProductIds), timelessIds, packagingOptions.map(option => option.id));
     const oldSelection = JSON.parse(localStorage.getItem("giansy-assortment") || "{}").selection ?? {};
     for (const id of timelessIds) {
       const count = oldSelection[id];
@@ -1168,6 +1169,9 @@ export default function App() {
   function changePackaging(id: string) {
     const option = packagingOptions.find(p => p.id === id);
     if (!option) return "";
+    if (option.allowsLarge === false && largeProductIds.some(id => (selection[id] ?? 0) > 0)) {
+      return t("The box fits only small and medium cookies. Choose a bag or tray for large cookies.");
+    }
     if (selectionSpace(selection, option, quantitySteps, largeProductIds) > option.capacity) {
       return t("This packaging does not have enough space for your selection. Remove some cookies first.");
     }
@@ -1175,7 +1179,7 @@ export default function App() {
     return "";
   }
   return (
-    <SelectionContext.Provider value={{ count: estimate.packagedCount, usedSpace: estimate.usedSpace, capacity: estimate.packaging.capacity, minimum: estimate.packaging.minimum, minimumCount: estimate.minimumCount, minimumLabel: estimate.packaging.id === "box" ? t("Minimum: 6 small/medium or 2 large") : estimate.packaging.id === "tray" ? t("Minimum: 20 equivalents") : `${t("Minimum for this packaging:")} ${estimate.packaging.minimum}`, largeWeight: estimate.packaging.largeWeight }}>
+    <SelectionContext.Provider value={{ count: estimate.packagedCount, usedSpace: estimate.usedSpace, capacity: estimate.packaging.capacity, minimum: estimate.packaging.minimum, minimumCount: estimate.minimumCount, minimumLabel: estimate.packaging.id === "box" ? t("Minimum: 6 small/medium") : estimate.packaging.id === "tray" ? t("Minimum: 20 equivalents") : `${t("Minimum for this packaging:")} ${estimate.packaging.minimum}`, largeWeight: estimate.packaging.largeWeight, allowsLarge: estimate.packaging.allowsLarge !== false }}>
       <ScrollManager />
       <a href="#main-content" className="skip-link">
         {t("Skip to content")}{" "}
@@ -1227,7 +1231,7 @@ export default function App() {
           <p className="detail-price">
             {!detail.fixedPrice && `${t("From")} `}{money(detail.price * ((detail.quantityStep ?? 1) > 1 ? detail.quantityStep! : 1))} {t(detail.bundleSize ? "per package" : (detail.quantityStep ?? 1) > 1 ? "per 15 pieces" : "per item")}{" "}
           </p>
-          {detail.size === "large" && <p className="detail-note">{t("Large cookie · takes 3 spaces in bags and trays, or 1.5 in the box.")}</p>}
+          {detail.size === "large" && <p className="detail-note">{t("Large cookie · takes 3 spaces in bags and trays. Does not fit in the box.")}</p>}
           {(detail.quantityStep ?? 1) > 1 && <p className="timeless-order-note"><span>{t("Timeless biscuits are ordered in multiples of 15 per flavour, with packaging to agree.")}</span></p>}
           {detail.recipeId && recipes[detail.recipeId] && <section className="detail-ingredients" aria-labelledby="detail-ingredients-title">
             <h3 id="detail-ingredients-title">{t("Ingredients")}</h3>

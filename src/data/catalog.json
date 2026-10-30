@@ -590,11 +590,11 @@
       "name": "Little cardboard box",
       "description": "A lovely little box of happiness.",
       "price": 0.5,
-      "capacity": 15,
+      "capacity": 18,
       "image": "/images/packaging-box-light.png",
       "minimum": 6,
-      "largeWeight": 1.5,
-      "minimumLargeWeight": 3
+      "largeWeight": 3,
+      "allowsLarge": false
     }
   ],
   "recipes": {
